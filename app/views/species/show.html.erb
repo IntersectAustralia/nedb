@@ -1,0 +1,35 @@
+<% title 'Species Details' %>
+
+<div class="details_break" style="float:left">
+
+  <div class="details_menu">
+    <% if can?(:update, @species) %>
+      <%= icon 'edit' %><%= link_to 'Edit', edit_species_path(@species) %>&nbsp;
+    <% end %>
+
+    <% if can?(:destroy, @species) %>
+      <%= icon 'delete' %><%= link_to 'Delete', @species, :confirm => 'Are you sure you want to delete this species?', :method => :delete %>&nbsp;
+    <% end %>
+
+    <%= icon 'back' %><%= link_to 'Back', species_index_path %>
+  </div>
+
+  <%= render_field "Division", @species.division %>
+  <%= render_field "Class", @species.class_name %>
+  <%= render_field "Order", @species.order_name %>
+  <%= render_field "Family", @species.family %>
+  <%= render_field "Subfamily", @species.sub_family %>
+  <%= render_field "Tribe", @species.tribe %>
+  <%= render_field "Genus", @species.genus %>
+  <%= render_field "Species", @species.name %>
+  <%= render_field "Authority", @species.authority %>
+
+</div>
+
+<div class="table_page">
+  <%= render 'subspecies_table' %>
+  <%= render 'varieties_table' %>
+  <%= render 'forms_table' %>
+</div>
+
+<div class="clear"></div>

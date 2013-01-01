@@ -1,0 +1,19 @@
+<%= title "Image for Specimen NE #{@specimen.id}" %>
+
+<h3><%= @specimen_image.description %></h3>
+<div class="top_image_links">
+  <% if can?(:update, @specimen_image) %>
+    <%= icon 'edit' %><%= link_to 'Edit Description', edit_specimen_specimen_image_path(@specimen, @specimen_image) %>
+  <% end %>&nbsp;
+  <% if can?(:destroy, @specimen_image) %>
+    <%= icon 'delete' %> <%= link_to 'Delete Image', specimen_specimen_image_path(@specimen, @specimen_image), :method => :delete, :confirm => 'Are you sure you want to delete this image?'%>
+  <% end %>&nbsp;
+   <% if can?(:download, @specimen_image) %>
+    <%= icon 'download' %><%= link_to 'Download Image', download_specimen_specimen_image_path(@specimen, @specimen_image) %>
+  <% end %>&nbsp;
+
+  <%= icon 'back' %><%= link_to 'Back', @specimen %>
+</div>  
+
+<%= image_tag display_image_specimen_specimen_image_path(@specimen, @specimen_image, "original"), :class => 'specimen_image' %>
+<div class="uploaded_by"><%= "Uploaded by #{@specimen_image.user.email} on #{@specimen_image.created_at.localtime.strftime("%d/%m/%Y") }" %></div>

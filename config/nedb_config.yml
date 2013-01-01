@@ -1,0 +1,27 @@
+defaults: &defaults
+  password_reset_email_sender: une-pwd-reset@intersect.org.au
+  account_request_user_status_email_sender: une-account-status@intersect.org.au
+  account_request_admin_notification_sender: une-account-request@intersect.org.au
+  new_deaccession_notification_sender: une-deaccession@intersect.org.au
+  images_root: /tmp
+
+ # SFTP settings
+  server: upload.ala.org.au
+  username: georginae
+  password: orenyoam
+  csv_root: /NE/specimens.csv
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+
+qa:
+  <<: *defaults
+
+staging:
+  <<: *defaults

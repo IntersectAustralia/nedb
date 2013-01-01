@@ -1,0 +1,6 @@
+<% title 'New Confirmation' %>
+
+<%= render 'form' %>
+<h2>Determination details</h2>
+<%= render :partial => "determinations/determination_details", :locals => {:determination => @specimen.current_determination} %>
+

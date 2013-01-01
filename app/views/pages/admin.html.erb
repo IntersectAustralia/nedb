@@ -1,0 +1,29 @@
+<% title 'Admin' %>
+
+<div id="adminbuttons">
+  <ul id="adminbuttons">
+    <% if can?(:read, Person) %>
+      <li id="managepeople"><%= link_to "Manage People", people_path %></li>
+    <% end %>
+
+    <% if can?(:read, Herbarium) %>
+      <li id="manageherbaria"><%= link_to "Manage Herbaria", herbaria_path %></li>
+    <% end %>
+
+    <% if can?(:read, User) %>
+      <li id="approvedusers"><%= link_to "List Approved Users", users_path %></li>
+    <% end %>
+
+    <% if can?(:view_access_requests, User) %>
+      <li id="accessrequests"><%= link_to "View Access Requests", access_requests_users_path %></li>
+    <% end %>
+
+    <% if can?(:view_needing_review, Specimen) %>
+      <li id="reviewspecimens"><%= link_to "Specimens Needing Review", needing_review_specimens_path %></li>
+    <% end %>
+
+    <% if can?(:read, Species) %>
+      <li id="managespecies"><%= link_to "Manage Species", species_index_path(:reset => true) %></li>
+    <% end %>
+  </ul>
+</div>

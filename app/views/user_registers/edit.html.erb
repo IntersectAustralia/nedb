@@ -1,0 +1,18 @@
+<% title 'Edit Account Details' %>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+  <%= render "shared/error_messages", :target => @user %>
+
+  <%= render :partial => 'personal_details', 
+             :locals => {:f => f} 
+  %>
+
+  <div class="hr"></div>
+
+  <div class="actions">
+    <%= f.submit "Update" %>
+	&nbsp;
+	<%= link_to 'Cancel', root_path %>
+  </div>
+<% end %>
+

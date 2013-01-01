@@ -1,0 +1,47 @@
+<div class="field">
+  <%= f.label day_field, label %> 
+  <%= f.text_field day_field, :size => 2 %>&nbsp;/
+  <%= f.label month_field, :style => "display:none" %>
+  <%= f.text_field month_field, :size => 2 %>&nbsp;/
+  <%= f.label year_field, :style => "display:none" %>
+  <%= f.text_field year_field, :size => 4 %>
+  <label for="<%= date_picker_id %>" style="display:none;"></label>
+  <input id="<%= date_picker_id %>" class="date_picker_input"/>
+  (dd/mm/yyyy)
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+  <%= year_field %> = jQuery("#<%= "#{object_prefix}_#{year_field}" %>");
+  <%= month_field %> = jQuery("#<%= "#{object_prefix}_#{month_field}" %>");
+  <%= day_field %> = jQuery("#<%= "#{object_prefix}_#{day_field}" %>");
+  <%= date_picker_id %> = jQuery('#<%= date_picker_id %>');
+
+  <%= year_field %>.click(function(){<%= date_picker_id %>.datepicker('show');});
+  <%= month_field %>.click(function(){<%= date_picker_id %>.datepicker('show');});
+  <%= day_field %>.click(function(){<%= date_picker_id %>.datepicker('show');});
+
+  <%= date_picker_id %>.datepicker({
+    changeYear:true,
+    changeMonth:true,
+    yearRange:'1860:nn',
+    onSelect:function(dateText,inst){
+      var toks = dateText.split('/');
+      var day = toks[1];
+      var month = toks[0];
+      var year = toks[2];
+      <%= year_field %>.val(year);
+      <%= month_field %>.val(month);
+      <%= day_field %>.val(day);
+    }
+  });
+
+  var year = <%= year_field %>.val();
+  var month = <%= month_field %>.val();
+  var day = <%= day_field %>.val();
+  
+  if (year.length>0 && month.length >0 && day.length>0)
+  {
+    <%= date_picker_id %>.val(month + '/' + day + '/' + year);
+  }
+});
+</script>

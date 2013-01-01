@@ -1,0 +1,50 @@
+<% title 'Users' %>
+
+<table class="data_table" id="users">
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Email</th>
+    <th>Profile</th>
+    <th>Telephone</th>
+    <th>Group/School/Institution</th>
+    <th>Status</th>
+    <th>Last signed in</th>
+    <th>Actions</th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr class="<%= cycle('field_bg', 'field_nobg') %>">
+    <td><%= user.first_name %></td>
+    <td><%= user.last_name %></td>
+    <td><%= user.email %></td>
+    <td><%= user.profile.name if user.profile %></td>
+    <td><%= user.telephone %></td>
+    <td><%= user.group_school_institution %></td>
+    <td>
+      <% if user.status == 'A' %>
+        Active
+      <% else %>
+        Deactivated
+      <% end %>   
+    </td>
+    <td>
+      <% if user.last_sign_in_at.nil? %>
+        Never logged in
+      <% else %>
+        <%= user.last_sign_in_at.localtime.strftime("%d/%m/%Y %I:%M%p") %>
+      <% end %>   
+    </td>
+    <td>
+      <%= icon 'view' %><%= link_to "View Details", user, :id => "view_#{user.id}" %>
+      <% if can?(:update_profile, User) %>
+        <%= icon 'edit' %><%= link_to 'Edit Profile', edit_profile_user_path(user), :id => "edit_profile_#{user.id}" %>&nbsp;
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= (will_paginate @users) unless @users.empty? %>

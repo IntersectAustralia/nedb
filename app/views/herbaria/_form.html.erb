@@ -1,0 +1,20 @@
+<%= form_for(@herbarium) do |f| %>
+  <%= render "shared/error_messages", :target => @herbarium %>  
+
+  <div class="field">
+    <%= f.label :code %>
+    <%= f.text_field :code, :size => 15, :maxlength => 15%>
+  </div>
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name, :size => 30, :maxlength => 255 %>
+  </div>
+
+  <div class="hr"></div>
+
+  <div class="actions">
+    <%= f.submit %>
+	&nbsp;
+	<%= link_to 'Cancel', herbaria_path %>
+  </div>
+<% end %>

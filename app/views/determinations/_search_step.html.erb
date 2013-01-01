@@ -1,0 +1,44 @@
+<h2>Step 2: Plant Name</h2>
+
+<h3>Search:</h3>
+
+<p>Select the level at which to make the determination, enter a search term (partial matches allowed), then click "Search"</p>
+
+<%= select_tag :level, options_for_select({ "Division" => "division",
+                                            "Class" => "class_name",
+                                            "Order" => "order_name",
+                                            "Family" => "family",
+                                            "Subfamily" => "sub_family",
+                                            "Tribe" => "tribe",
+                                            "Genus" => "genus",
+                                            "Species" => "name"}, @field) %>
+
+<%= text_field_tag :term, @term, :size => 30, :maxlength => 500 %>
+<%= f.submit "Search", :name => "do_search" %>
+
+<%= hidden_field_tag :selected_level, @field %>
+<%= hidden_field_tag :det_action, "save" %>
+<%= f.hidden_field :determination_date_year %>
+<%= f.hidden_field :determination_date_month %>
+<%= f.hidden_field :determination_date_day %>
+<%= f.hidden_field :determiner_herbarium_id %>
+<% @determination.determiners.each do |determiner| %>
+  <%= hidden_field_tag "determination[determiner_ids][]", determiner.id %>
+<% end %>
+
+<% if @search_results %>
+  <h3>Search Results:</h3>
+
+  <% if @species.empty? %>
+    <p>No results were found for search '<%= @term %>'.</p>
+  <% else %>
+    <%= render 'plant_name_search_results', :f => f  %>
+  <% end %>
+
+<% end %>
+
+<% if @selected_specimen %>
+  <h3>Selected <%= map_field_to_display_name(@field) %>:</h3>
+  <%= render 'selected_plant_name_details', :f => f %>
+<% end %>
+

@@ -1,0 +1,139 @@
+var states = new Array();
+var botanical_divisions = new Array();
+<% for state in @states %>
+states.push(new Array('<%= state.country.name %>', '<%= state.name %>'));
+<% end %>
+<% for botanical_division in @botanical_divisions %>
+botanical_divisions.push(new Array('<%= botanical_division.state.name %>', '<%= botanical_division.name %>'));
+<% end %>
+
+function onCountryChange()
+{
+    country = $('#specimen_country').val();
+    text_field = $("input#specimen_state");
+    select_field = $("select#specimen_state");
+
+    current_state_value = ""
+    if (text_field.is(":disabled"))
+    {
+        current_state_value = select_field.val();
+    }
+    else
+    {
+        current_state_value = text_field.val();
+    }
+
+    $("select#specimen_state").html("");
+    $("select#specimen_state").append("<option value=''>Please select</option>");
+    $("#state_container span").text("Please select");
+    text_field.val("");
+
+    optionsFound = false;
+    var len=states.length;
+    for(var i=0; i<len; i++)
+    {
+        var state = states[i];
+        if (state[0] == country)
+        {
+            optionsFound = true;
+            if (state[1] == current_state_value)
+            {
+                $("select#specimen_state").append("<option value='" + state[1] + "' selected>" + state[1] + "</option>");
+                $("#state_container span").text(state[1]);
+            }
+            else
+            {
+                $("select#specimen_state").append("<option value='" + state[1] + "'>" + state[1] + "</option>");
+                text_field.val("");
+            }
+        }
+    }
+
+    if (optionsFound)
+    {
+        text_field.attr("disabled", "disabled");
+        text_field.hide();
+
+        $("#state_container").show();
+        select_field.removeAttr("disabled");
+    }
+    else
+    {
+        select_field.attr("disabled", "disabled");
+        $("#state_container").hide();
+
+        text_field.show();
+        text_field.removeAttr("disabled");
+    }
+    onStateChange();
+
+}
+
+function onStateChange()
+{
+    state = $('select#specimen_state').val();
+    text_field = $("input#specimen_botanical_division");
+    select_field = $("select#specimen_botanical_division");
+
+    current_bd_value = ""
+    if (text_field.is(":disabled"))
+    {
+        current_bd_value = select_field.val();
+    }
+    else
+    {
+        current_bd_value = text_field.val();
+    }
+
+    $("select#specimen_botanical_division").html("");
+    $("select#specimen_botanical_division").append("<option value=''>Please select</option>");
+    //clear on new
+    $("#botanical_container span").text("Please select");
+    text_field.val("");
+
+    optionsFound = false;
+
+    var len=botanical_divisions.length;
+    for(var i=0; i<len; i++)
+    {
+        var botanical_division = botanical_divisions[i];
+        if (botanical_division[0] == state)
+        {
+            optionsFound = true;
+            if (botanical_division[1] == current_bd_value)
+            {
+                $("select#specimen_botanical_division").append("<option value='" + botanical_division[1] + "' selected>" + botanical_division[1] + "</option>");
+                $("#botanical_container span").text(botanical_division[1]);
+            }
+            else
+            {
+                $("select#specimen_botanical_division").append("<option value='" + botanical_division[1] + "'>" + botanical_division[1] + "</option>");
+                text_field.val("");
+            }
+        }
+    }
+
+    if (optionsFound)
+    {
+        text_field.attr("disabled", "disabled");
+        text_field.hide();
+
+        $("#botanical_container").show();
+        select_field.attr("disabled", "");
+    }
+    else
+    {
+        select_field.attr("disabled", "disabled");
+        $("#botanical_container").hide();
+
+        text_field.show();
+        text_field.attr("disabled", "");
+    }
+}
+
+$(function() {
+    onCountryChange();
+    $('#specimen_country').change(onCountryChange);
+    $('select#specimen_state').change(onStateChange);
+});
+

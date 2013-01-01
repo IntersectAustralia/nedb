@@ -1,0 +1,37 @@
+<table class="data_table" id="determination_table">
+  <tr>
+    <th>Date Determined</th>
+    <th>Determiners</th>
+    <th>Determiner Herbarium</th>
+    <th>Date Confirmed</th>
+    <th>Confirmer</th>
+    <th>Confirmer Herbarium</th>
+    <th id="det_actions">Actions</th>
+  </tr>
+  <% @determinations.each do |det| %>
+    <tr class="<%= cycle('field_bg', 'field_nobg') %>">
+      <td><%= format_partial_date(det.determination_date_year, det.determination_date_month, det.determination_date_day) %></td>
+      <td><%= det.determiners.collect { |d| link_to d.display_name, d }.join(', ').html_safe %></td>
+      <td><%= det.determiner_herbarium.code if det.determiner_herbarium %></td>
+      <td><%= format_partial_date(det.confirmation.confirmation_date_year, det.confirmation.confirmation_date_month, det.confirmation.confirmation_date_day) if det.confirmation %></td>
+      <td><%= link_to(det.confirmation.confirmer.display_name, det.confirmation.confirmer) if det.confirmation %></td>
+      <td><%= det.confirmation.confirmer_herbarium.code if det.confirmation && det.confirmation.confirmer_herbarium %></td>
+      <td class="det_links">
+        <!-- If the item is not the most current - then it has no add confirmation link -->
+        <% if det.confirmation != nil %>
+          <% if can?(:update, det.confirmation) %>
+            <%= icon 'edit' %><%= link_to "Edit confirmation", edit_specimen_determination_confirmation_path(@specimen, det, det.confirmation) %>&nbsp;
+          <% end %>
+        <% elsif @specimen.current_determination == det %>
+          <% if can?(:create, Confirmation) %>
+            <%= icon 'add' %><%= link_to "Add confirmation", new_specimen_determination_confirmation_path(@specimen, det) %>&nbsp;
+          <% end %>
+        <% end %>
+        <% if can?(:update, det) %>
+          <%= icon 'edit' %><%= link_to "Edit determination", edit_specimen_determination_path(@specimen, det) %>&nbsp;
+        <% end %>
+        <%= icon 'view' %><%= link_to "View", specimen_determination_path(@specimen, det) %>&nbsp;
+      </td>
+    </tr>
+  <% end %>
+</table>

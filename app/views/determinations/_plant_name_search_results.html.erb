@@ -1,0 +1,49 @@
+<p>Select the correct <%= map_field_to_display_name(@field) %> from the table below. </p>
+<% @fields_to_show.each do |field| %>
+  <% attr = field %>
+  <% attr = "species" if field == "name" %>
+  <%= f.hidden_field attr %>
+<% end %>
+
+<table class="data_table" id="search_results">
+  <tr>
+    <% @fields_to_show.each do |field| %>
+      <th><%= map_field_to_display_name(field) %></th>
+    <% end %>
+    <% if @field == "name" %>
+      <th>Authority</th>
+    <% end %>
+    <th></th>
+  </tr>
+
+  <% @species.each do |current_species| %>
+    <tr class="<%= cycle('field_bg', 'field_nobg') %>">
+      <% @fields_to_show.each do |field| %>
+        <td><%= current_species.send("#{field}") %></td>
+      <% end %>
+      <% if @field == "name" %>
+        <td><%= current_species.authority %></td>
+      <% end %>
+      <td>
+        <%= link_to "Select", "#", hash_of_field_values(current_species, @fields_to_show) %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+    jQuery('table#search_results a').click(function(){
+      link = jQuery(this);
+
+      <% @fields_to_show.each do |field| %>
+        <% attr = field %>
+        <% attr = "species" if field == "name" %>
+        <%= "$('input#determination_#{attr}').val(link.attr('#{field}'))" %>
+      <% end %>
+
+      $('#det_action').val("select");
+      $('form.<%= @action_to_render %>_determination').submit();
+    });
+  });
+</script>

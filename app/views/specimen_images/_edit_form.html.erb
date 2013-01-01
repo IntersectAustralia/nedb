@@ -1,0 +1,15 @@
+<%= form_for([@specimen, @specimen_image], :html => { :multipart => true }) do |f| %>
+  <%= render "shared/error_messages", :target => @specimen_image %>  
+  
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="hr"></div>
+  
+  <div class="actions">
+    <%= f.submit 'Save' %>&nbsp;
+    <%= link_to 'Cancel', specimen_specimen_image_path(@specimen) %>
+  </div>
+<% end %>

@@ -1,0 +1,32 @@
+<% title 'Request an Account' %>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= render "shared/error_messages", :target => @user %>
+
+  <h2>Account Details</h2>
+  <div class="field">
+    <%= f.label :email, "Email address" %>
+    <%= f.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, "Confirm password" %>
+    <%= f.password_field :password_confirmation%>
+  </div>
+  
+  <%= render :partial => 'personal_details', 
+             :locals => {:f => f} 
+  %>
+  <div class="hr"></div>
+  <div class="actions">
+    <%= f.submit "Submit Request" %>
+	&nbsp;
+	<%= link_to 'Cancel', root_path %>
+  </div>
+<% end %>
+

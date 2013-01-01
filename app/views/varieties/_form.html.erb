@@ -1,0 +1,21 @@
+<%= form_for([@species, @variety]) do |f| %>
+  <%= render "shared/error_messages", :target => @variety %>
+
+  <div class="field">
+    <%= f.label :variety %>
+    <%= f.text_field :variety %>
+  </div>
+  <div class="field">
+    <%= f.label :authority %>
+    <%= f.text_field :authority %>
+  </div>
+
+  <div class="hr"></div>
+
+  <div class="actions">
+    <%= f.submit %>
+    &nbsp;
+    <%= link_to 'Cancel', @species %>
+  </div>
+    
+<% end %>

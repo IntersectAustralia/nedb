@@ -1,0 +1,48 @@
+<%= form_for(@species) do |f| %>
+  <%= render "shared/error_messages", :target => @species %>
+
+  <div class="field">
+    <%= f.label :division %>
+    <%= f.text_field :division %>
+  </div>
+  <div class="field">
+    <%= f.label :class_name, "Class" %>
+    <%= f.text_field :class_name %>
+  </div>
+  <div class="field">
+    <%= f.label :order_name, "Order" %>
+    <%= f.text_field :order_name %>
+  </div>
+  <div class="field">
+    <%= f.label :family %>
+    <%= f.text_field :family %>
+  </div>
+  <div class="field">
+    <%= f.label :sub_family, "Subfamily" %>
+    <%= f.text_field :sub_family %>
+  </div>
+  <div class="field">
+    <%= f.label :tribe %>
+    <%= f.text_field :tribe %>
+  </div>
+  <div class="field">
+    <%= f.label :genus %>
+    <%= f.text_field :genus %>
+  </div>
+    <div class="field">
+      <%= f.label :name, "Species" %>
+      <%= f.text_field :name %>
+    </div>
+  <div class="field">
+    <%= f.label :authority %>
+    <%= f.text_field :authority %>
+  </div>
+
+   <div class="hr"></div>
+
+  <div class="actions">
+    <%= f.submit %>
+    &nbsp;
+    <%= link_to 'Cancel', cancel_link %>
+  </div>
+<% end %>

@@ -1,0 +1,755 @@
+.notice {
+  padding: 20px 30px;
+  font-weight: bold;
+  font-size: 1.1em;
+  color:#8fb767;
+  background-image:url('../images/icon_success.png');
+  background-repeat:no-repeat;
+  background-position:10px;
+  border: 1px solid #8fb767;
+  background-color:#eafcd8;
+  display:inline;
+}
+
+.notice_fail {
+  padding: 20px 30px;
+  font-weight: bold;
+  font-size: 1.1em;
+  color:#ce2e2e;
+  background-image:url('../images/icon_fail.png');
+  background-repeat:no-repeat;
+  background-position:10px;
+  border: 1px solid #ce2e2e;
+  background-color:#ffcccc;
+  display:inline;
+}
+
+.notice_fail_error_explanation {
+  padding:5px;
+  padding-left:30px;
+  font-weight: bold;
+  font-size: 1.1em;
+  color:#ce2e2e;
+  background-image:url('../images/icon_fail.png');
+  background-repeat:no-repeat;
+  background-position:10px;
+  border: 1px solid #ce2e2e;
+  background-color:#ffcccc;
+  display:inline;
+}
+
+html {
+  height:100%;
+}
+
+body {
+  height:100%;
+  margin:0;
+  padding: 0;
+  font-family:verdana, lucida, arial, helvetica, sans-serif;
+  height:100%;
+  font-size:0.8em;
+  background-color:#fff;
+}
+
+p {
+  font-size:11px;
+  line-height:1.2em;
+}
+
+img { border:0; }
+
+.center { text-align:center; }
+
+/* Standard UNE links */
+a:link {
+	color: #03C;
+}
+a:visited {
+	color: #006;
+}
+a:hover {
+	color: #006;
+}
+a:active {
+	color: red;
+}
+
+h1 {
+  font-family: Tahoma, Arial, sans-serif;
+  font-weight: normal;
+  letter-spacing: .1em;
+  margin: 40px 0 0.5em 0;
+  padding: 0;
+  font-size: 2em;
+  text-align:left;
+/*font-size:2em;
+  color:#a0c977;
+  text-align:left;
+  margin-top:40px;*/
+}
+
+h2 {
+  font-size:1.5em;
+  margin:0.83em 0;
+}
+
+/* Start header */
+
+#header {
+  width:100%;
+  min-width:1110px;
+  height:100px;
+  border-bottom:1px solid #fff;
+  background-image:url(../images/banner_bg.png);
+}
+
+#logo {
+  width:90px;
+  height:90px;
+  background-image:url(../images/logo_une.png);
+  background-repeat:no-repeat;
+  background-position:bottom;
+  margin: 0 10px 11px 10px;
+  display:inline;
+  float:left;
+  border:0;
+}
+
+#site_title, #site_title a, #site_title a:link, #site_title a:visited {
+  font-family:Tahoma,Arial,sans-serif;
+  font-size:22pt;
+  font-weight:normal;
+  letter-spacing:0.1em;
+  text-shadow:1px 1px 6px #333366;
+  color:#fff;
+  padding-top:15px;
+  padding-left:30px;
+  display:inline-block;
+  text-decoration:none;
+}
+
+#site_title a:hover {text-decoration:underline;}
+
+#login_status {
+  display:block;
+  min-width:1110px;
+  text-align:right;
+  padding-right:15px;
+  margin-top:-70px;
+  color:#fff;
+  font-size:0.9em;
+}
+
+#login_status a, #login_status a:link, #login_status a:visited {
+  color:#fff;
+  text-decoration:none;
+}
+
+#login_status a:hover {
+  text-decoration:underline;
+}
+
+/* End header */
+
+/* Start form */
+
+
+.form {
+  background-color:#f2f2f2;
+  width:100%;
+  border:0px solid #000;
+  padding:10px;
+}
+
+.form_nowidth {
+  background-color:#f2f2f2;
+  border:0px solid #000;
+  padding:10px;
+}
+
+div .field {
+    padding-bottom: 7px;
+}
+
+.checkbox_field .field_checkbox_label {
+    width:120px;
+    text-align:right;
+    margin-right:10px;
+    vertical-align:bottom;
+    border:0;
+    display:block;
+    float:left
+}
+
+.field label, .field_radiobtn_label {
+  width:120px;
+  text-align:right;
+  margin-right:10px;
+  vertical-align:bottom;
+  border:0;
+  display:block;
+  float:left
+}
+
+.field_login label {
+  width:60px;
+  text-align:left;
+  margin-right:10px;
+  vertical-align:bottom;
+  border:0;
+  display:block;
+  float:left
+}
+
+.label_view {
+  width:120px;
+  text-align:left;
+  margin-right:2px;
+  border:0;
+  float:left;
+  font-weight:bold;
+  display:inline-block
+}
+
+.field_value {
+  display:inline-block;
+  width:468px;
+  overflow:auto;
+}
+
+.field_bg {
+  background-color:#D8E6CA;
+  padding:5px;
+}
+
+.field_nobg {
+  background-color:#fff;
+  padding:5px;
+}
+
+input, .input, select, textarea {
+  color:#666666;
+  background:#fff;
+  margin-top:-2px;
+  margin-bottom:4px;
+  font-size:1em;
+  border: 1px solid #666666;
+}
+
+input[readonly] {
+  background-color: #DDDDDD;
+}
+
+textarea {
+  font-size:1em;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+input.noborder {
+  border:0;
+  margin-top:-2px;
+  margin-bottom:4px;
+  font-size:1em;
+}
+
+input.checkbox {
+  border:0;
+  background-color:#fff;
+}
+
+.button {
+  color:#3366CC;
+  border:0;
+  background:none;
+  font-size:1.4em;
+  display:block;
+  font-weight:bold;
+}
+
+.btnSearch {
+  display:block;
+  position:relative;
+  margin:10px 0 0 0;;
+}
+
+.topAligned {
+  vertical-align:top;  
+}
+
+/* End form */
+
+/* Start footer */
+
+.footer_spacer { clear:both; height:30px; }
+
+.footer {
+  height:100px;
+}
+
+.intersect_logo_link{
+  background-image:url(../images/logo_intersect.png);
+  background-repeat:no-repeat;
+  display:inline-block;
+  height:14px;
+  width:14px;
+  vertical-align:middle;
+  margin:5px 0 5px 5px;
+}
+
+.footer_attribution, .footer_images {
+  display:block;
+  margin-top:20px;;
+  padding-left: 5px;
+  font-size:0.8em;
+  width:300px;
+}
+
+.footer_images span {
+  padding: 0 10px;
+}
+
+.backtotop {
+  font-size:1em;
+  display:inline-block;
+  width:300px;
+  text-align:right;
+  float:right;
+  margin-top:-20px;
+  margin-right:20px;
+}
+
+/* End footer */
+
+#breadcrumb {
+  font-size:0.9em;
+  display:block;
+  margin-bottom:20px;
+  margin-top:10px;
+}
+
+.search {
+  display:inline-block;
+  position:relative;
+  font-weight:bold;
+  color:#fff;
+  margin-top:3px;
+}
+
+.border input { border: 1px solid #666666; }
+
+.iconSearch {
+  width:10px;
+  height:13px;
+  display:inline;
+  position:relative;
+  top:7px;
+  left:4px;
+}
+
+.content {
+  display:block;
+  min-width:1110px;
+  margin-left:10px;
+}
+
+.container {
+  min-height:100%;
+  background-color:#d8e6ca;
+}
+
+.clear {clear:both;}
+
+.specimen_details_break {
+  text-align:right;
+  width:100%;
+  display:block;
+  padding-bottom:3px;
+}
+
+.right_margined {
+  margin-right:100px;
+}
+
+.details_break {
+  margin-top: 5px;
+  display:block;
+  width:600px;
+  float:left;
+  margin-right:40px;
+}
+
+.details_menu {
+  text-align:right;
+  margin-bottom:7px;
+}
+
+.user_details_menu {
+  width:600px;
+  text-align:right;
+  margin-bottom:7px;
+}
+/*input { margin:5px 0; }*/
+
+.hr { height:1px;color:#ccc;background-color:#ccc;display:block;width:100%;margin:15px 0}
+
+.checkbox_options {
+  float: left;
+  width: 370px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.colwrapper{
+  border: 0;
+  padding: 0px;
+  margin-left:15px;
+  width: 100%;
+}
+
+
+#wrap {min-height: 100%;}
+
+#action_bar {margin:10px 0}
+
+.rep {
+  min-width:50px;
+  text-align:left;
+  margin-right:2px;
+  border:0;
+  float:left;
+  font-weight:bold;
+  display:inline-block
+}
+
+
+
+/** rails wraps this div around error fields, need to display inline so it doesn't mess up the page. May need further styling later on */
+.field_with_errors {
+  display: inline;
+}
+
+/** Specimen Details Page */
+#viewspecimen_details {
+  border:0;
+  width:600px;
+  float:left;
+  margin-right:40px;
+}
+
+#viewspecimen_misc { 
+  float:left;
+  margin-top:-13px
+}
+
+#specimen_top, #specimen_bot {
+  display:block;
+}
+
+.inlineblock { display:inline-block;}
+
+table td.det_links, th.det_links {
+  border-right:none;
+  border-top:none;
+}
+
+#determinationdetails, #userdetails { width:600px; }
+
+.ui-autocomplete {
+  max-height: 200px;
+  overflow-y: auto;
+}
+/* IE 6 doesn't support max-height
+ * we use height instead, but this forces the menu to always be this tall
+ */
+* html .ui-autocomplete {
+  height: 200px;
+}
+
+/* Admin buttons */
+
+#adminbuttons{display:block;padding-bottom:0px;margin-bottom:0px;height:100px;border:0;}
+#adminbuttons li{margin-right:10px;padding:0px;list-style:none;float:left;}
+#adminbuttons li, #adminbuttons a{height:100px;display:block;}
+
+#managepeople{left:0px;width:100px;background:url('../images/ncw_admin_buttons.png') 0 0;}
+#manageherbaria{left:100px;width:100px;background:url('../images/ncw_admin_buttons.png') -100px 0;}
+#approvedusers{left:200px;width:100px;background:url('../images/ncw_admin_buttons.png') -200px 0;}
+#accessrequests{left:300px;width:100px;background:url('../images/ncw_admin_buttons.png') -300px 0;}
+#reviewspecimens{left:400px;width:100px;background:url('../images/ncw_admin_buttons.png') -400px 0;}
+#managespecies{left:500px;width:100px;background:url('../images/ncw_admin_buttons.png') -500px 0;}
+
+
+#managepeople a:hover{background:url('../images/ncw_admin_buttons.png') 0 -100px;}
+#manageherbaria a:hover{background:url('../images/ncw_admin_buttons.png') -100px -100px;}
+#approvedusers a:hover{background:url('../images/ncw_admin_buttons.png') -200px -100px;}
+#accessrequests a:hover{background:url('../images/ncw_admin_buttons.png') -300px -100px;}
+#reviewspecimens a:hover{background:url('../images/ncw_admin_buttons.png') -400px -100px;}
+#managespecies a:hover{background:url('../images/ncw_admin_buttons.png') -500px -100px;}
+
+#public_search {float:left;margin-right:40px;}
+#public_login {display:block;float:left;width:600px;}
+
+#password_change_form {width: 850px;}
+
+#navigation {
+  display:block;height:34px;
+}
+
+.nav_item {
+  width:70px;font-size:1.2em;text-align:center;
+}
+
+#nav_table {
+  height:34px;width:100%;min-width:1110px;background-color:#a0c977;border:0;
+}
+
+.nav_item a, .nav_item a:link, .nav_item a:visited {
+	color:#fff;
+	text-decoration:none;
+}
+
+.nav_item a:hover {text-decoration:underline;}
+
+#website_breadcrumb {
+  display:block;
+  min-width:1110px;
+  text-align:right;
+  padding-right:15px;
+  color:#edf4de;
+  font-size:0.9em;
+}
+
+#website_breadcrumb a, #website_breadcrumb a:visited, #website_breadcrumb a:link {
+  color:#edf4de;
+  text-decoration:none;
+}
+
+#website_breadcrumb a:hover {
+  text-decoration:underline;
+}
+
+/* TABLE */
+
+th {text-align:left; }
+
+td.conf, th.conf, td.det, th.det {
+  border-color: #878787;
+  border-width: 1px 1px 0 0;
+  border-style: solid;
+  margin: 0;
+  padding: 4px;
+}
+
+.noborder {border-spacing:0}
+
+.hasborder {border:1px solid #878787;}
+
+table.conf, table.det {
+  border-color: #878787;
+  border-width: 0 0 1px 1px;
+  border-style: solid;
+  border-collapse:collapse;
+}
+
+table.data_table {
+	border-color: #878787;
+    border-width: 0 0 1px 1px;
+    border-style: solid;
+	border-collapse:collapse;
+}
+
+table.data_table td, th {
+	border-color: #878787;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+    margin: 0;
+    padding: 4px;
+}
+
+.specimenname {font-size:1.3em} 
+
+#btn_addspecimen{display:block;padding-bottom:0px;margin-bottom:0px;height:100px;border:0;}
+#btn_addspecimen li{margin-left:-40px;padding:0px;list-style:none;float:left;}
+#btn_addspecimen li, #btn_addspecimen a{height:100px;display:block;}
+#addspecimen{left:0px;width:100px;background:url('../images/ncw_add_specimen.png') 0 0;}
+#addspecimen a:hover{background:url('../images/ncw_add_specimen.png') 0 -100px;}
+
+.icon_edit {
+width:16px;
+height:16px;
+border:0;
+background-image:url(../images/icon_edit.png);
+display:inline-block;
+}
+
+.icon_print {
+width:16px;
+height:16px;
+border:0;
+background-image:url(../images/icon_print.png);
+display:inline-block;
+}
+
+.icon_view {
+width:16px;
+height:16px;
+border:0;
+background-image:url(../images/icon_view.png);
+display:inline-block;
+}
+
+.icon_add {
+width:16px;
+height:16px;
+border:0;
+background-image:url(../images/icon_add.png);
+display:inline-block;
+}
+
+.icon_delete {
+width:16px;
+height:16px;
+border:0;
+background-image:url(../images/icon_delete.png);
+display:inline-block;
+}
+
+.icon_download {
+width:16px;
+height:16px;
+border:0;
+background-image:url(../images/icon_download.png);
+display:inline-block;
+}
+
+.icon_back {
+width:16px;
+height:16px;
+border:0;
+background-image:url(../images/icon_back.png);
+display:inline-block;
+}
+
+.icon_approve {
+width:16px;
+height:16px;
+border:0;
+background-image:url(../images/icon_approve.png);
+display:inline-block;
+}
+
+.icon_rejectspam {
+width:16px;
+height:16px;
+border:0;
+background-image:url(../images/icon_rejectspam.png);
+display:inline-block;
+}
+
+.table_page {
+  display:block;
+  float:left;
+}
+
+.top_create_link {
+  text-align:right;
+  margin-bottom:10px;
+}
+
+#newspecimen_gathering, #newspecimen_location, #newspecimen_specimen {
+  display:inline-block;
+  float:left;
+  padding-right:50px;
+}
+
+#newspecimen_gathering, #newspecimen_location {
+  padding-bottom:20px;
+}
+
+#newspecimen_gathering {
+  width:400px;
+}
+
+#new_determination {
+  width:630px;
+}
+
+#citing_ne {
+
+  margin-top:10px;
+  padding-top:20px;
+}
+
+#citing_ne p {
+  font-size:0.7em;
+}
+
+.inline_style {
+  display:inline-block;
+}
+
+.uncertainty_button {
+    display:block;
+    margin-top:7px;
+}
+
+.search_td {
+    padding-left:10px;
+    border-left:1px solid #fff;
+}
+
+.error_ul {
+    color:#ce2e2e;
+    margin-top:10px;
+}
+
+.date_picker_input {
+    visibility:hidden;
+    width:0px;
+    height:0px;
+    margin:0px;
+    padding:0px;
+    border:0px;
+}
+
+#create_determination_div {
+    text-align:right;
+    width:600px;
+    display:block;
+}
+
+#dets {
+    margin-top:20px;
+}
+
+.no_display {
+    display:none;
+}
+
+.newspecimen_radiobtn label {
+	float:left;
+}
+
+.specimen_image { max-width:800px; }
+.top_image_links { margin-bottom:5px; }
+.specimen_images { padding:2px; }
+.uploaded_by { padding-top:4px; }
+
+#adv_search_general {
+    display: inline-block;
+    float: left;
+    width: 500px;
+}
+
+#adv_search_determinations {
+    display: inline-block;
+    float: left;
+    width: 500px;
+}
+
+#adv_search_checkboxes {
+    display: inline-block;
+    width: 100%;
+}

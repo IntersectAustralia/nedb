@@ -1,0 +1,40 @@
+<%= form_for([@specimen, @determination, @confirmation]) do |f| %>
+  <%= render "shared/error_messages", :target => @confirmation %>  
+
+  <div class="field">
+    <%= f.label :confirmer_id %>
+    <%= f.collection_select(:confirmer_id,
+                           @all_people,
+                           :id,
+                           :display_name,
+                           { :include_blank => "Please select" })
+     %>
+  </div>
+  <%= render :partial => 'shared/partial_date', 
+             :locals => {:f => f, 
+                         :label => "Confirmation date",
+                         :date_picker_id => "confirmation_date_picker",
+                         :object_prefix => "confirmation",
+                         :year_field => :confirmation_date_year, 
+                         :month_field => :confirmation_date_month, 
+                         :day_field => :confirmation_date_day } 
+  %>
+  <div class="field"><%= f.hidden_field :specimen_id, :value => @specimen.id %></div>
+  <div class="field">
+    <%= f.label :confirmer_herbarium_id %>
+    <%= f.collection_select(:confirmer_herbarium_id,
+                           @all_herbaria,
+                           :id,
+                           :display_name,
+                           { :include_blank => "Please select" })
+     %>
+  </div>
+
+  <div class="hr"></div>
+
+  <div class="actions">
+    <%= f.submit %>
+	&nbsp;
+	<%= link_to 'Cancel', @specimen %>    
+  </div>
+<% end %>

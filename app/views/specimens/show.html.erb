@@ -1,0 +1,183 @@
+<% title_components = [] %>
+<% if @specimen.deaccession_approved? %>
+  <% title_components << "Deaccessed" %>
+<% end %>
+<% if @specimen.needs_review? %>
+  <% title_components << "Needs Review" %>
+<% end %>
+<% if title_components.empty? %>
+  <% composed_title =  "NE #{@specimen.id}" %>
+<% else %>
+  <% composed_title =  "#{title_components.join(' ')}: NE #{@specimen.id}" %>
+<% end %>
+<% title composed_title %>
+
+<div class="specimen_top">
+  <div id="viewspecimen_details">
+
+    <div class="specimenname" id="specimen_name">
+      <% if @current_det %>
+        <% family = family_subfamily(@current_det).strip
+           short_name = determination_short_name(@current_det).strip
+           subsp = subspecies_and_authority(@current_det).strip
+           var = variety_and_authority(@current_det).strip
+           form = form_and_authority(@current_det).strip
+        %>
+        <%= "#{family}<br/>".html_safe unless family.blank? %>
+        <%= "#{short_name}<br/>".html_safe unless short_name.blank? %>
+        <%= "#{subsp}<br/>".html_safe unless subsp.blank? %>
+        <%= "#{var}<br/>".html_safe unless var.blank? %>
+        <%= "#{form}<br/>".html_safe unless form.blank? %>
+
+      <% end %>
+    </div>
+
+    <h2>Specimen Details</h2>
+
+    <div class="top_create_link">
+      <% if can?(:update, @specimen) %>
+        <%= icon 'edit' %><%= link_to 'Edit Specimen Details', edit_specimen_path(@specimen) %>
+      <% end %>
+
+
+      <%= icon 'print' %><%= link_to "Print Labels", labels_specimen_path(@specimen, :format => 'pdf') %>
+    </div>
+
+    <div id="specimendetails">
+      <%= render_field "Collector", @specimen.collector.display_name %>
+
+      <%= render_field_with_block("Other collectors") do %>
+        <% @specimen.secondary_collectors.each do |coll| %>
+          <%= coll.display_name %>
+          <br/>
+        <% end %>
+      <% end %>
+
+      <%= render_field "Collector number", @specimen.collector_number %>
+      <%= render_field "Collection date", format_partial_date(@specimen.collection_date_year, @specimen.collection_date_month, @specimen.collection_date_day) %>
+      <%= render_field "Country", @specimen.country %>
+      <%= render_field "State", @specimen.state %>
+      <%= render_field "Botanical division", @specimen.botanical_division %>
+      <%= render_field "Locality description", @specimen.locality_description %>
+      <%= render_field "Latitude", @specimen.latitude_printable.html_safe %>
+      <%= render_field "Longitude", @specimen.longitude_printable.html_safe %>
+      <%= render_field "Altitude", @specimen.altitude_with_unit %>
+      <%= render_field "Point data", @specimen.point_data %>
+      <%= render_field "Datum", @specimen.datum %>
+      <%= render_field "Topography", @specimen.topography %>
+      <%= render_field "Aspect", @specimen.aspect %>
+      <%= render_field "Substrate", @specimen.substrate %>
+      <%= render_field "Vegetation", @specimen.vegetation %>
+      <%= render_field "Frequency", @specimen.frequency %>
+      <%= render_field "Plant description", @specimen.plant_description %>
+      <%= render_field "Replicate From", @specimen.replicate_from %>
+      <%= render_field "Replicate From No.", @specimen.replicate_from_no %>
+    </div>
+  </div>
+
+  <div id="viewspecimen_misc">
+
+    <h2>Items</h2>
+
+    <div id="items">
+
+      <span id="item_top">
+      <% if can?(:add_item, @specimen) %>
+        <%= form_tag add_item_specimen_path(@specimen) do %>
+          <%= label_tag :item_type_id, "Type" %>
+          <%= select_tag 'item_type_id', options_from_collection_for_select(@item_types, 'id', 'name') %>
+          <%= submit_tag "Add" %>
+        <% end %>
+      <% end %>
+      </span>
+
+      <%= render 'items_table' %>
+
+    </div>
+
+    <h2>Replicates</h2>
+
+    <div id="reps">
+
+      <div class="specimen_details_break">
+        <% if can?(:update_replicates, @specimen) %>
+          <%= icon 'edit' %><%= link_to 'Edit Replicates', edit_replicates_specimen_path(@specimen) %>
+        <% end %>
+      </div>
+
+      <% @replicates.each do |rep| %>
+        <div>
+          <span class="rep"><%= rep.code %></span><%= rep.name %>
+        </div>
+      <% end %>
+
+    </div>
+
+    <h2>Images</h2>
+    <div id="images">
+
+      <div class="specimen_details_break">
+
+        <% if can?(:update_specimen_images, @specimen) %>
+          <%= icon 'add' %><%= link_to 'Add Image', new_specimen_specimen_image_path(@specimen) %>
+        <% end %>
+        <% if not @specimen_images.empty? %>
+          <%= icon 'download' %><%= link_to 'Download All', download_zip_specimen_path(@specimen) %>
+        <% end %>
+      </div>
+
+      <%= render(:partial => 'slideshow', :locals => {:specimen => @specimen, :specimen_images => @specimen_images}) %>
+
+      <% @specimen_images.each do |img| %>
+        <div>
+          <span class="images">
+            <%= link_to (image_tag display_image_specimen_specimen_image_path(@specimen, img, "thumb")), specimen_specimen_image_path(@specimen, img) %>
+          </span>
+          <span class="description">
+            <%= link_to "#{img.description}", specimen_specimen_image_path(@specimen, img) %>
+          </span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="clear"></div>
+<div id="specimen_bot">
+  <h2>Determinations</h2>
+
+  <div id="create_determination_div">
+    <% if can?(:create, Determination) %>
+      <%= icon 'add' %>
+      <%= link_to 'Add Determination', new_specimen_determination_path(@specimen) %>
+    <% end %>
+
+  </div>
+
+  <% if !@determinations.empty? %>
+    <%= render(:partial => 'determination_details', :locals => {:determination => @current_det}) %>
+  <% end %>
+
+  <div id="dets">
+    <%= render 'determinations_table' %>
+  </div>
+</div>
+
+<div class="clear"></div>
+<div class="hr"></div>
+
+<div class="actions">
+  <% if @specimen.deaccession_unflagged? %>
+    <%= button_to_if can?(:request_deaccession, @specimen), "Flag for deaccession", request_deaccession_specimen_path(@specimen) %>
+  <% end %>
+
+  <% if @specimen.deaccession_requested? %>
+    <%= button_to_if can?(:approve_deaccession, @specimen), "Confirm deaccession", approve_deaccession_specimen_path(@specimen) %>
+    <%= button_to_if can?(:unflag_deaccession, @specimen), "Unflag deaccession", unflag_deaccession_specimen_path(@specimen) %>
+  <% end %>
+
+  <% if @specimen.needs_review? %>
+    <%= button_to_if can?(:mark_as_reviewed, @specimen), "Mark as Reviewed", mark_as_reviewed_specimen_path(@specimen) %>
+  <% end %>
+</div>  
+

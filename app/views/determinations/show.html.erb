@@ -1,0 +1,10 @@
+<% title 'Determination Details' %>
+
+<div>
+  <% if can?(:update, @determination) %>
+    <%= icon 'edit' %><%= link_to 'Edit', edit_specimen_determination_path(@specimen, @determination) %>&nbsp;
+  <% end %>
+  <%= icon 'back' %><%= link_to 'Back', @specimen %>
+</div>
+
+<%= render :partial => "determination_details", :locals => {:determination => @determination} %>

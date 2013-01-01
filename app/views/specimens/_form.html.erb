@@ -1,0 +1,157 @@
+<%= form_for(@specimen) do |f| %>
+  <%= render "shared/error_messages", :target => @specimen %>  
+
+  <div id="newspecimen_gathering">
+
+    <h2>Gathering</h2>
+    <div class="field" id="collector_field">
+      <%= f.label :collector_id %>
+      <%= f.collection_select(:collector_id,
+                             @all_people,
+                             :id,
+                             :display_name,
+                             { :include_blank => "Please select" })
+       %>
+    </div>
+    <div class="field">
+      <%= f.label :collector_number %>
+      <%= f.text_field :collector_number %>
+    </div>
+    <%= render :partial => 'shared/partial_date', 
+               :locals => {:f => f, 
+                           :label => "Collection date",
+                           :date_picker_id => "specimen_collection_date_picker",
+                           :object_prefix => "specimen",
+                           :year_field => :collection_date_year, 
+                           :month_field => :collection_date_month, 
+                           :day_field => :collection_date_day } 
+    %>
+    <div class="field">
+      <%= label_tag "secondary_collector_ids_", 'Secondary collectors' %>
+      <%= select_tag("secondary_collector_ids[]", options_for_select(@all_people.collect { |coll| [coll.display_name, coll.id] }, @specimen.secondary_collector_ids), { :multiple=>true, :size => 6}) %>  
+    </div>
+  </div>
+
+
+
+  <div id="newspecimen_location">
+
+    <h2>Location</h2>
+  
+    <div class="field" id="country_field">
+      <%= f.label :country %>
+      <%= f.collection_select(:country,
+                             @countries,
+                             :name,
+                             :name,
+                             { :include_blank => "Please select" })
+       %>
+    </div>
+    <div class="field" id="state_field">
+      <%= f.label :state %>
+      <%= f.text_field :state %>
+      <%= f.collection_select(:state, @states, :name, :name, { :include_blank => "Please select" }) %>
+    </div>
+    <div class="field" id="botanical_division_field">
+      <%= f.label :botanical_division %>
+      <%= f.text_field :botanical_division %>
+      <%= f.collection_select(:botanical_division, @botanical_divisions, :name, :name, { :include_blank => "Please select" }) %>
+    </div>
+    <div class="field">
+      <%= f.label :locality_description %>
+      <%= f.text_area :locality_description, :size => "40x5" %>
+    </div>
+    <div class="field">
+      <%= f.label :latitude_degrees, "Latitude" %>
+      <%= f.text_field :latitude_degrees, :size => 3, :maxlength => 3 %>
+      &deg;&nbsp;
+      <%= f.label :latitude_minutes, :style => "display:none;" %>
+      <%= f.text_field :latitude_minutes, :size => 2, :maxlength => 3  %>
+      '&nbsp;
+      <%= f.label :latitude_seconds, :style => "display:none;" %>
+      <%= f.text_field :latitude_seconds, :size => 6, :maxlength => 10  %>
+      "&nbsp;
+      <%= f.label :latitude_hemisphere, :style => "display:none;" %>
+      <%= f.select :latitude_hemisphere, { "S" => "S", "N" => "N"}, :include_blank => "unknown" %>
+    </div>
+    <div class="field">
+      <%= f.label :longitude_degrees, "Longitude" %>
+      <%= f.text_field :longitude_degrees, :size => 3, :maxlength => 3 %>
+      &deg;&nbsp;
+      <%= f.label :longitude_minutes, :style => "display:none;" %>
+      <%= f.text_field :longitude_minutes, :size => 2, :maxlength => 2 %>
+      '&nbsp;
+      <%= f.label :longitude_seconds, :style => "display:none;" %>
+      <%= f.text_field :longitude_seconds, :size => 6, :maxlength => 10 %>
+      "&nbsp;
+      <%= f.label :longitude_hemisphere, :style => "display:none;" %>      
+      <%= f.select :longitude_hemisphere, { "E" => "E", "W" => "W"}, :include_blank => "unknown" %>
+    </div>
+    <div class="field">
+      <%= f.label :altitude, "Altitude (metres)" %>
+      <%= f.text_field :altitude, :size => 5, :maxlength => 10 %>
+    </div>
+    <div>
+      <label class="field_radiobtn_label">Point Data</label>
+      <span><%= f.radio_button(:point_data, "Altimeter") %>&nbsp;<%= f.label :point_data_altimeter, "Altimeter" %></span>
+      <span><%= f.radio_button(:point_data, "Atlas") %>&nbsp;<%= f.label :point_data_atlas, "Atlas" %></span>
+      <span><%= f.radio_button(:point_data, "GPS") %>&nbsp;<%= f.label :point_data_gps, "GPS" %></span>
+      <span><%= f.radio_button(:point_data, "Map") %>&nbsp;<%= f.label :point_data_map, "Map" %></span>
+      <span><%= f.radio_button(:point_data, "Google Maps") %>&nbsp;<%= f.label :point_data_google_maps, "Google Maps" %></span>
+      <span><%= f.radio_button(:point_data, "Google Earth") %>&nbsp;<%= f.label :point_data_google_earth, "Google Earth" %></span>
+    </div>
+    <div class="field">
+      <%= f.label :datum %>
+      <%= f.text_field :datum %>
+    </div>
+  </div>
+
+
+  <div id="newspecimen_specimen">
+
+    <h2>Specimen</h2>
+    <div class="field">
+      <%= f.label :topography %>
+      <%= f.text_area :topography, :size => "40x5" %>
+    </div>
+    <div class="field">
+      <%= f.label :aspect %>
+      <%= f.text_field :aspect %>
+    </div>
+    <div class="field">
+      <%= f.label :substrate %>
+      <%= f.text_area :substrate, :size => "40x5" %>
+    </div>
+    <div class="field">
+      <%= f.label :vegetation %>
+      <%= f.text_area :vegetation, :size => "40x5" %>
+    </div>
+    <div class="field">
+      <%= f.label :frequency %>
+      <%= f.text_field :frequency %>
+    </div>
+    <div class="field">
+      <%= f.label :plant_description %>
+      <%= f.text_area :plant_description, :size => "40x5" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :replicate_from %>
+      <%= f.text_field :replicate_from %>
+    </div>
+    <div class="field">
+      <%= f.label :replicate_from_no %>
+      <%= f.text_field :replicate_from_no %>
+    </div>
+  </div>
+
+<div class="clear"></div>
+<div class="hr"></div>
+  
+  <div class="actions">
+    <%= f.submit %>
+	&nbsp;
+	<%= link_to 'Cancel', cancel_link %>
+  </div>
+
+<% end %>

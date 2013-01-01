@@ -1,0 +1,18 @@
+<div id="determinationdetails">
+  <%= render_field "Determiners", determination.determiners_csv %>
+  <%= render_field "Determination date", format_partial_date(determination.determination_date_year, determination.determination_date_month, determination.determination_date_day) %>
+  <%= render_field "Determiner herbarium", (determination.determiner_herbarium.display_name if determination.determiner_herbarium) %>
+  <%= render_field "Division", determination.division %>
+  <%= render_field "Class", determination.class_name %>
+  <%= render_field "Order", determination.order_name %>
+
+  <%= render_field "Family", family(determination) %>
+  <%= render_field "Subfamily", sub_family(determination) %>
+  <%= render_field "Tribe", tribe(determination) %>
+  <%= render_field "Genus", genus(determination) %>
+  <%= render_field "Species", species(determination) %>
+  <%= render_field "Species Authority", determination.species_authority %>
+  <%= render_field "Subspecies", subspecies_and_authority(determination) %>
+  <%= render_field "Variety", variety_and_authority(determination) %>
+  <%= render_field "Form", form_and_authority(determination) %>
+</div>

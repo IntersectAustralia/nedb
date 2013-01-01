@@ -1,0 +1,74 @@
+
+
+<table id="adv_search_results_table" class="data_table">
+  <tr>
+    <th>Accession Number</th>
+    <th>Division</th>
+    <th>Class</th>
+    <th>Order</th>
+    <th>Family</th>
+    <th>Subfamily</th>
+    <th>Genus</th>
+    <th>Species</th>
+    <th>Country</th>
+    <th>State</th>
+    <th>Botanical Division</th>
+    <th>Locality</th>
+    <th>Latitude</th>
+    <th>Longitude</th>
+    <th>Altitude</th>
+    <th>Vegetation</th>
+    <th>Plant Description</th>
+    <th>Replicate From</th>
+    <th>Topography</th>
+    <th>Aspect</th>
+    <th>Substrate</th>
+    <th>Frequency</th>
+    <th>Collector Name</th>
+    <th>Collection Date</th>
+    <th>Collector Number</th>
+    <th>Naturalised</th>
+    <th>Needs Review</th>
+  </tr>
+
+
+
+  <% if @adv_search_results then @adv_search_results.each do |specimen| %>
+      <tr class="<%= cycle('field_bg', 'field_nobg') %>">
+        <td><%= link_to specimen.id, specimen %></td>
+        <td><%= specimen.current_determination.division if specimen.current_determination %></td>
+        <td><%= specimen.current_determination.class_name if specimen.current_determination %></td>
+        <td><%= specimen.current_determination.order_name if specimen.current_determination %></td>
+        <td><%= specimen.current_determination.family if specimen.current_determination %></td>
+        <td><%= specimen.current_determination.sub_family if specimen.current_determination %></td>
+        <td><%= specimen.current_determination.genus if specimen.current_determination %></td>
+        <td><%= specimen.current_determination.species if specimen.current_determination %></td>
+        <td><%= specimen.country %></td>
+        <td><%= specimen.state %></td>
+        <td><%= specimen.botanical_division %></td>
+        <td><%= specimen.locality_description %></td>
+        <td><%= specimen.latitude_printable %></td>
+        <td><%= specimen.longitude_printable %></td>
+        <td><%= specimen.altitude %></td>
+        <td><%= specimen.vegetation %></td>
+        <td><%= specimen.plant_description %></td>
+        <td><%= specimen.replicate_from %></td>
+        <td><%= specimen.topography %></td>
+        <td><%= specimen.aspect %></td>
+        <td><%= specimen.substrate %></td>
+        <td><%= specimen.frequency %></td>
+        <td><%= specimen.collector.try(:display_name) %></td>
+        <td><%= format_partial_date(specimen.collection_date_year, specimen.collection_date_month, specimen.collection_date_day) %></td>
+        <td><%= specimen.collector_number %></td>
+        <td><%= specimen.current_determination.naturalised if specimen.current_determination %></td>
+        <td><%= specimen.needs_review %></td>
+
+      </tr>
+  <% end %>
+  <% end %>
+</table>
+
+<br />
+<%= link_to "Export CSV", search_results_specimens_path(:csv) %>
+<%= link_to "Print Labels", search_results_print_labels_specimens_path(:pdf) %>
+<%= (will_paginate @adv_search_results) unless @adv_search_results.empty? %>

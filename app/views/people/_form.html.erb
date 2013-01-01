@@ -1,0 +1,66 @@
+<%= form_for(@person) do |f| %>
+  <%= render "shared/error_messages", :target => @person %>  
+
+  <div class="field">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :middle_name %>
+    <%= f.text_field :middle_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="field">
+    <%=  f.label :initials %>
+    <%=  f.text_field :initials %>
+  </div>
+  <div class="field">
+    <%= f.label :herbarium_id %>
+    <%= f.collection_select(:herbarium_id,
+                           @herbaria,
+                           :id,
+                           :display_name,
+                           { :include_blank => "Please select" })
+     %>
+  </div>
+
+  <%= render :partial => 'shared/partial_date', 
+             :locals => {:f => f, 
+                         :label => "Date of birth",
+                         :date_picker_id => "person_dob_picker",
+                         :object_prefix => "person",
+                         :year_field => :date_of_birth_year, 
+                         :month_field => :date_of_birth_month, 
+                         :day_field => :date_of_birth_day } 
+  %>
+
+  <%= render :partial => 'shared/partial_date', 
+             :locals => {:f => f, 
+                         :label => "Date of death",
+                         :date_picker_id => "person_dod_picker",
+                         :object_prefix => "person",
+                         :year_field => :date_of_death_year, 
+                         :month_field => :date_of_death_month, 
+                         :day_field => :date_of_death_day } 
+  %>
+
+  <div class="field">
+    <%= f.label :address %>
+    <%= f.text_area :address, :size => "28x5" %>
+  </div>
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div class="hr"></div>
+
+  <div class="actions">
+    <%= f.submit %>
+	&nbsp;
+	<%= link_to 'Cancel', people_path %>
+  </div>
+<% end %>

@@ -1,0 +1,24 @@
+<% title 'Person Details' %>
+
+<div class="details_break">
+
+  <div class="details_menu">
+    <% if can?(:update, @person) %>
+      <%= icon 'edit' %><%= link_to 'Edit', edit_person_path(@person) %>&nbsp;
+    <% end %>
+    <% if can?(:destroy, @person) %>
+        <%= icon 'delete' %><%= link_to 'Delete', @person, :confirm => 'Are you sure you want to delete this person?', :method => :delete, :id => "delete_#{@person.id}" %>
+    <% end %>
+    <%= icon 'back' %><%= link_to 'Back', people_path %>
+  </div>
+
+  <%= render_field "First name", @person.first_name %>
+  <%= render_field "Middle name", @person.middle_name %>
+  <%= render_field "Last name", @person.last_name %>
+  <%= render_field "Display name", @person.display_name %>
+  <%= render_field "Herbarium", (@person.herbarium.code if @person.herbarium) %>
+  <%= render_field "Date of Birth", format_partial_date(@person.date_of_birth_year, @person.date_of_birth_month, @person.date_of_birth_day) %>
+  <%= render_field "Date of Death", format_partial_date(@person.date_of_death_year, @person.date_of_death_month, @person.date_of_death_day) %>
+  <%= render_field "Address", @person.address %>
+  <%= render_field "Email", @person.email %>
+</div>

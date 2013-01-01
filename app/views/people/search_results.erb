@@ -1,0 +1,63 @@
+<% title 'People' %>
+
+<div id="public_search">
+  <%= form_tag(search_people_path, :method => "get") do %>
+      <h2><%= label_tag :people_search, "Search" %></h2>
+      <p><%= text_field_tag :people_search, nil, :size => 60, :maxlength => 50 %>&nbsp;&nbsp;&nbsp;</p>
+      <span class="iconSearch">
+        <%= submit_tag  "Go", :id => "search_people_button" %>
+      </span>
+  <% end %>
+</div>
+
+<div class="table_page">
+
+  <div class="top_create_link">
+    <% if can?(:create, Person) %>
+        <%= icon 'add' %><%= link_to 'Create New Person', new_person_path %>
+    <% end %>
+  </div>
+
+  <table class="data_table" id="people_table">
+    <tr>
+      <th>First name</th>
+      <th>Middle name</th>
+      <th>Last name</th>
+      <th>Display name</th>
+      <th>Date of Birth</th>
+      <th>Date of Death</th>
+      <th>Herbarium Code</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+
+    <% @search_results.each do |person| %>
+        <tr class="<%= cycle('field_bg', 'field_nobg') %>">
+          <td><%= person.first_name %></td>
+          <td><%= person.middle_name %></td>
+          <td><%= person.last_name %></td>
+          <td><%= person.display_name %></td>
+          <td><%= format_partial_date(person.date_of_birth_year, person.date_of_birth_month, person.date_of_birth_day) %></td>
+          <td><%= format_partial_date(person.date_of_death_year, person.date_of_death_month, person.date_of_death_day) %></td>
+          <td><%= person.herbarium.code if person.herbarium %></td>
+          <td><%= person.email %></td>
+          <td>
+            <%= icon 'view' %><%= link_to 'View', person %>&nbsp;
+            <% if can?(:update, person) %>
+                <%= icon 'edit' %><%= link_to 'Edit', edit_person_path(person) %>
+            <% end %>
+            <% if can?(:destroy, person) %>
+                <%= icon 'delete' %><%= link_to 'Delete', person, :confirm => 'Are you sure you want to delete this person?', :method => :delete, :id => "delete_#{person.id}" %>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+  </table>
+
+  <br/>
+
+  <%= (will_paginate @search_results) unless @search_results.empty? %>
+
+</div>
+
+<div class="clear"></div>

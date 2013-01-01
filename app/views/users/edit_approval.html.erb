@@ -1,0 +1,24 @@
+<% title "Select Profile For #{@user.email}" %>
+
+<%= form_for(@user, :url => approve_user_path(@specimen)) do |f| %>
+
+  <div class="field">
+    <%= f.label :profile_id, "Profile" %>
+    <%= f.collection_select(:profile_id,
+                            @profiles,
+                            :id,
+                            :name,
+                            {:include_blank => "Please select"})
+    %>
+  </div>
+
+  <div class="hr"></div>
+
+  <div class="actions">
+    <span><%= f.submit ("Approve") %></span>
+    &nbsp;
+    <span><%= link_to 'Cancel', access_requests_users_path %></span>
+  </div>
+
+<% end %>
+

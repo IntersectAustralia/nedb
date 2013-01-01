@@ -1,0 +1,78 @@
+<%= f.hidden_field :division %>
+<%= f.hidden_field :class_name %>
+<%= f.hidden_field :order_name %>
+<%= f.hidden_field :family %>
+<%= f.hidden_field :sub_family %>
+<%= f.hidden_field :tribe %>
+<%= f.hidden_field :genus %>
+<%= f.hidden_field :species %>
+<%= f.hidden_field :species_authority %>
+
+<div class="details_break" style="float:left">
+
+  <%= render_field "Division", @determination.division if @fields_to_show.include?("division") %>
+
+  <%= render_field "Class", @determination.class_name if @fields_to_show.include?("class_name")  %>
+
+  <%= render_field "Order", @determination.order_name if @fields_to_show.include?("order_name")  %>
+
+  <%= render_field "Family", @determination.family if @fields_to_show.include?("family")  %>
+  <%= render :partial => 'uncertainty', :locals => {:uncertainty_field => "family", :form => f, :label => "Family"} if @field == "family" %>
+
+  <%= render_field "Subfamily", @determination.sub_family if @fields_to_show.include?("sub_family")  %>
+  <%= render :partial => 'uncertainty', :locals => {:uncertainty_field => "sub_family", :form => f, :label => "Subfamily"} if @field == "sub_family" %>
+
+  <%= render_field "Tribe", @determination.tribe if @fields_to_show.include?("tribe")  %>
+  <%= render :partial => 'uncertainty', :locals => {:uncertainty_field => "tribe", :form => f, :label => "Tribe"} if @field == "tribe" %>
+
+  <% if @fields_to_show.include?("genus") %>
+    <%= render_field "Genus", @determination.genus %>
+
+    <div class='<%= cycle("field_bg","field_nobg") %>'>
+      <span class="label_view"><%= f.label :naturalised, "Naturalised:" %></span>
+      <span class="field_value"><%= f.check_box :naturalised %></span>
+    </div>
+
+  <% end %>
+  <%= render :partial => 'uncertainty', :locals => {:uncertainty_field => "genus", :form => f, :label => "Genus"} if @field == "genus" %>
+
+  <%  if !@determination.species.nil? %>
+    <%= render_field "Species", @determination.species if @fields_to_show.include?("name")  %>
+    <%= render_field "Species Authority", @determination.species_authority if @fields_to_show.include?("name") %>
+    <%= render :partial => 'uncertainty', :locals => {:uncertainty_field => "species", :form => f, :label => "Species"} if @field == "name" %>
+
+
+    <% if @field == "name" %>
+        <div id ="subspecies_variety_form_info">
+        <div class='<%= cycle("field_bg","field_nobg") %>'>
+            <span class="label_view"><%= f.label :sub_species, "Subspecies" %></span>
+            <%if !@subspecies.nil?%>
+                <span class="field_value"><%= f.collection_select(:sub_species, @subspecies, :id, :display_name, { :include_blank => "Please select" }) %></span>
+            <%end%>
+        </div>
+
+        <%= render :partial => 'uncertainty', :locals => {:uncertainty_field => "subspecies", :form => f, :label => "Subspecies"} %>
+
+        <div class='<%= cycle("field_bg","field_nobg") %>'>
+            <span class="label_view"><%= f.label :variety %></span>
+          <%if !@varieties.nil?%>
+            <span class="field_value"><%= f.collection_select(:variety, @varieties, :id, :display_name, { :include_blank => "Please select" }) %></span>
+          <%end%>
+        </div>
+
+        <%= render :partial => 'uncertainty', :locals => {:uncertainty_field => "variety", :form => f, :label => "Variety"} %>
+
+        <div class='<%= cycle("field_bg","field_nobg") %>'>
+            <span class="label_view"><%= f.label :form %></span>
+          <%if !@forms.nil?%>
+            <span class="field_value"><%= f.collection_select(:form, @forms, :id, :display_name, { :include_blank => "Please select" }) %></span>
+          <%end%>
+        </div>
+
+        <%= render :partial => 'uncertainty', :locals => {:uncertainty_field => "form", :form => f, :label => "Form"} %>
+        </div>
+    <% end %>
+  <% end %>
+
+</div>
+  

@@ -1,0 +1,23 @@
+<% title 'Specimens Needing Review' %>
+
+<table id="search_results_table" class="data_table">
+  <tr>
+    <th>Accession Number</th>
+    <th>Specimen</th>
+  </tr>
+
+<% @specimens.each do |specimen| %>
+  <tr class="<%= cycle('field_bg', 'field_nobg') %>">
+    <td><%= link_to specimen.id, specimen %></td>
+    <td>
+      <% if ! specimen.determinations.empty? %>
+    		<%= determination_name specimen.current_determination %>
+    	<% else %>
+    	  No determination
+    	<% end %>  
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />

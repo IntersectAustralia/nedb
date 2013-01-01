@@ -1,0 +1,30 @@
+<h2>Subspecies</h2>
+	
+<div class="top_create_link">
+<% if can?(:create, Subspecies) %>
+  <%= icon 'add' %><%= link_to 'Create New Subspecies', new_species_subspecies_path(@species) %>&nbsp;
+<% end %>
+</div>
+
+<table class="data_table" id="subspecies_table">
+  <tr>
+    <th>Subspecies</th>
+    <th>Authority</th>
+    <th>Actions</th>
+  </tr>
+
+  <% @species.subspecies.each do |subsp| %>
+  <tr class="<%= cycle('field_bg', 'field_nobg') %>">
+    <td><%= subsp.subspecies %></td>
+    <td><%= subsp.authority %></td>
+    <td>
+      <% if can?(:update, subsp) %>
+        <%= icon 'edit' %><%= link_to 'Edit', edit_species_subspecies_path(@species, subsp), :id => "edit_#{subsp.id}" %>&nbsp;
+      <% end %>
+      <% if can?(:destroy, subsp) %>
+        <%= icon 'delete' %><%= link_to 'Delete', species_subspecies_path(@species, subsp), :confirm => 'Are you sure you want to delete this subspecies?', :method => :delete, :id => "delete_#{subsp.id}" %>
+      <% end %>
+     </td>
+  </tr>
+<% end %>
+</table>

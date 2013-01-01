@@ -1,0 +1,50 @@
+<% title 'List of Herbaria' %>
+
+<div id="herbaria_search">
+
+  <%= form_tag(search_herbaria_path, :method => "get") do %>
+      <h3><%= label_tag :quick_herbaria_search, "Search" %></h3>
+
+      <p>
+        <%= text_field_tag :quick_herbaria_search, nil, :size => 60, :maxlength => 50 %>&nbsp;&nbsp;&nbsp;
+
+        <%= submit_tag "Go" %>
+      </p>
+  <% end %>
+
+</div>
+
+<div class="table_page">
+
+  <div class="top_create_link">
+    <% if can?(:create, Herbarium) %>
+        <%= icon 'add' %><%= link_to 'Add Another Herbarium', new_herbarium_path %>
+    <% end %>
+  </div>
+
+  <table id="search_results_table" class="data_table">
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+
+    <% @herbaria.each do |herbarium| %>
+        <tr class="<%= cycle('field_bg', 'field_nobg') %>">
+          <td><%= herbarium.code %></td>
+          <td><%= herbarium.name %></td>
+          <td>
+            <% if can?(:update, herbarium) %>
+                <%= icon 'edit' %><%= link_to 'Edit', edit_herbarium_path(herbarium) %>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+  </table>
+
+  <br/>
+
+  <%= (will_paginate @herbaria) unless @herbaria.empty? %>
+
+</div>
+

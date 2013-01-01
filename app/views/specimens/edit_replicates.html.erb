@@ -1,0 +1,32 @@
+<% title "Replicates for Specimen #{@specimen.id}" %>
+
+<%= form_for(@specimen, :url => update_replicates_specimen_path(@specimen)) do |f| %>
+
+  <div>
+    <input type="checkbox" id="checkAll" class="checkbox"/>
+    <label for="checkAll">Check/Uncheck All</label>
+  </div>
+  
+  <div class="hr"></div>
+  
+  <% for herbarium in @all_herbaria %>  
+    <div class="checkbox_options">  
+      <%= check_box_tag "specimen[replicate_ids][]", herbarium.id, @specimen.replicates.include?(herbarium), :id => "cb_#{herbarium.id}", :class => "checkbox"%>  
+      <%= label_tag "cb_#{herbarium.id}", "#{herbarium.code} - #{herbarium.name}" %>  
+    </div>  
+  <% end %>
+  
+  <div class="clear"></div>
+  <div class="hr"></div>
+  
+  <div class="actions">
+    <span><%= f.submit %></span>
+	&nbsp;
+	<span><%= link_to 'Cancel', specimen_path(@specimen) %></span>
+  </div>
+
+<% end %>
+
+
+
+

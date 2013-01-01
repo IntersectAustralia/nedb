@@ -1,0 +1,75 @@
+<% title 'User Details' %>
+
+<div>
+  <% if @user.pending_approval? %>
+    <div class="user_details_menu">
+      <% if can?(:approve, @user) then %>
+        <%= icon 'approve' %><%= link_to "Approve", edit_approval_user_path(@user), :method => :get %>&nbsp;
+      <% end %>
+      <% if can?(:reject, @user) then %>
+        <%= icon 'delete' %><%= link_to "Reject", reject_user_path(@user), :method => :put %>&nbsp;
+        <%= icon 'rejectspam' %><%= link_to "Reject as Spam", reject_as_spam_user_path(@user), :method => :put %>&nbsp;
+      <% end %>
+      <%= icon 'back' %><%= link_to 'Back', access_requests_users_path %>
+    </div>
+  <% end %>
+
+  <% if @user.approved? %>
+    <div class="user_details_menu">
+      <% if can?(:update_profile, User) %>
+        <%= icon 'edit' %><%= link_to 'Edit Profile', edit_profile_user_path(@user) %>&nbsp;
+      <% end %>
+      <% if can?(:deactivate, User) %>
+        <%= icon 'delete' %><%= link_to "Deactivate", deactivate_user_path(@user), :method => :put %>&nbsp;
+      <% end %>
+      <%= icon 'back' %><%= link_to 'Back', users_path %>
+    </div>
+  <% end %>
+
+  <% if @user.deactivated? %>
+    <div class="user_details_menu">
+      <% if can?(:update_profile, User) %>
+        <%= icon 'edit' %><%= link_to 'Edit Profile', edit_profile_user_path(@user) %>&nbsp;
+      <% end %>
+      <% if can?(:activate, User) %>
+        <%= icon 'approve' %><%= link_to "Activate", activate_user_path(@user), :method => :put %>&nbsp;
+      <% end %>
+      <%= icon 'back' %><%= link_to 'Back', users_path %>
+    </div>
+  <% end %>
+</div>
+
+<div id="userdetails">
+  <%= render_field "Email", @user.email %>
+  <%= render_field "Title", @user.title %>
+  <%= render_field "First name", @user.first_name %>
+  <%= render_field "Last name", @user.last_name %>
+  <%= render_field "Other Initials", @user.other_initials %>
+  <%= render_field "Position", @user.position %>
+  <%= render_field "Supervisor", @user.supervisor %>
+  <%= render_field "Group, School, Institution", @user.group_school_institution %>
+  <%= render_field "Address", @user.address %>
+  <%= render_field "Telephone", @user.telephone %>
+  <%= render_field "Date Created", @user.created_at.localtime.strftime("%d/%m/%Y %I:%M%p") %>
+  <% if !@user.pending_approval? %>
+    <%= render_field_with_block "Last Logged In" do %>
+      <% if @user.last_sign_in_at.nil? %>
+        Never logged in
+      <% else %>
+        <%= @user.last_sign_in_at.localtime.strftime("%d/%m/%Y %I:%M%p") %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <%= render_field "Profile", (@user.profile ? @user.profile.name : "") %>
+  <%= render_field_with_block "Status" do %>
+    <% if @user.status == 'A' %>
+      Active
+    <% elsif @user.status == 'D' %>
+      Deactivated
+    <% elsif @user.status == 'U' %>
+      Pending Approval
+    <% elsif @user.status == 'R' %>
+      Rejected
+    <% end %>
+  <% end %>
+</div>

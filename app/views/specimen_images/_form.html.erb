@@ -1,0 +1,22 @@
+<%= form_for([@specimen, @specimen_image], :html => { :multipart => true }) do |f| %>
+  <%= render "shared/error_messages", :target => @specimen_image %>  
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </div>
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+  <div class="specimen_image_notice">
+    <br>
+    Note: Specimen images must be smaller than 10MB.<br>
+  </div>
+
+  <div class="hr"></div>
+  <div class="actions">
+    <%= f.submit 'Upload' %>&nbsp;
+    <%= link_to 'Cancel', @specimen %>
+  </div>
+
+<% end %>

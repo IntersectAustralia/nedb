@@ -1,0 +1,14 @@
+<% title 'User Feedback' %>
+
+<h2>Please submit your feedback</h2>
+<%= form_tag(users_feedback_path, :method => "post") do %>
+
+  <div class="no_display"><%= label_tag :feedback , "Feedback" %></div>
+
+  <div class="field">
+    <%= text_area_tag :feedback, nil, :size => "40x5" %> <br/>
+  </div>
+
+  <div class="hr"></div>
+  <%= submit_tag("Submit Feedback") %>
+<% end %>

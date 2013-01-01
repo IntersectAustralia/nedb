@@ -1,0 +1,76 @@
+function updateHerbarium(herb)
+{
+  if (herb.length> 0)
+  {
+    jQuery('#determination_determiner_herbarium_id').val(herb);
+  }
+}
+
+function handleSpeciesUncertaintyValue()
+{
+    var uncertainty_val = $('input[name=determination\\[species_uncertainty\\]]:radio:checked').val();
+    if (uncertainty_val != "")
+    {
+        /* If species is uncertain, hide all the stuff below and set it to blank */
+        $('#subspecies_variety_form_info').hide();
+        $('select#determination_sub_species').val("");
+        $('select#determination_form').val("");
+        $('select#determination_variety').val("");
+
+        $('input#determination_subspecies_uncertainty_none').attr('checked', true);
+        $('input#determination_variety_uncertainty_none').attr('checked', true);
+        $('input#determination_form_uncertainty_none').attr('checked', true);
+    }
+    else
+    {
+        $('#subspecies_variety_form_info').show();
+    }
+}
+
+jQuery(document).ready(function(){
+  handleSpeciesUncertaintyValue();
+
+  jQuery('#determiner_ids > option').click(function(evt){
+    if (!evt.ctrlKey || (evt.ctrlKey && evt.currentTarget.selected))
+    {
+      updateHerbarium(jQuery(this).attr('herb'));
+    }
+  });
+
+  jQuery('#determiner_ids').blur(function (evt){
+    var selected = jQuery('#determiner_ids > option:selected');
+    if (selected.length == 1)
+    {
+      updateHerbarium(selected.attr('herb'));
+    }
+  });
+
+  /* Disable subsp/var/form if species is uncertain */
+  $('input[name=determination\\[species_uncertainty\\]]').change(function(){
+    handleSpeciesUncertaintyValue();
+  });
+
+  /* Autocomplete on the search field */
+  $("#term").live('focus', function(i){
+     $(this).autocomplete({
+       source: function( request, response ) {
+         var term = request.term;
+         var level = $('#level').val();
+         var in_data = { term: term, level : level };
+         $.getJSON( "/species/autocomplete_plant_name", in_data, function( data, status, xhr ) {
+           response( data );
+         });
+       },
+       select: function(event, ui) {
+         $(this).val(ui.item.value);
+         if ($(this).attr('id_element')) {
+           $($(this).attr('id_element')).val(ui.item.id);
+         }
+         return false;
+       }
+     });
+   });
+
+
+});
+

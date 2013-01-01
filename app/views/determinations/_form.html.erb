@@ -1,0 +1,18 @@
+<%= form_for([@specimen, @determination]) do |f| %>
+  <%= hidden_field_tag :step, @step %>
+  <%= render "shared/error_messages", :target => @determination %>  
+
+  <%= render('determiners_step', :f => f) if @step == "determiners" %>
+  <%= render('search_step', :f => f) if @step == "plant_name" %>
+
+
+  <div class="clear"></div>
+  <div class="hr"></div>
+
+  <div class="actions">
+    <%= f.submit (@step == "determiners" ? "Continue" : "Save") %>
+    &nbsp;
+    <%= link_to 'Cancel', @specimen %>
+  </div>
+<% end %>
+

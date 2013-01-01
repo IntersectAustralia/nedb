@@ -1,0 +1,344 @@
+<%= form_for(@search, :url => advanced_search_specimens_path) do |f| %>
+    <div id="advanced_search_criteria">
+    <div id="adv_search_general">
+      <div class="field">
+        <%= f.label :locality %>
+        <%= f.text_field :locality_description_contains, :maxlength => 50, :size => 30 %>  <br/>
+      </div>
+
+      <div class="field">
+        <%= f.label :vegetation %>
+        <%= f.text_field :vegetation_contains, :maxlength => 50, :size => 30 %>  <br/>
+      </div>
+
+      <div class="field">
+        <%= f.label :plant_description %>
+        <%= f.text_field :plant_description_contains, :maxlength => 50, :size => 30 %>  <br/>
+      </div>
+
+      <div class="field">
+        <%= f.label :replicate_from %>
+        <%= f.text_field :replicate_from_contains, :maxlength => 50, :size => 30 %>  <br/>
+      </div>
+
+      <div class="field">
+        <%= f.label :topography %>
+        <%= f.text_field :topography_contains, :maxlength => 50, :size => 30 %>  <br/>
+      </div>
+
+      <div class="field">
+        <%= f.label :aspect %>
+        <%= f.text_field :aspect_contains, :maxlength => 50, :size => 30 %>  <br/>
+      </div>
+
+      <div class="field">
+        <%= f.label :substrate %>
+        <%= f.text_field :substrate_contains, :maxlength => 50, :size => 30 %>  <br/>
+      </div>
+
+      <div class="field">
+        <%= f.label :frequency %>
+        <%= f.text_field :frequency_contains, :maxlength => 50, :size => 30 %>  <br/>
+      </div>
+
+      <div class="field">
+        <%= f.label :country %>
+        <%= f.text_field :country_contains, :maxlength => 50, :size => 30 %>  <br/>
+      </div>
+
+      <div class="field">
+        <%= f.label :state %>
+        <%= f.text_field :state_contains, :maxlength => 50, :size => 30 %>  <br/>
+      </div>
+
+      <div class="field">
+        <%= f.label :botanical_division %>
+        <%= f.text_field :botanical_division_contains, :maxlength => 50, :size => 30 %>  <br/>
+      </div>
+
+      <div class="field">
+        <%= f.label :datum %>
+        <%= f.text_field :datum_contains, :maxlength => 50, :size => 30 %>  <br/>
+      </div>
+
+      <div class="field">
+        <%= f.label :altitude %>
+        From&nbsp;
+        <%= f.label :from, :style => "display:none;" %>
+        <%= f.text_field :altitude_greater_than_or_equal_to, :maxlength => 6, :size => 6 %>
+        To&nbsp;
+        <%= f.label :to, :style => "display:none;" %>
+        <%= f.text_field :altitude_less_than_or_equal_to, :maxlength => 6, :size => 6 %>
+      </div>
+
+
+      <div class="field">
+        <%= f.label "accession_number" %>
+        From&nbsp;
+        <%= f.label :from, :style => "display:none;" %>
+        <%= f.text_field :id_greater_than_or_equal_to, :maxlength => 6, :size => 6 %>
+        To&nbsp;
+        <%= f.label :to, :style => "display:none;" %>
+        <%= f.text_field :id_less_than_or_equal_to, :maxlength => 6, :size => 6 %>
+      </div>
+
+      <div>
+        <label class="field_radiobtn_label">Naturalised</label>
+        <span><%= f.radio_button(:determinations_naturalised_equals, true) %>&nbsp;<%= f.label :determinations_naturalised_equals, "True" %></span>
+        <span><%= f.radio_button(:determinations_naturalised_equals, false) %>&nbsp;<%= f.label :determinations_naturalised_equals, "False" %></span>
+        <span><%= f.radio_button(:determinations_naturalised_equals, "") %>&nbsp;<%= f.label :determinations_naturalised_equals, "Ignore" %></span>
+        <br/>
+      </div>
+      <br/>
+      <%= render :partial => 'shared/advanced_search_partial_dates',
+                 :locals => {:f => f,
+                             :label => "Collection date from",
+                             :date_picker_id => "specimen_collection_date_picker_from",
+                             :object_prefix => "specimen",
+                             :year_field => :collection_date_year_greater_than_or_equal_to,
+                             :month_field => :collection_date_month_greater_than_or_equal_to,
+                             :day_field => :collection_date_day_greater_than_or_equal_to }
+      %>
+      <br/>
+      <%= render :partial => 'shared/advanced_search_partial_dates',
+                 :locals => {:f => f,
+                             :label => "Collection date to",
+                             :date_picker_id => "specimen_collection_date_picker_to",
+                             :object_prefix => "specimen",
+                             :year_field => :collection_date_year_less_than_or_equal_to,
+                             :month_field => :collection_date_month_less_than_or_equal_to,
+                             :day_field => :collection_date_day_less_than_or_equal_to }
+      %>
+      <div class="field">
+        <%= f.label :latitude_hemisphere %>
+        <%= f.select :latitude_hemisphere_equals, {"North" => "N", "South" => "S"}, { :include_blank => "None" }%>
+      </div>
+      <br/>
+      <div class="field">
+        <%= f.label :latitude_degrees, "Latitude from" %>
+        <%= f.text_field :latitude_degrees_greater_than_or_equal_to, :value => @searchparams[:latitude_degrees_greater_than_or_equal_to], :size => 3, :maxlength => 3%>
+        &deg;&nbsp;
+        <%= f.label :latitude_minutes, :style => "display:none;" %>
+        <%= f.text_field :latitude_minutes_greater_than_or_equal_to, :value => @searchparams[:latitude_minutes_greater_than_or_equal_to], :size => 2, :maxlength => 3  %>
+        '&nbsp;
+        <%= f.label :latitude_seconds, :style => "display:none;" %>
+        <%= f.text_field :latitude_seconds_greater_than_or_equal_to, :value => @searchparams[:latitude_seconds_greater_than_or_equal_to], :size => 6, :maxlength => 10  %>
+        "&nbsp;
+      </div>
+      <div class="field">
+        <%= f.label :latitude_degrees, "Latitude to" %>
+        <%= f.text_field :latitude_degrees_less_than_or_equal_to, :value => @searchparams[:latitude_degrees_less_than_or_equal_to], :size => 3, :maxlength => 3 %>
+        &deg;&nbsp;
+        <%= f.label :latitude_minutes, :style => "display:none;" %>
+        <%= f.text_field :latitude_minutes_less_than_or_equal_to, :value => @searchparams[:latitude_minutes_less_than_or_equal_to],  :size => 2, :maxlength => 3  %>
+        '&nbsp;
+        <%= f.label :latitude_seconds, :style => "display:none;" %>
+        <%= f.text_field :latitude_seconds_less_than_or_equal_to, :value => @searchparams[:latitude_seconds_less_than_or_equal_to],  :size => 6, :maxlength => 10  %>
+        "&nbsp;
+      </div>
+      <div class="field">
+        <%= f.label :longitude_hemisphere %>
+        <%= f.select :longitude_hemisphere_equals, {"East" => "E", "West" => "W"}, { :include_blank => "None" }%>
+      </div>
+      <br/>
+      <div class="field">
+        <%= f.label :longitude_degrees, "Longitude from" %>
+        <%= f.text_field :longitude_degrees_greater_than_or_equal_to, :size => 3, :value => @searchparams[:longitude_degrees_greater_than_or_equal_to],  :maxlength => 3 %>
+        &deg;&nbsp;
+        <%= f.label :longitude_minutes, :style => "display:none;" %>
+        <%= f.text_field :longitude_minutes_greater_than_or_equal_to, :size => 2, :value => @searchparams[:longitude_minutes_greater_than_or_equal_to],  :maxlength => 2 %>
+        '&nbsp;
+        <%= f.label :longitude_seconds, :style => "display:none;" %>
+        <%= f.text_field :longitude_seconds_greater_than_or_equal_to, :size => 6, :value => @searchparams[:longitude_seconds_greater_than_or_equal_to],  :maxlength => 10 %>
+        "&nbsp;
+      </div>
+      <div class="field">
+        <%= f.label :longitude_degrees, "Longitude to" %>
+        <%= f.text_field :longitude_degrees_less_than_or_equal_to, :size => 3, :value => @searchparams[:longitude_degrees_less_than_or_equal_to],  :maxlength => 3 %>
+        &deg;&nbsp;
+        <%= f.label :longitude_minutes, :style => "display:none;" %>
+        <%= f.text_field :longitude_minutes_less_than_or_equal_to, :size => 2, :value => @searchparams[:longitude_minutes_less_than_or_equal_to],  :maxlength => 2 %>
+        '&nbsp;
+        <%= f.label :longitude_seconds, :style => "display:none;" %>
+        <%= f.text_field :longitude_seconds_less_than_or_equal_to, :size => 6, :value => @searchparams[:longitude_seconds_less_than_or_equal_to],  :maxlength => 10 %>
+        "&nbsp;
+      </div>
+    </div>
+    <div id="adv_search_determinations">
+      <div class="field">
+        <%= f.label :collector_id %>
+        <%= f.collection_select(:collector_id_equals,
+                                @all_people,
+                                :id,
+                                :display_name,
+                                { :include_blank => "None" })
+        %>
+        <br/>
+      </div>
+
+      <div class="field">
+        <%= f.label :confirmations_confirmer_id %>
+        <%= f.collection_select(:confirmations_confirmer_id_equals,
+                                @all_people,
+                                :id,
+                                :display_name,
+                                { :include_blank => "None" })
+        %>
+        <br/>
+      </div>
+      <div class="field">
+        <%= f.label :determinations_determiners_id %>
+        <%= f.collection_select(:determinations_determiners_id_equals,
+                                @all_people,
+                                :id,
+                                :display_name,
+                                { :include_blank => "None" })
+        %>
+        <br/>
+      </div>
+      <%= render :partial => 'shared/advanced_search_partial_dates',
+                 :locals => {:f => f,
+                             :label => "Determination date from",
+                             :date_picker_id => "determination_date_picker_from",
+                             :object_prefix => "determination",
+                             :year_field => :determinations_determination_date_year_greater_than_or_equal_to,
+                             :month_field => :determinations_determination_date_month_greater_than_or_equal_to,
+                             :day_field => :determinations_determination_date_day_greater_than_or_equal_to }
+      %>
+      <br/>
+      <%= render :partial => 'shared/advanced_search_partial_dates',
+                 :locals => {:f => f,
+                             :label => "Determination date to",
+                             :date_picker_id => "determination_date_picker_to",
+                             :object_prefix => "determination",
+                             :year_field => :determinations_determination_date_year_less_than_or_equal_to,
+                             :month_field => :determinations_determination_date_month_less_than_or_equal_to,
+                             :day_field => :determinations_determination_date_day_less_than_or_equal_to }
+      %>
+      <br/>
+      <div class="field">
+        <%= f.label :determinations_division %>
+        <%= f.collection_select(:determinations_division_contains,
+                                @all_divisions,
+                                :division,
+                                :division,
+                                { :include_blank => "None" })
+        %>
+        <br/>
+      </div>
+      <br/>
+      <div class="field">
+        <%= f.label :determinations_class_name %>
+        <%= f.collection_select(:determinations_class_name_contains,
+                                @all_class,
+                                :class_name,
+                                :class_name,
+                                { :include_blank => "None" })
+        %>
+        <br/>
+      </div>
+      <br/>
+      <div class="field">
+        <%= f.label :determinations_order_name %>
+        <%= f.collection_select(:determinations_order_name_contains,
+                                @all_order,
+                                :order_name,
+                                :order_name,
+                                { :include_blank => "None" })
+        %>
+        <br/>
+      </div>
+      <br/>
+      <div class="field">
+        <%= f.label :determinations_family %>
+        <%= f.collection_select(:determinations_family_contains,
+                                @all_family,
+                                :family,
+                                :family,
+                                { :include_blank => "None" })
+        %>
+        <br/>
+      </div>
+      <br/>
+      <div class="field">
+        <%= f.label :determinations_sub_family %>
+        <%= f.collection_select(:determinations_sub_family_contains,
+                                @all_subfamily,
+                                :sub_family,
+                                :sub_family,
+                                { :include_blank => "None" })
+        %>
+        <br/>
+      </div>
+      <br/>
+      <div class="field">
+        <%= f.label :determinations_genus %>
+        <%= f.collection_select(:determinations_genus_contains,
+                                @all_genus,
+                                :genus,
+                                :genus,
+                                { :include_blank => "None" })
+        %>
+        <br/>
+      </div>
+      <br/>
+      <div class="field">
+        <%= f.label :determinations_species %>
+        <%= f.collection_select(:determinations_species_contains,
+                                @all_species,
+                                :name,
+                                :name,
+                                { :include_blank => "None" })
+        %>
+        <br/>
+      </div>
+      <br/>
+      <div class="field">
+        <%= f.label :determinations_sub_species %>
+        <%= f.collection_select(:determinations_sub_species_contains,
+                                @all_subspecies,
+                                :subspecies,
+                                :subspecies,
+                                { :include_blank => "None" })
+        %>
+        <br/>
+      </div>
+      <br/>
+      <div class="field">
+        <%= f.label :determinations_variety %>
+        <%= f.collection_select(:determinations_variety_contains,
+                                @all_variety,
+                                :variety,
+                                :variety,
+                                { :include_blank => "None" })
+        %>
+        <br/>
+      </div>
+      <br/>
+      <div class="field">
+        <%= f.label :determinations_tribe %>
+        <%= f.collection_select(:determinations_tribe_contains,
+                                @all_tribe,
+                                :tribe,
+                                :tribe,
+                                { :include_blank => "None" })
+        %>
+        <br/>
+      </div>
+      <br/>
+    </div>
+    <div id="adv_search_checkboxes">
+      <div class="checkbox_field">
+        <label class="field_checkbox_label">Items</label>
+        <%= f.collection_checks :items_item_type_name_contains_any,
+                                ItemType.all, :name, :name,
+                                :class => 'ItemType' do |item| %>
+            <%= item.box %>
+            <%= item.label %>
+        <% end %>
+      </div>
+      <br/>
+    </div>
+    <%= f.submit "Search" %>
+    </div>
+<% end %>

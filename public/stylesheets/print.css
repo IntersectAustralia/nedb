@@ -1,0 +1,80 @@
+#header, #navigation, #footer, .top_create_link, .specimen_details_break, #create_determination_div, .actions, #item_top, .item_delete, .det_links, #det_actions {
+  display:none;
+}
+
+.content {
+  width: 100%;
+  margin: 0;
+  float: none;
+}
+
+* {
+  font-family: verdana, lucida, arial, helvetica, sans-serif;
+}
+
+h1 {
+  font-family: Tahoma, Arial, sans-serif;
+  font-weight: normal;
+  letter-spacing: .1em;
+  margin: 40px 0 0.5em 0;
+  padding: 0;
+}
+
+h2 {
+  margin:0.83em 0;
+}
+
+table, td, th, tr {
+  border: 1px solid #ccc;
+}
+
+th {
+  background-color:#DFF2BD;
+}
+
+.label_view {
+  width:190px;
+  text-align:left;
+  margin-right:2px;
+  border:0;
+  float:left;
+  font-weight:bold;
+  display:inline-block
+}
+
+.field_value {
+  display:inline-block;
+  width:400px;
+  overflow:auto;
+}
+
+.inlineblock { display:inline-block;}
+
+#determination_table {
+	margin-top:15px;
+}
+
+.field_bg {
+  background-color:#D8E6CA;
+  padding:5px;
+}
+
+.field_nobg {
+  background-color:#fff;
+  padding:5px;
+}
+
+.rep {
+  min-width:80px;
+  text-align:left;
+  margin-right:2px;
+  border:0;
+  float:left;
+  font-weight:bold;
+  display:inline-block
+}
+
+#determination_table th{
+	background-color:#fff;
+	text-align:left;
+}

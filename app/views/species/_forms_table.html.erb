@@ -1,0 +1,36 @@
+<h2>Forms</h2>
+
+<div class="table_page">
+
+<div class="top_create_link">
+<% if can?(:create, Form) %>
+  <%= icon 'add' %><%= link_to 'Create New Form', new_species_form_path(@species) %>&nbsp;
+<% end %>
+</div>
+
+<table class="data_table" id="forms_table">
+  <tr>
+    <th>Form</th>
+    <th>Authority</th>
+    <th>Actions</th>
+  </tr>
+
+  <% @species.forms.each do |form| %>
+  <tr class="<%= cycle('field_bg', 'field_nobg') %>">
+    <td><%= form.form %></td>
+    <td><%= form.authority %></td>
+    <td>
+      <% if can?(:update, form) %>
+        <%= icon 'edit' %><%= link_to 'Edit', edit_species_form_path(@species, form), :id => "edit_#{form.id}" %>&nbsp;
+      <% end %>
+      <% if can?(:destroy, form) %>
+        <%= icon 'delete' %><%= link_to 'Delete', species_form_path(@species, form), :confirm => 'Are you sure you want to delete this form?', :method => :delete, :id => "delete_#{form.id}" %>
+      <% end %>
+     </td>
+  </tr>
+<% end %>
+</table>
+
+</div>
+
+<div class="clear"></div>

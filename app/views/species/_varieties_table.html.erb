@@ -1,0 +1,30 @@
+<h2>Varieties</h2>
+
+<div class="top_create_link">
+<% if can?(:create, Variety) %>
+  <%= icon 'add' %><%= link_to 'Create New Variety', new_species_variety_path(@species) %>&nbsp;
+<% end %>
+</div>
+
+<table class="data_table" id="varieties_table">
+  <tr>
+    <th>Variety</th>
+    <th>Authority</th>
+    <th>Actions</th>
+  </tr>
+
+  <% @species.varieties.each do |var| %>
+  <tr class="<%= cycle('field_bg', 'field_nobg') %>">
+    <td><%= var.variety %></td>
+    <td><%= var.authority %></td>
+    <td>
+      <% if can?(:update, var) %>
+        <%= icon 'edit' %><%= link_to 'Edit', edit_species_variety_path(@species, var), :id => "edit_#{var.id}" %>&nbsp;
+      <% end %>
+      <% if can?(:destroy, var) %>
+        <%= icon 'delete' %><%= link_to 'Delete', species_variety_path(@species, var), :confirm => 'Are you sure you want to delete this variety?', :method => :delete, :id => "delete_#{var.id}" %>
+      <% end %>
+     </td>
+  </tr>
+<% end %>
+</table>

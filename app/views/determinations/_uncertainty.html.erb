@@ -1,0 +1,14 @@
+<%= render_field_with_block "#{label} uncertainty" do %>
+  <% field_name = "#{uncertainty_field}_uncertainty" %>
+
+  <%= form.radio_button(field_name, "", :class => "noborder", :id => "determination_#{field_name}_none") %>
+  <%= form.label(field_name, "none", :value => "none") %>
+  <br/>
+
+  <% UncertaintyType.all.each do |ut| %>
+    <%= form.radio_button(field_name, ut.uncertainty_type, :class => "noborder") %>
+    <%= form.label(field_name, ut.uncertainty_type, :value => ut.uncertainty_type) %>
+    <br/>
+  <% end %>
+
+<% end %>

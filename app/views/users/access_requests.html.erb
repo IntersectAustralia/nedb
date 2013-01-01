@@ -1,0 +1,33 @@
+<% title 'Access Requests' %>
+
+<table class="data_table" id="access_requests">
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Email</th>
+    <th>Telephone</th>
+    <th>Group/School/Institution</th>
+    <th>Actions</th>
+  </tr>
+
+  <% @users.each do |user| %>
+    <tr class="<%= cycle('field_bg', 'field_nobg') %>">
+      <td><%= user.first_name %></td>
+      <td><%= user.last_name %></td>
+      <td><%= user.email %></td>
+      <td><%= user.telephone %></td>
+      <td><%= user.group_school_institution %></td>
+      <td>
+        <% if can?(:approve, user) then %>
+          <%= icon 'approve'    %><%= link_to "Approve", edit_approval_user_path(user), :id => "approve_#{user.id}" %>&nbsp;
+        <% end %>
+        <% if can?(:reject, user) then %>
+          <%= icon 'delete'     %><%= link_to "Reject", reject_user_path(user), :method => :put, :id => "reject_#{user.id}" %>&nbsp;
+          <%= icon 'rejectspam' %><%= link_to "Reject as Spam", reject_as_spam_user_path(user), :method => :put, :id => "reject_as_spam_#{user.id}" %>&nbsp;
+        <% end %>
+
+        <%= icon 'view'       %><%= link_to "View Details", user, :id => "view_#{user.id}" %></td>
+    </tr>
+  <% end %>
+</table>
+

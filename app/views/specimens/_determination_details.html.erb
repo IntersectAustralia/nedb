@@ -1,0 +1,14 @@
+<div id="determinationdetails">
+  <%= render_field_if_not_empty "Division", determination.division %>
+  <%= render_field_if_not_empty "Class", determination.class_name %>
+  <%= render_field_if_not_empty "Order", determination.order_name %>
+  <%= render_field_if_not_empty "Family", family(determination) %>
+  <%= render_field_if_not_empty "Subfamily", sub_family(determination) %>
+  <%= render_field_if_not_empty "Tribe", tribe(determination) %>
+  <%= render_field_if_not_empty "Genus", genus(determination) %>
+  <%= render_field_if_not_empty "Species", species(determination) %>
+  <%= render_field_if_not_empty "Species Authority", determination.species_authority %>
+  <%= render_field_if_not_empty "Subspecies", subspecies_and_authority(determination) %>
+  <%= render_field_if_not_empty "Variety", variety_and_authority(determination) %>
+  <%= render_field_if_not_empty "Form", form_and_authority(determination) %>
+</div>

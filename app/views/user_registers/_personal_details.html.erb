@@ -1,0 +1,54 @@
+<h2>Your Details</h2>
+<div class="field">
+  <%= f.label :title %>
+  <%= f.select :title, 
+               ["Mr", "Ms", "Mrs", "Miss", "Dr", "A/Prof.", "Prof."], 
+               :include_blank => "Please select" %>
+</div>
+<div class="field">
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name, :size => 30, :maxlength => 50 %>
+</div>
+<div class="field">
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name, :size => 30, :maxlength => 50  %>
+</div>
+<div class="field">
+  <%= f.label :other_initials %>
+  <%= f.text_field :other_initials, :size => 30, :maxlength => 50  %>
+</div>
+<div class="field">
+  <%= f.label :position %>
+  <%= f.select :position, 
+               ["Member of public", 
+                "Primary school student", 
+                "Secondary school student", 
+                "Undergraduate student", 
+                "Non-HDR postgraduate student", 
+                "HDR postgraduate student", 
+                "Primary school teacher", 
+                "Secondary school teacher", 
+                "University general staff", 
+                "University researcher", 
+                "University academic",
+                "Herbarium volunteer",
+                "Herbarium staff"], 
+               :include_blank => "Please select"  %>
+</div>
+<div class="field">
+  <%= f.label :supervisor %>
+  <%= f.text_field :supervisor, :size => 30, :maxlength => 50  %>
+</div>
+<div class="field">
+  <%= f.label :group_school_institution, "Group, School, Institution" %>
+  <%= f.text_field :group_school_institution, :size => 50, :maxlength => 100  %>
+</div>
+<br/>
+<div class="field">
+  <%= f.label :address %>
+  <%= f.text_area :address, :size => "40x5" %>
+</div>
+<div class="field">
+  <%= f.label :telephone %>
+  <%= f.text_field :telephone, :size => 30, :maxlength => 30  %>
+</div>

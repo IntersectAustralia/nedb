@@ -1,0 +1,25 @@
+jQuery(document).ready(function(){
+
+  /* Autocomplete on the search field */
+  $("#specimen_replicate_from").live('focus', function(i){
+     $(this).autocomplete({
+       source: function( request, response ) {
+         var term = request.term;
+         var in_data = { term: term };
+         $.getJSON( "/herbaria/autocomplete_herbarium_name", in_data, function( data, status, xhr ) {
+           response( data );
+         });
+       },
+       select: function(event, ui) {
+         $(this).val(ui.item.value);
+         if ($(this).attr('id_element')) {
+           $($(this).attr('id_element')).val(ui.item.id);
+         }
+         return false;
+       }
+     });
+   });
+
+
+});
+

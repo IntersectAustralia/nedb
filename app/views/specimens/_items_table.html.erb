@@ -1,0 +1,12 @@
+<table id="items_table">
+  <% @items.each do |item| %>
+    <tr>
+      <td><%= item.item_type.name %></td>
+      <td class="item_delete">
+        <% if can?(:destroy, item) %>
+           <%= icon 'delete' %><%= link_to("Delete", specimen_item_path(@specimen, item), :confirm => 'Are you sure you want to delete this item?', :method => :delete)  %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

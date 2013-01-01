@@ -1,0 +1,21 @@
+<% unless specimen_images.empty? %>
+  <div class="specimen_details_break">
+    <a href="javascript:;" id="start_fancybox">View Slideshow</a>
+  </div>
+  <div style="display:none;">
+  <% specimen_images.each do |image| %>
+    <% medium_url = display_image_specimen_specimen_image_path(specimen, image, 'medium') %>
+    <% download_url = download_specimen_specimen_image_path(specimen, image) %>
+    <%= link_to '', medium_url, {:class => 'slideshow', :rel => 'group', :title => "<a href='#{download_url}' style='color: white'>Download original image</a>"} %>
+  <% end %>
+  </div>
+  <script type="text/javascript">
+    jQuery(document).ready(function(){
+      jQuery('.slideshow').fancybox({'cyclic': true, 'showCloseButton': true, 'type': 'image', 'centerOnScroll': true});
+      jQuery('#start_fancybox').click(function(){
+        jQuery('.slideshow').first().click();
+        return false;
+      });
+    });
+  </script>
+<% end %>
