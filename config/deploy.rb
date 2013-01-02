@@ -5,11 +5,9 @@ require 'capistrano/ext/multistage'
 require 'bundler/capistrano'
 
 set :application, "nedb"
-set :repository, Proc.new { `svn info | grep URL | sed 's/URL: //'`.chomp }
 
-set :scm, :subversion
-
-# Deploy using copy since the servers can't see our SVN server
+set :scm, 'git'
+set :repository, 'https://github.com/IntersectAustralia/nedb.git'
 set :deploy_via, :copy
 set :copy_exclude, [".svn/*", "features/upload-files/*"]
 
