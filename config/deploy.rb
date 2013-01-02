@@ -6,10 +6,11 @@ require 'bundler/capistrano'
 
 set :application, "nedb"
 
+
 set :scm, 'git'
-set :repository, 'https://github.com/IntersectAustralia/nedb.git'
+set :repository, 'git@github.com:IntersectAustralia/nedb.git'
 set :deploy_via, :copy
-set :copy_exclude, [".svn/*", "features/upload-files/*"]
+set :copy_exclude, [".git/*", "features/upload-files/*"]
 
 set :deploy_to, "/home/devel/nedb"
 set :user, "devel"
