@@ -10,6 +10,6 @@ class RenameInstitutionToHerbarium < ActiveRecord::Migration
     rename_column :specimen_replicates, :herbarium_id, :institution_id
     rename_column :confirmations, :confirmer_herbarium_id, :confirmer_institution_id
     rename_column :determinations, :determiner_herbarium_id, :determiner_institution_id
-    rename_column :people, :herbarium_id, :institution_id, 
+    rename_column :people, :herbarium_id, :institution_id
   end
 end
