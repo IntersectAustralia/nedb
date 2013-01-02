@@ -37,24 +37,27 @@ namespace :deploy do
   # Load the schema
   desc "Load the schema into the database (WARNING: destructive!)"
   task :schema_load, :roles => :db do
+    fail_if_non_destructive_env(stage)
     run("cd #{current_path} && rake drop_views db:schema:load create_views", :env => {'RAILS_ENV' => "#{stage}"})
   end
 
   # Run the sample data populator
   desc "Run the test data populator script to load test data into the db (WARNING: destructive!)"
   task :populate, :roles => :db do
+    fail_if_non_destructive_env(stage)
     run("cd #{current_path} && rake db:populate", :env => {'RAILS_ENV' => "#{stage}"})
   end
 
   # Seed the db
   desc "Run the seeds script to load seed data into the db (WARNING: destructive!)"
   task :seed, :roles => :db do
+    fail_if_non_destructive_env(stage)
     run("cd #{current_path} && rake db:seed", :env => {'RAILS_ENV' => "#{stage}"})
   end
 
   # Set the revision
-  desc "Set SVN revision on the server so that we can see it in the deployed application"
-  task :set_svn_revision, :roles => :app do
+  desc "Set revision on the server so that we can see it in the deployed application"
+  task :set_revision, :roles => :app do
     put("#{real_revision}", "#{release_path}/app/views/layouts/_revision.rhtml")
   end
 
@@ -69,7 +72,7 @@ end
 
 after 'deploy:update_code' do
   generate_database_yml
-  deploy.set_svn_revision
+  deploy.set_revision
 end
 
 desc "After updating code we need to populate a new database.yml"
@@ -88,4 +91,10 @@ task :generate_database_yml, :roles => :app do
   buffer['production']['password'] = production_database_password
 
   put YAML::dump(buffer), "#{release_path}/config/database.yml", :mode => 0664
+end
+
+def fail_if_non_destructive_env(stage)
+  if stage.eql?(:production) || stage.eql?(:staging)
+    raise "Cannot run destructive action in staging or production"
+  end
 end
