@@ -100,7 +100,7 @@ Feature: Edit Determination
     Then I should see "Dryas ?abcd Mno"
     When I follow "Edit determination"
     And I press "Continue"
-    And I check the determination_species_uncertainty checkbox with the value "aff."
+    And I check the species uncertainty checkbox with the value "aff."
     And I press "Save"
     Then I should see "Dryas aff. abcd Mno"
 
@@ -108,7 +108,7 @@ Feature: Edit Determination
     Given I am on the specimen page
     When I follow "Edit determination"
     And I press "Continue"
-    And I check the determination_species_uncertainty checkbox with the value "none"
+    And I check the species uncertainty checkbox with the value "none"
     And I press "Save"
     Then I should see "Dryas abcd Mno"
 
@@ -116,7 +116,7 @@ Feature: Edit Determination
     Given I am on the specimen page
     When I follow "Edit determination"
     And I press "Continue"
-    And I check the determination_species_uncertainty checkbox with the value "sens. strict."
+    And I check the species uncertainty checkbox with the value "sens. strict."
     And I press "Save"
     Then I should see "Dryas abcd Mno s. str."
 
@@ -124,7 +124,7 @@ Feature: Edit Determination
     Given I am on the specimen page
     When I follow "Edit determination"
     And I press "Continue"
-    And I check the determination_species_uncertainty checkbox with the value "sens. lat."
+    And I check the species uncertainty checkbox with the value "sens. lat."
     And I press "Save"
     Then I should see "Dryas abcd Mno s. lat."
 
@@ -132,7 +132,7 @@ Feature: Edit Determination
     Given I am on the specimen page
     When I follow "Edit determination"
     And I press "Continue"
-    And I check the determination_species_uncertainty checkbox with the value "vel. aff."
+    And I check the species uncertainty checkbox with the value "vel. aff."
     And I press "Save"
     Then I should see "Dryas abcd Mno vel. aff."
 
@@ -140,6 +140,6 @@ Feature: Edit Determination
     Given I am on the specimen page
     When I follow "Edit determination"
     And I press "Continue"
-    And I check the determination_species_uncertainty checkbox with the value "?"
+    And I check the species uncertainty checkbox with the value "?"
     And I press "Save"
     Then I should see "Dryas ?abcd Mno"

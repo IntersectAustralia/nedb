@@ -18,6 +18,9 @@ module HtmlSelectorsHelpers
       when "the items area"
         "#items"
 
+      when "species uncertainty checkboxes"
+        "#display_species_uncertainty"
+
       when "the nav bar"
         "#nav_table"
 

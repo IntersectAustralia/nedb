@@ -116,3 +116,12 @@ When /^I select the first result in the species search results$/ do
     links.first.click
   end
 end
+
+When /^I check the species uncertainty checkbox with the value "([^"]*)"$/ do |label|
+  with_scope('species uncertainty checkboxes') do
+    # for some reason check(label) doesn't work
+    label_element = find("label", :text => label)
+    checkbox = find("input##{label_element[:for]}")
+    checkbox.set(true)
+  end
+end
