@@ -14,6 +14,11 @@ class Specimen < ActiveRecord::Base
   # protect status and needs review from being updated by mass assignment. Better practice would be to use attr_accessible but this will do for now
   attr_protected :status, :needs_review
 
+  # validate the accession number if it is supplied
+  with_options :if => lambda{|r| !r.id.nil?} do |supplied|
+    supplied.validates_with AccessionValidator
+  end
+
   validates :collector, :presence => true
   validates :state,     :presence => true, :if => :in_australia?
   validates :collection_date_day, :numericality => {:only_integer => true, :allow_nil => true, :greater_than_or_equal_to => 1, :less_than_or_equal_to => 31}

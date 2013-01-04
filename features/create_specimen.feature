@@ -5,7 +5,11 @@ Feature: Create Specimens
   I want to create specimens
   
   Background:
-    Given I have no specimens
+    # Given I have no specimens
+    Given I have specimens
+    | locality_description    | vegetation        | plant_description | replicate_from | topography   | aspect | substrate    | frequency     |
+    | botanical gardens       | cactus            | spikey.           |                | desert-like  |   W    | yellow sand  |   rare        |
+    | botany                  | gum tree          | approx. 15 m tall |   a            | outback      |   N    | grey sand    |   occasional  |
     And I have people 
         | last_name     | initials  |
         | Adams         | G.R.      |
@@ -60,7 +64,7 @@ Feature: Create Specimens
     And I should see field "Collector" with value "G.R. Adams"
     And I should see field "Collector number" with value "123"
     And I should see field "Collection date" with value "25 Mar. 2010"
-    And I should have 1 specimen
+    And I should have 3 specimen
     
   Scenario: Create specimen with minimal details
     Given I am on the home page
@@ -144,3 +148,50 @@ Feature: Create Specimens
     And the "Aspect" field should contain "asp"
     And the "Substrate" field should contain "sub"
     And the "Vegetation" field should contain "veg"
+
+  Scenario: Supply an accession number that's out of range
+    Given I am on the home page
+    When I follow "Add"
+    And I follow "Set"
+    And I fill in "specimen_id" with an accession number that's out of range
+    And I select "G.R. Adams" from the collector select
+    And I fill in "specimen_collection_date_year" with "2010"
+    And I select "Please select" from the country select
+    And I press "Create Specimen"
+    Then I should see "Supplied accession number"
+    And I should see "is out of range"
+    
+  Scenario: Supply an accession number that's less than zero
+    Given I am on the home page
+    When I follow "Add"
+    And I follow "Set"
+    And I fill in "specimen_id" with "-20"
+    And I select "G.R. Adams" from the collector select
+    And I fill in "specimen_collection_date_year" with "2010"
+    And I select "Please select" from the country select
+    And I press "Create Specimen"
+    Then I should see "Accession number needs to be greater than 0"
+  
+  Scenario: Supply an accession number that's already in use
+    Given I am on the home page
+    When I follow "Add"
+    And I follow "Set"
+    And I fill in "specimen_id" with an existing accession number
+    And I select "G.R. Adams" from the collector select
+    And I fill in "specimen_collection_date_year" with "2010"
+    And I select "Please select" from the country select
+    And I press "Create Specimen"
+    Then I should see "Supplied accession number"
+    And I should see "already in use"
+
+  Scenario: Supply a valid accession
+    Given I am on the home page
+    When I follow "Add"
+    And I follow "Set"
+    And I fill in "specimen_id" with an available accession number
+    And I select "G.R. Adams" from the collector select
+    And I fill in "specimen_collection_date_year" with "2010"
+    And I select "Please select" from the country select
+    And I press "Create Specimen"
+    # Doesn't verify that the accession number is in fact the one specified
+    Then I should see "The specimen was successfully created."

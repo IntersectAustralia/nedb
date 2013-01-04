@@ -1,6 +1,8 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
+//= require jquery.numeric
+
 $(document).ready(function()
 {
     $("#person_herbarium_id").select2();
@@ -48,6 +50,14 @@ $(document).ready(function()
     $("#search_confirmations_confirmer_id_equals").select2();
     $("#search_determinations_determiners_id_equals").select2();
 
+    $('#set_accession').click(function(e) {
+        var disabled = $('#specimen_id').attr('readonly');
+        if(disabled) {
+            $('#specimen_id').removeAttr('readonly');
+            $('#specimen_id').val('');
+        }
+        e.preventDefault();
+    });
 });
 
 $(function() {

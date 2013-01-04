@@ -180,6 +180,11 @@ class SpecimensController < ApplicationController
   def create
     Specimen.remove_fullstops(params[:specimen])
     @specimen = Specimen.new(params[:specimen])
+
+    unless params[:specimen][:id].to_i == 0
+      @specimen.id = params[:specimen][:id]
+    end
+
     @specimen.secondary_collectors = Person.find(params[:secondary_collector_ids]) if params[:secondary_collector_ids]
     @specimen.needs_review = cannot? :create_not_needing_review, @specimen
     @specimen.legacy = false #any new records created will not be legacy

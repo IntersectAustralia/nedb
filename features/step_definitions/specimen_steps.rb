@@ -292,3 +292,22 @@ When /^I select "([^"]*)" from the botanical division select$/ do |value|
   select_from_select2('#botanical_division_field', value)
 end
 
+When /^(?:|I )fill in "([^"]*)" with an existing accession number$/ do |field|
+  # make sure there is at least on specimen
+  # options = {"collector_id"=>"1554", "collection_date_year"=>"2010", "latitude_hemisphere"=>"S", "longitude_hemisphere"=>"E"}
+  # specimen = Specimen.new options
+  # specimen.save
+  value = Specimen.first.id
+  fill_in(field, :with => value)
+end
+
+When /^(?:|I )fill in "([^"]*)" with an available accession number$/ do |field|
+  value = Specimen.first.id
+  Specimen.first.destroy
+  fill_in(field, :with => value)
+end
+
+When /^(?:|I )fill in "([^"]*)" with an accession number that's out of range$/ do |field|
+  value = Specimen.last.id + 10
+  fill_in(field, :with => value)
+end
