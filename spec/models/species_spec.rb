@@ -34,18 +34,21 @@ describe Species do
 
   describe "Find by name and genus" do
     before do
-      Factory(:species, :name => "bear", :genus => "Ursus")
+      Factory(:species, :name => "Bear", :genus => "Ursus")
       Factory(:species, :name => "abc", :genus => "Ursus")
       Factory(:species, :name => "bear", :genus => "Abc")
     end
     it "should return the species if there's a match" do
-      Species.find_by_name_and_genus("bear", "Ursus").name.should eq "bear"
+      Species.find_by_name_and_genus("Bear", "Ursus").name.should eq "Bear"
     end
-    it "should convert the input name to lowercase before attempting to search" do
-      Species.find_by_name_and_genus("BeAr", "Ursus").name.should eq "bear"
+    it "should match case" do
+      Species.find_by_name_and_genus("Bear", "Ursus").name.should eq "Bear"
+      Species.find_by_name_and_genus("bear", "Ursus").should be_nil
+      Species.find_by_name_and_genus("bear", "Abc").name.should eq "bear"
+      Species.find_by_name_and_genus("Bear", "Abc").should be_nil
     end
     it "should convert the input genus to titlecase before attempting to search" do
-      Species.find_by_name_and_genus("bear", "urSus").name.should eq "bear"
+      Species.find_by_name_and_genus("Bear", "urSus").name.should eq "Bear"
     end
     it "should return nil if no match" do
       Species.find_by_name_and_genus("bear", "zz").should be_nil
