@@ -38,21 +38,21 @@ namespace :deploy do
   desc "Load the schema into the database (WARNING: destructive!)"
   task :schema_load, :roles => :db do
     fail_if_non_destructive_env(stage)
-    run("cd #{current_path} && rake drop_views db:schema:load create_views", :env => {'RAILS_ENV' => "#{stage}"})
+    run("cd #{current_path} && bundle exec rake drop_views db:schema:load create_views", :env => {'RAILS_ENV' => "#{stage}"})
   end
 
   # Run the sample data populator
   desc "Run the test data populator script to load test data into the db (WARNING: destructive!)"
   task :populate, :roles => :db do
     fail_if_non_destructive_env(stage)
-    run("cd #{current_path} && rake db:populate", :env => {'RAILS_ENV' => "#{stage}"})
+    run("cd #{current_path} && bundle exec rake db:populate", :env => {'RAILS_ENV' => "#{stage}"})
   end
 
   # Seed the db
   desc "Run the seeds script to load seed data into the db (WARNING: destructive!)"
   task :seed, :roles => :db do
     fail_if_non_destructive_env(stage)
-    run("cd #{current_path} && rake db:seed", :env => {'RAILS_ENV' => "#{stage}"})
+    run("cd #{current_path} && bundle exec rake db:seed", :env => {'RAILS_ENV' => "#{stage}"})
   end
 
   # Set the revision

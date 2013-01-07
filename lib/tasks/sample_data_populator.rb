@@ -11,6 +11,7 @@ def populate_data
 end
 
 def create_test_users
+  User.delete_all
   create_user(:email => "georgina@intersect.org.au", :first_name => "Georgina", :last_name => "Edwards", :initials => "G.C.")
   create_user(:email => "matthew@intersect.org.au", :first_name => "Matthew", :last_name => "Hillman", :initials => "M.H")
   create_user(:email => "charles@intersect.org.au", :first_name => "Charles", :last_name => "Shao", :initials => "C.S")
