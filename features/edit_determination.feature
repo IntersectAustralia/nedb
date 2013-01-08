@@ -199,6 +199,22 @@ Feature: Edit Determination
       | tribe_uncertainty      |             |
       | genus_uncertainty      |             |
 
+  Scenario: Show warning if species has been renamed for an existing determination
+    Given I am at step 2 of editing a determination
+    Then the determination record should have
+      | species                | abcd        |
+    And I should not see "The name selected for this determination is no longer in the database. Please select another name or contact the herbarium."
+    When I am on the edit species page for "abcd"
+    Then I should see "Edit Species"
+    And I fill in "Species" with "abcd_NOW_CHANGED"
+    And I press "Update Species"
+    When I am on the specimen page
+    And I follow "Edit determination"
+    And I press "Continue"
+    Then the determination record should have
+      | species                | abcd        |
+    And I should see "The name selected for this determination is no longer in the database. Please select another name or contact the herbarium."
+
   Scenario: Search by division
     Given I am at step 2 of editing a determination
     And I select "Division" from "level"

@@ -8,6 +8,10 @@
 <%= f.hidden_field :species %>
 <%= f.hidden_field :species_authority %>
 
+<% if  map_field_to_display_name(@field).eql?("Species") and (@determination.species.nil? or @subspecies.nil?)%>
+  <span class="determination_not_found_text">The name selected for this determination is no longer in the database. Please select another name or contact the herbarium.</span>
+<% end%>
+
 <div class="details_break" style="float:left">
 
   <%= render_field "Division", @determination.division if @fields_to_show.include?("division") %>

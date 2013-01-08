@@ -38,6 +38,12 @@
   display:inline;
 }
 
+.determination_not_found_text {
+ color: #ce2e2e;
+ font-weight:bold;
+}
+
+
 html {
   height:100%;
 }
@@ -93,6 +99,7 @@ h2 {
   font-size:1.5em;
   margin:0.83em 0;
 }
+
 
 /* Start header */
 
