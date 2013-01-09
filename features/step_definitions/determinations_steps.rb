@@ -120,7 +120,10 @@ end
 When /^I check the species uncertainty checkbox with the value "([^"]*)"$/ do |label|
   with_scope('species uncertainty checkboxes') do
     # for some reason check(label) doesn't work
-    label_element = find("label", :text => label)
+    label_elements = all("label", :text => label)
+    # 'aff.' comes after 'vel. aff.' which causes problems for this ilike search
+    # so we grab the second label if we are talking about 'aff.'
+    label_element = label.eql?("aff.") ? label_elements[1] : label_elements.first
     checkbox = find("input##{label_element[:for]}")
     checkbox.set(true)
   end

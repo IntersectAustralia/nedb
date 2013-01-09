@@ -179,7 +179,7 @@ class DeterminationsController < ApplicationController
   end
 
   def get_form_safe(form_id)
-    return Subspecies.find(form_id)
+    return Form.find(form_id)
   rescue ActiveRecord::RecordNotFound
     return nil
   end
