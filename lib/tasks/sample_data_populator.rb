@@ -53,7 +53,7 @@ def create_test_species
   species_params[:division] = "CE Division"
   species_params[:family]= "CE Family"
   species_params[:genus] ="Ce genus"
-  species_params[:name] = "ce Name2"
+  species_params[:name] = "CE Name"
   species_params[:order_name] = "CE Order Name"
   species_params[:sub_family] = "CESub Family"
   species_params[:tribe] = "CE Tribe"
@@ -109,8 +109,9 @@ def create_specimen(species)
                               :vegetation => "Acacia, Sprengelia, Epacris heath--Cyperaceae herbfield with Darwinia fascicularis",
                               :frequency => "Occasional",
                               :plant_description => "Rhizomatous, tussock perennial. Plants to c. 100 cm.",
-                              :legacy => false,
-                              :needs_review => false)
+                              :legacy => false)
+
+  specimen.mark_as_reviewed
 
   specimen.determinations.create!(:determiners => [random_person],
                                   :determination_date_year => random_number(1900..2010),

@@ -8,11 +8,11 @@ describe "SpecimenNameFormatter" do
       SpecimenNameFormatter.append_uncertainty("SomeText", "?").should eq("?SomeText")
     end
 
-    it "should add s. strict. after the text with a space and in italics" do
+    it "should add sens. strict. after the text with a space and in italics" do
       SpecimenNameFormatter.append_uncertainty("SomeText", "sens. strict.").should eq("SomeText <i>s. str.</i>")
     end
 
-    it "should add s. lat. after the text with a space and in italics" do
+    it "should add sens. lat. after the text with a space and in italics" do
       SpecimenNameFormatter.append_uncertainty("SomeText", "sens. lat.").should eq("SomeText <i>s. lat.</i>")
     end
 
