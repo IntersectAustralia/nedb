@@ -7,6 +7,7 @@ Then /^I should have ([0-9]+) specimen$/ do |count|
 end
 
 Given /^I have a specimen$/ do
+  Specimen.delete_all
   @created_specimen = Factory(:specimen)
 end
 
