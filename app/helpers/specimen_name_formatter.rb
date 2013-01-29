@@ -71,19 +71,19 @@ class SpecimenNameFormatter
   def self.short_name(species, species_authority, species_uncertainty)
     if species and !species.empty?
       parts     = []
-      name_part1= ""
+      name_part1 = ""
       name_part2 = ""
       if species_uncertainty.eql?("?")
-        name_part1+="?"
+        name_part1 += "?"
       elsif species_uncertainty.eql?("aff.")
-        name_part1+=" "+ get_uncertainty(species_uncertainty)+" "
+        name_part1 += " " + get_uncertainty(species_uncertainty) + " "
       else
         name_part2 =  get_uncertainty(species_uncertainty)
       end
       name_part1 += species_only(species)
       parts << name_part1
-      parts << species_authority
       parts << name_part2
+      parts << species_authority
     end
 
   end
@@ -91,7 +91,7 @@ class SpecimenNameFormatter
   def self.species(species, species_uncertainty)
     if species and !species.empty?
       italicise_species = species.index('sp.').nil?
-      species_name      = italicise_species ? bold_and_italicise(species) : species
+      species_name = italicise_species ? bold_and_italicise(species) : species
       append_uncertainty(species_name, species_uncertainty)
     else
       ""
@@ -101,7 +101,7 @@ class SpecimenNameFormatter
   def self.species_only(species)
     if species and !species.empty?
       italicise_species = species.index('sp.').nil?
-      species_name      = italicise_species ? bold_and_italicise(species) : species
+      species_name = italicise_species ? bold_and_italicise(species) : species
     else
       ""
     end
@@ -109,15 +109,15 @@ class SpecimenNameFormatter
 
   private
 
-  def self.get_uncertainty( uncertainty)
+  def self.get_uncertainty(uncertainty)
     updated_text = case uncertainty
-                     when "sens. strict." then
+                     when "sens. strict."
                        "<i>s. str.</i>"
-                     when "sens. lat." then
+                     when "sens. lat."
                        "<i>s. lat.</i>"
-                     when "vel. aff." then
+                     when "vel. aff."
                        "<i>vel. aff.</i>"
-                     when "aff." then
+                     when "aff."
                        "<i>aff.</i>"
                      else
                        ""
@@ -126,13 +126,13 @@ class SpecimenNameFormatter
   end
 
   def self.append_uncertainty(text, uncertainty)
-    unc_formatted=  get_uncertainty(uncertainty)
+    unc_formatted =  get_uncertainty(uncertainty)
     updated_text = case uncertainty
-                     when "?" then
+                     when "?"
                        "?#{text}"
-                     when ("sens. strict." or "sens. lat." or "vel. aff.") then
+                     when "sens. strict.", "sens. lat.", "vel. aff."
                        "#{text} #{unc_formatted}"
-                     when "aff." then
+                     when "aff."
                        "#{unc_formatted} #{text}"
                      else
                        text
@@ -149,12 +149,12 @@ class SpecimenNameFormatter
       return ""
     end
 
-    parts     = [prefix]
-
+    parts = [prefix]
     name_part = append_uncertainty(bold_and_italicise(name), uncertainty)
     parts << name_part
 
     parts << "#{authority}" if authority and !authority.empty?
+    
     parts.join(" ")
   end
 
