@@ -82,8 +82,8 @@ class SpecimenNameFormatter
       end
       name_part1 += species_only(species)
       parts << name_part1
-      parts << name_part2
       parts << species_authority
+      parts << name_part2
     end
 
   end
