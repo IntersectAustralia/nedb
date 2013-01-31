@@ -496,7 +496,7 @@ Feature: Edit Determination
     Then I should be on the specimen page
     And I should see field "Species" with value "integrifolia s. str."
     And the specimen title should include "Asteraceae"
-    And the specimen title should include "Andryala integrifolia s. str. F.Smith"
+    And the specimen title should include "Andryala integrifolia F.Smith s. str."
     When I follow "View"
     Then I should see field "Species" with value "integrifolia s. str."
 #
