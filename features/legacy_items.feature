@@ -100,7 +100,7 @@ Feature: Handling legacy data
     And I fill in "determination_determination_date_month" with "12"
     And I fill in "determination_determination_date_year" with ""
     And I press "Continue"
-    Then I should see "Enter a year for Determination year"
+    Then I should see "Enter a year for Determination date"
 
   Scenario: Editing legacy confirmations should not throw validation errors
     Given I have legacy specimen "NE1"

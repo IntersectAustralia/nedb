@@ -17,7 +17,7 @@ class Species < ActiveRecord::Base
   validates_length_of :tribe, :maximum => 255
   validates_length_of :authority, :maximum => 255 
   
-  scope :with_genus, lambda { |genus| where(:genus => genus.capitalize) } 
+  scope :with_genus, lambda { |genus| where(:genus => genus.capitalize) unless genus.nil? }
   scope :with_name, lambda { |name| where(:name => name) }
 
   scope :alphabetical, order("division, class_name, order_name, family, sub_family, tribe, genus, name")
