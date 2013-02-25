@@ -4,14 +4,14 @@ require 'spec_helper'
 describe "SpecimenPdfFormatter" do
 
   before(:each) do
-    @specimen = Factory(:specimen, :id => '200')
+    @specimen = Factory(:specimen)
     @renderer = LabelFormatter.new(@specimen)
     @det_attrs = {:determiners => [Factory(:person, :first_name => "Steve", :last_name => "Jacks", :initials => "S.J.")] ,:determination_date_year => '2010', :family => 'Rose'}
   end
 
   describe "Accession number rendering" do
     it "should append NE to the specimen id" do
-      @renderer.accession_number.should eq("NE 200")
+      @renderer.accession_number.should eq("NE #{@specimen.id}")
     end
   end
 
@@ -36,32 +36,32 @@ describe "SpecimenPdfFormatter" do
   describe "Genus and species rendering" do
     it "should bold and italicise genus and species" do
       @specimen.determinations.create!(@det_attrs.merge({:genus =>"Rose", :species => 'aspecies', :species_authority => "my auth"}))
-      @renderer.genus_species_and_authority.should eq("<b><i>Rose</i></b> <b><i>aspecies</i></b> my auth")
+      @renderer.genus_species_and_authority.should eq(" <b><i>Rose</i></b> <b><i>aspecies</i></b> my auth ")
     end
 
     it "should not italicise species if contains sp." do
       @specimen.determinations.create!(@det_attrs.merge({:genus =>"Rose", :species => 'sp. aspecies', :species_authority => "my auth"}))
-      @renderer.genus_species_and_authority.should eq("<b><i>Rose</i></b> sp. aspecies my auth")
+      @renderer.genus_species_and_authority.should eq(" <b><i>Rose</i></b> sp. aspecies my auth ")
     end
 
     it "should add uncertainty info to species" do
       @specimen.determinations.create!(@det_attrs.merge({:genus =>"Rose", :species => 'aspecies', :species_uncertainty => "sens. strict.", :species_authority => "my auth"}))
-      @renderer.genus_species_and_authority.should eq("<b><i>Rose</i></b> <b><i>aspecies</i></b> <i>s. str.</i> my auth")
+      @renderer.genus_species_and_authority.should eq(" <b><i>Rose</i></b> <b><i>aspecies</i></b> my auth <i>s. str.</i>")
     end
 
     it "should not add uncertainty info to species if species blank" do
       @specimen.determinations.create!(@det_attrs.merge({:genus =>"Rose", :species => "", :species_uncertainty => "sens. strict.", :species_authority => "my auth"}))
-      @renderer.genus_species_and_authority.should eq("<b><i>Rose</i></b> my auth")
+      @renderer.genus_species_and_authority.should eq(" <b><i>Rose</i></b> ")
     end
 
     it "should handle missing species" do
       @specimen.determinations.create!(@det_attrs.merge({:genus =>"Rose", :species => "", :species_authority => ""}))
-      @renderer.genus_species_and_authority.should eq("<b><i>Rose</i></b>")
+      @renderer.genus_species_and_authority.should eq(" <b><i>Rose</i></b> ")
     end
 
     it "should handle missing everything" do
       @specimen.determinations.create!(@det_attrs.merge({:genus =>"", :species => "", :species_authority => ""}))
-      @renderer.genus_species_and_authority.should eq("")
+      @renderer.genus_species_and_authority.should eq("  ")
     end
   end
 

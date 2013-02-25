@@ -23,7 +23,7 @@ describe SpecimensHelper do
                               :form => 'form',
                               :form_authority => 'form_authority')
 
-      expected_result = "Tribe <b><i>Genus</i></b> <b><i>species</i></b> authority"
+      expected_result = "tribe <b><i>genus</i></b> <b><i>species</i></b> authority "
       helper.determination_short_name(determination).should eq(expected_result)
     end
 
@@ -42,7 +42,7 @@ describe SpecimensHelper do
                               :form => 'form',
                               :form_authority => 'form_authority')
 
-      expected_result = "Tribe <b><i>Genus</i></b> sp. blah authority"
+      expected_result = "tribe <b><i>genus</i></b> sp. blah authority "
       helper.determination_short_name(determination).should eq(expected_result)
     end
 
@@ -53,7 +53,7 @@ describe SpecimensHelper do
                               :tribe => 'tribe',
                               :genus => 'genus')
 
-      expected_result = "Tribe <b><i>Genus</i></b>  "
+      expected_result = "tribe <b><i>genus</i></b> "
       helper.determination_short_name(determination).should eq(expected_result)
     end
   end
