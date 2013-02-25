@@ -68,7 +68,7 @@ class Specimen < ActiveRecord::Base
 
   def items_comma_separated_excluding_specimen_sheet
     item_types = unique_item_types
-    item_types.delete_if { |i| i == ItemType::TYPE_SPECIMEN_SHEET}
+    item_types.delete(ItemType::TYPE_SPECIMEN_SHEET)
     item_types.join(", ")
   end
 
@@ -326,8 +326,6 @@ class Specimen < ActiveRecord::Base
   end
 
   def unique_item_types
-    item_types = items.collect { |i| i.item_type.name }
-    item_types.uniq!
-    item_types.sort
+    items.collect { |i| i.item_type.name }.uniq.sort
   end
 end

@@ -142,7 +142,7 @@ class SpecimensController < ApplicationController
     @specimens = all_specimens.find_all { |specimen| !specimen.determinations.empty? && specimen.has_labellable_items? }
 
     if @specimens.empty?
-      redirect_to(@specimen, :alert => 'No labels to print for these specimens.')
+      redirect_to(search_results_specimens_path, :alert => 'No labels to print for these specimens.')
     end
     render :labels
   end
