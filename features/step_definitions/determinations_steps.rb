@@ -55,6 +55,10 @@ end
 
 
 Given /^I am at step 2 of editing a determination$/ do
+  det = Determination.find_by_division("Div4")
+  det.division = nil
+  det.save!
+
   visit path_to("the specimen page")
   click_link("Edit determination")
   fill_in("determination_determination_date_year", :with => "1979")

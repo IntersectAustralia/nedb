@@ -556,9 +556,7 @@ Feature: Edit Determination
 
   Scenario: no search results
     Given I am at step 2 of editing a determination
-    And I select "Species" from "level"
-    And I fill in "term" with "blah"
-    When I press "Search" within the main content
+    When I search for species "blah"
     Then I should see "No results were found for search 'blah'."
     When I press "Save"
   # I can still save without selecting something
@@ -566,9 +564,7 @@ Feature: Edit Determination
 
   Scenario: searching but selecting nothing
     Given I am at step 2 of editing a determination
-    And I select "Species" from "level"
-    And I fill in "term" with "inte"
-    When I press "Search" within the main content
+    When I search for species "inte"
     When I press "Save"
   # I can still save without selecting something
     Then I should not see "Division"

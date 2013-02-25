@@ -103,3 +103,7 @@ def select_from_select2(parent_div, value)
     find("li.select2-result", :text => value).click
   end
 end
+
+When /^I wait for a while$/ do
+  sleep(5)
+end
