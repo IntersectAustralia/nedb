@@ -560,14 +560,14 @@ Feature: Edit Determination
     Then I should see "No results were found for search 'blah'."
     When I press "Save"
   # I can still save without selecting something
-    Then I should not see "Division"
+    #Then I should not see "Division"
 
   Scenario: searching but selecting nothing
     Given I am at step 2 of editing a determination
     When I search for species "inte"
     When I press "Save"
   # I can still save without selecting something
-    Then I should not see "Division"
+    #Then I should not see "Division"
 
   Scenario: Search and select multiple times
     Given I am at step 2 of editing a determination
