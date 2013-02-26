@@ -17,8 +17,8 @@ module Prawnto
       end
 
       def set_headers
-        set_pragma
-        set_cache_control
+        #set_pragma
+        #set_cache_control
         set_content_type
         set_disposition
       end

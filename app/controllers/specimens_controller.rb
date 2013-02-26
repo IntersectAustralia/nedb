@@ -143,8 +143,9 @@ class SpecimensController < ApplicationController
 
     if @specimens.empty?
       redirect_to(search_results_specimens_path, :alert => 'No labels to print for these specimens.')
+    else
+      send_data(render_to_string(:action => 'labels'), :filename => "labels.pdf", :type => "application/pdf")
     end
-    render :labels
   end
 
   def show
@@ -161,8 +162,10 @@ class SpecimensController < ApplicationController
       redirect_to(@specimen, :alert => "Labels cannot be generated for this specimen as it does not have a determination.")
     elsif !@specimen.has_labellable_items?
       redirect_to(@specimen, :alert => "There are no labels to generate for this specimen. Try adding some specimen sheets or fruit items.")
+    else
+      @specimens = [@specimen]
+      send_data(render_to_string, :filename => "labels.pdf", :type => "application/pdf")
     end
-    @specimens = [@specimen]
   end
 
   def new
