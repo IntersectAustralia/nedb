@@ -1,7 +1,7 @@
 <%= form_for([@specimen, @determination, @confirmation]) do |f| %>
   <%= render "shared/error_messages", :target => @confirmation %>  
 
-  <div class="field">
+  <div class="field" id="confirmer_field">
     <%= f.label :confirmer_id %>
     <%= f.collection_select(:confirmer_id,
                            @all_people,

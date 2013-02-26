@@ -31,9 +31,10 @@ end
 Given /^I have specimens$/ do |table|
 
   table.hashes.each do |hash|
-    hash.delete('tag')
-    Factory(:specimen, hash)
-    @specimens[hash['tag']] = @specimen if hash['tag']
+    tag = hash.delete('tag')
+    @specimen = Factory(:specimen, hash)
+    @specimens ||= {}
+    @specimens[tag] = @specimen if tag
   end
 end
 

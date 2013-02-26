@@ -10,7 +10,10 @@ module NavigationHelpers
 
     when /the home\s?page/
       '/'
-    
+
+    when /^the latest specimens page$/
+      latest_specimens_path
+
     when /^the specimen page$/
       specimen_path(@created_specimen)
 

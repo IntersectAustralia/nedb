@@ -1,6 +1,6 @@
 class Confirmation < ActiveRecord::Base
 
-  belongs_to :specimen
+  belongs_to :specimen, :touch => true
   belongs_to :determination
   belongs_to :confirmer, :class_name => 'Person'
   belongs_to :confirmer_herbarium, :class_name => 'Herbarium'

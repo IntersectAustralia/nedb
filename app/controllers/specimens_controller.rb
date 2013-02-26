@@ -101,7 +101,7 @@ class SpecimensController < ApplicationController
   end
 
   def latest
-    @specimens = Specimen.last(40).reverse
+    @specimens = Specimen.order(:updated_at).last(40).reverse
 
     respond_to do |format|
       format.html { flash.now[:notice] = "Showing latest 40 specimens in descending order"}
@@ -205,12 +205,13 @@ class SpecimensController < ApplicationController
     params[:legacy] = @specimen.legacy
 
     if @specimen.update_attributes(params[:specimen])
+
       if params[:secondary_collector_ids]
         @specimen.secondary_collectors = Person.find(params[:secondary_collector_ids])
       else
         @specimen.secondary_collectors = []
       end
-
+      @specimen.touch
       redirect_to(@specimen, :notice => 'The specimen was successfully updated.')
     else
       render :action => "edit"
@@ -222,6 +223,7 @@ class SpecimensController < ApplicationController
     params[:specimen][:replicate_ids] ||= [] #handle the case where nothing checked
 
     @specimen.replicate_ids = params[:specimen][:replicate_ids]
+    @specimen.touch
     @specimen.save
     redirect_to(@specimen, :notice => 'The replicates were successfully updated.')
   end

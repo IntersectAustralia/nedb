@@ -2,7 +2,7 @@ class SpecimenImage < ActiveRecord::Base
 
   IMAGES_ROOT = APP_CONFIG['images_root']
 
-  belongs_to :specimen
+  belongs_to :specimen, :touch => true
   belongs_to :user
 
   validates :specimen, :presence => true

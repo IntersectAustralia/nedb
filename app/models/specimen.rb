@@ -7,7 +7,7 @@ class Specimen < ActiveRecord::Base
   has_and_belongs_to_many :secondary_collectors, :join_table => 'specimen_secondary_collectors', :class_name => 'Person', :association_foreign_key => 'collector_id'
   has_and_belongs_to_many :replicates, :join_table => 'specimen_replicates', :class_name => 'Herbarium', :association_foreign_key => 'herbarium_id'
   has_many :determinations
-  has_many :confirmations   
+  has_many :confirmations
   has_many :items
   has_many :specimen_images
 
@@ -15,7 +15,7 @@ class Specimen < ActiveRecord::Base
   attr_protected :status, :needs_review
 
   # validate the accession number if it is supplied
-  with_options :if => lambda{|r| !r.id.nil?} do |supplied|
+  with_options :if => lambda {|r| !r.id.nil?} do |supplied|
     supplied.validates_with AccessionValidator
   end
 

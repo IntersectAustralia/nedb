@@ -100,6 +100,10 @@ When /^I deselect "([^"]*)" from the determiners select$/ do |determiner|
   unselect_determiner(determiner)
 end
 
+When /^I select "([^"]*)" from the confirmer select$/ do |value|
+  select_from_select2('#confirmer_field', value)
+end
+
 def select_determiner(determiner)
   input = find(".select2-search-field input[type=text]")
   input.click

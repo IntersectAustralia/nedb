@@ -1,6 +1,6 @@
 class Item < ActiveRecord::Base
   
-  belongs_to :specimen
+  belongs_to :specimen, :touch => true
   belongs_to :item_type
   
   validates :specimen, :presence => true

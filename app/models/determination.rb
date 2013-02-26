@@ -1,6 +1,6 @@
 class Determination < ActiveRecord::Base
 
-  belongs_to :specimen
+  belongs_to :specimen, :touch => true
 
   has_one :confirmation
 
