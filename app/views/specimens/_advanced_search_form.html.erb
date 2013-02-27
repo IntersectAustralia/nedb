@@ -327,6 +327,98 @@
       </div>
       <br/>
     </div>
+
+    <div id="adv_search_additional">
+
+      <div class="field">
+        <%= f.label :collector_number %>
+        <%= f.text_field :collector_number_contains, :maxlength => 50, :size => 30 %>  <br/>
+      </div><br/>
+
+      <div class="field">
+        <%= f.label :other_collectors %>
+        <%= f.collection_select(:secondary_collectors_id_equals,
+                                @all_people,
+                                :id,
+                                :display_name,
+                                { :include_blank => "None" })
+        %>
+        <br/>
+      </div><br/>
+
+      <div class="field">
+        <%= f.label :replicate_from_number %>
+        <%= f.text_field :replicate_from_no_contains, :maxlength => 50, :size => 30 %>  <br/>
+      </div><br/>
+
+      <div class="field">
+        <%= f.label :replicate_from %>
+        <%= f.text_field :replicate_from_contains, :maxlength => 50, :size => 30 %>  <br/>
+      </div><br/>
+
+      <div class="field">
+        <%= f.label :needs_review, 'Needs review' %>
+        <%= f.select :needs_review_equals, {"True" => "TRUE", "False" => "FALSE"}, { :include_blank => "Ignore" }%>
+      </div><br/>
+
+      <%= render :partial => 'shared/advanced_search_partial_dates',
+                 :locals => {:f => f,
+                             :label => "Confirmation date",
+                             :date_picker_id => "confirmation_date_picker_equals",
+                             :object_prefix => "confirmation",
+                             :year_field => :confirmations_confirmation_date_year_equals,
+                             :month_field => :confirmations_confirmation_date_month_equals,
+                             :day_field => :confirmations_confirmation_date_day_equals }
+      %>
+      <br/>
+
+      <div class="field">
+        <%= f.label :determinations_species_uncertainty %>
+        <%= f.collection_select(:determinations_species_uncertainty_contains,
+                                @all_uncertainty_types,
+                                :uncertainty_type,
+                                :uncertainty_type,
+                                { :include_blank => "None" })
+        %>
+      </div><br/><br/>
+
+
+      <div class="field">
+        <%= f.label :determinations_subspecies_uncertainty %>
+        <%= f.collection_select(:determinations_subspecies_uncertainty_contains,
+                                @all_uncertainty_types,
+                                :uncertainty_type,
+                                :uncertainty_type,
+                                { :include_blank => "None" })
+        %>
+        <br/>
+      </div><br/><br/>
+
+      <div class="field">
+        <%= f.label :determinations_variety_uncertainty %>
+        <%= f.collection_select(:determinations_variety_uncertainty_contains,
+                                @all_uncertainty_types,
+                                :uncertainty_type,
+                                :uncertainty_type,
+                                { :include_blank => "None" })
+        %>
+        <br/>
+      </div><br/><br/>
+
+
+      <div class="field">
+        <%= f.label :determinations_form_uncertainty %>
+        <%= f.collection_select(:determinations_form_uncertainty_contains,
+                                @all_uncertainty_types,
+                                :uncertainty_type,
+                                :uncertainty_type,
+                                { :include_blank => "None" })
+        %>
+        <br/>
+      </div><br/><br/>
+
+    </div>
+
     <div id="adv_search_checkboxes">
       <div class="checkbox_field">
         <label class="field_checkbox_label">Items</label>

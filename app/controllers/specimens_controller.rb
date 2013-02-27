@@ -286,6 +286,7 @@ class SpecimensController < ApplicationController
     @all_subspecies = Subspecies.select("DISTINCT subspecies.subspecies").order('subspecies.subspecies').where("subspecies.subspecies != ''")
     @all_variety = Variety.select("DISTINCT varieties.variety").order('varieties.variety').where("varieties.variety != ''")
     @all_tribe = Species.select("DISTINCT species.tribe").order('species.tribe').where("species.tribe != ''")
+    @all_uncertainty_types = UncertaintyType.all
     @all_people = Person.all
   end
 
