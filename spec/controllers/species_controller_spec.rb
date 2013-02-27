@@ -11,7 +11,7 @@ describe SpeciesController do
   end
 
   def mock_species(stubs={})
-    @mock_species ||= Factory(:species)
+    @mock_species ||= mock_model(Species, stubs).as_null_object
   end
 
   describe "GET 'autocomplete_plant_name'" do
@@ -52,7 +52,7 @@ describe SpeciesController do
   end
 
   describe "GET new" do
-    pending "assigns a new species as @species" do
+    it "assigns a new species as @species" do
       Species.stub(:new) { mock_species }
       get :new
       assigns(:species).should be(mock_species)
@@ -70,13 +70,13 @@ describe SpeciesController do
   describe "POST create" do
 
     describe "with valid params" do
-      pending "assigns a newly created species as @species" do
+      it "assigns a newly created species as @species" do
         Species.stub(:new) { mock_species(:save => true) }
         post :create, :species => {'these' => 'params'}
         assigns(:species).should be(mock_species)
       end
 
-      pending "redirects to the species details" do
+      it "redirects to the species details" do
         Species.stub(:new) { mock_species(:save => true) }
         post :create, :species => {}
         response.should redirect_to(species_url(mock_species))
@@ -84,13 +84,13 @@ describe SpeciesController do
     end
 
     describe "with invalid params" do
-      pending "assigns a newly created but unsaved species as @species" do
+      it "assigns a newly created but unsaved species as @species" do
         Species.stub(:new) { mock_species(:save => false) }
         post :create, :species => {'these' => 'params'}
         assigns(:species).should be(mock_species)
       end
 
-      pending "re-renders the 'new' template" do
+      it "re-renders the 'new' template" do
         Species.stub(:new) { mock_species(:save => false) }
         post :create, :species => {}
         response.should render_template("new")
@@ -128,7 +128,7 @@ describe SpeciesController do
         assigns(:species).should be(mock_species)
       end
 
-      pending "re-renders the 'edit' template" do
+      it "re-renders the 'edit' template" do
         Species.stub(:find) { mock_species(:update_attributes => false) }
         put :update, :id => "1"
         response.should render_template("edit")
