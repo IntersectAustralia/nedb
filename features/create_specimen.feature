@@ -146,3 +146,10 @@ Feature: Create Specimens
     And I press "Create Specimen"
     # Doesn't verify that the accession number is in fact the one specified
     Then I should see "The specimen was successfully created."
+
+    Scenario: Accession number field does not appear on edit
+      Given I have a specimen
+      And I am on the specimen page
+      And I follow "Edit Specimen Details"
+      And I should not see "Accession number"
+      And I should not see "Autogenerate"

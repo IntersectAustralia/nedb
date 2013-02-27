@@ -31,15 +31,14 @@ Given /^I add a new specimen$/ do
 end
 
 Given /^I attempt to create a second specimen$/ do
-  with_scope('the nav bar') { step 'Add'}
+  with_scope('the nav bar') { step 'I follow "Add"' }
 end
 
 Given /^the values of the first specimen are remembered$/ do
   specimen_should_contain('specimen_collection_date_day', '25')
   specimen_should_contain('specimen_collection_date_month', '3')
   specimen_should_contain('specimen_collection_date_year', '2010')
-  specimen_should_contain('country_field', 'Australia')
-  specimen_should_contain('state_field', 'New South Wales')
+  specimen_should_contain('Country', 'Australia')
   specimen_should_contain('Locality description', 'location')
   specimen_should_contain('specimen_latitude_degrees', '1')
   specimen_should_contain('specimen_latitude_minutes', '2')
@@ -51,7 +50,7 @@ Given /^the values of the first specimen are remembered$/ do
   specimen_should_contain('specimen_longitude_hemisphere', 'W')
   specimen_should_contain('Altitude', '100')
   specimen_should_contain('Datum', 'datum')
-  specimen_should_contain('Topography', 'topograpgy')
+  specimen_should_contain('Topography', 'topography')
   specimen_should_contain('Aspect', 'aspect')
   specimen_should_contain('Substrate', 'substrate')
   specimen_should_contain('Vegetation', 'vegetation')

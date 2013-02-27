@@ -4,11 +4,14 @@
   <div id="newspecimen_gathering">
 
     <h2>Gathering</h2>
-    <div class="field" id="acession_field">
-      <label for="specimen_id">Accession number</label>
-      <%= f.text_field :id, :size => 12, :readonly => 'readonly', :value => 'Autogenerate' %>
-      <%= link_to 'Set', new_specimen_path, :id => 'set_accession' %>
-    </div>
+    <% unless cancel_link.eql?(@specimen) %>
+      <div class="field" id="acession_field">
+        <label for="specimen_id">Accession number</label>
+        <%= f.text_field :id, :size => 12, :readonly => 'readonly', :value => 'Autogenerate' %>
+        <%= link_to 'Set', new_specimen_path, :id => 'set_accession' %>
+      </div>
+    <% end %>
+
     <div class="field" id="collector_field">
       <%= f.label :collector_id %>
       <%= f.collection_select(:collector_id,
