@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
     clean_up_passwords
     result
   end
-  
+
   def approved?
     self.status == 'A'
   end

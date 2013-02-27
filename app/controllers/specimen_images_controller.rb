@@ -15,6 +15,7 @@ class SpecimenImagesController < ApplicationController
 
   def destroy
     @specimen_image.destroy
+    @specimen.update_attribute(:needs_review, cannot?(:create_not_needing_review, @specimen))
     redirect_to(@specimen, :notice => 'The image was successfully deleted.')
   end
 
@@ -31,6 +32,7 @@ class SpecimenImagesController < ApplicationController
     @specimen_image = @specimen.specimen_images.create(params[:specimen_image])
     @specimen_image.user_id = current_user.id
     if @specimen_image.save
+      @specimen.update_attribute(:needs_review, cannot?(:create_not_needing_review, @specimen))
       redirect_to(@specimen, :notice => "The specimen image was uploaded successfully.")
     else
       render :action => 'new'
@@ -44,6 +46,7 @@ class SpecimenImagesController < ApplicationController
   def update
     # @specimen_image loaded by cancan
     if @specimen_image.update_attributes(params[:specimen_image])
+      @specimen.update_attribute(:needs_review, cannot?(:create_not_needing_review, @specimen))
       redirect_to(specimen_specimen_image_path(@specimen, @specimen_image), :notice => 'The specimen image description was successfully updated.')
     else
       render :action => 'edit'

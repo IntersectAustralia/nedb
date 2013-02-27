@@ -203,7 +203,7 @@ class SpecimensController < ApplicationController
   def update
     Specimen.remove_fullstops(params[:specimen])
     params[:legacy] = @specimen.legacy
-
+    @specimen.needs_review = cannot? :create_not_needing_review, @specimen
     if @specimen.update_attributes(params[:specimen])
 
       if params[:secondary_collector_ids]
@@ -224,6 +224,7 @@ class SpecimensController < ApplicationController
 
     @specimen.replicate_ids = params[:specimen][:replicate_ids]
     @specimen.touch
+    @specimen.needs_review = cannot? :create_not_needing_review, @specimen
     @specimen.save
     redirect_to(@specimen, :notice => 'The replicates were successfully updated.')
   end
@@ -231,6 +232,7 @@ class SpecimensController < ApplicationController
   def add_item
     item_type = ItemType.find(params[:item_type_id])
     @item = @specimen.items.create!(:item_type => item_type)
+    @specimen.update_attribute(:needs_review, cannot?(:create_not_needing_review, @specimen))
     redirect_to(@specimen, :notice => 'The item was successfully added.')
   end
 
@@ -255,7 +257,7 @@ class SpecimensController < ApplicationController
 
   def mark_as_reviewed
     @specimen.mark_as_reviewed
-    redirect_to(@specimen, :notice => 'The specimen has been marked as reviwed.')
+    redirect_to(@specimen, :notice => 'The specimen has been marked as reviewed.')
   end
 
   def download_zip
