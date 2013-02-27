@@ -35,6 +35,7 @@ class SpecimensController < ApplicationController
                         .where(long_query)
                         .search(params_hash[:search])
       q = @search.select("DISTINCT specimens.*").order('specimens.id')
+      session[:search_results] = q.collect { |specimen| specimen.id }.sort
       @adv_search_results = q.paginate(:page => params[:page])
       if !@has_params
         flash.now[:notice] = "Showing all #{@search.size} specimens."
@@ -48,7 +49,6 @@ class SpecimensController < ApplicationController
       @adv_search_results = []
       flash.now[:alert] = @valid_search
     end
-    session[:search_results] = q.collect { |specimen| specimen.id }.sort
   end
 
   def validate_search
