@@ -54,6 +54,7 @@ $(document).ready(function()
     $("#search_determinations_subspecies_uncertainty_contains").select2();
     $("#search_determinations_variety_uncertainty_contains").select2();
     $("#search_determinations_form_uncertainty_contains").select2();
+    $("#search_replicates_id_equals").select2();
 
     $('#set_accession').click(function(e) {
         var disabled = $('#specimen_id').attr('readonly');

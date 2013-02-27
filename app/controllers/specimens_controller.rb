@@ -92,7 +92,7 @@ class SpecimensController < ApplicationController
         session[:search_results] = @specimens.collect { |specimen| specimen.id }.sort
         redirect_to(search_results_specimens_path, :notice => "Found #{@specimens.size} matching specimens.")
       elsif (@specimens.size == 1)
-        @specimen = @specimens[0]
+        @specimen = @specimens.first
         redirect_to(@specimen)
       else
         redirect_to(root_path, :alert => "No specimen was found for text search '#{parser.text_search}'")
@@ -288,6 +288,7 @@ class SpecimensController < ApplicationController
     @all_tribe = Species.select("DISTINCT species.tribe").order('species.tribe').where("species.tribe != ''")
     @all_uncertainty_types = UncertaintyType.all
     @all_people = Person.all
+    @all_herbaria = Herbarium.all
   end
 
   def filter_out_deaccessioned(specimens)

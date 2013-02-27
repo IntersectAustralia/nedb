@@ -80,7 +80,7 @@
         To&nbsp;
         <%= f.label :to, :style => "display:none;" %>
         <%= f.text_field :id_less_than_or_equal_to, :maxlength => 6, :size => 6 %>
-      </div>
+      </div><br/>
 
       <div>
         <label class="field_radiobtn_label">Naturalised</label>
@@ -332,7 +332,7 @@
 
       <div class="field">
         <%= f.label :collector_number %>
-        <%= f.text_field :collector_number_contains, :maxlength => 50, :size => 30 %>  <br/>
+        <%= f.text_field :collector_number_contains, :maxlength => 50, :size => 30 %>
       </div><br/>
 
       <div class="field">
@@ -348,18 +348,27 @@
 
       <div class="field">
         <%= f.label :replicate_from_number %>
-        <%= f.text_field :replicate_from_no_contains, :maxlength => 50, :size => 30 %>  <br/>
+        <%= f.text_field :replicate_from_no_contains, :maxlength => 50, :size => 30 %>
       </div><br/>
 
       <div class="field">
-        <%= f.label :replicate_from %>
-        <%= f.text_field :replicate_from_contains, :maxlength => 50, :size => 30 %>  <br/>
+        <%= f.label :replicate_to %>
+        <%= f.collection_select(:replicates_id_equals,
+                                @all_herbaria,
+                                :id,
+                                :display_name,
+                                { :include_blank => "None" })
+        %>
       </div><br/>
 
-      <div class="field">
-        <%= f.label :needs_review, 'Needs review' %>
-        <%= f.select :needs_review_equals, {"True" => "TRUE", "False" => "FALSE"}, { :include_blank => "Ignore" }%>
-      </div><br/>
+      <div>
+        <label class="field_radiobtn_label">Needs review</label>
+        <span><%= f.radio_button(:needs_review_equals, true) %>&nbsp;<%= f.label :needs_review_equals, "True" %></span>
+        <span><%= f.radio_button(:needs_review_equals, false) %>&nbsp;<%= f.label :needs_review_equals, "False" %></span>
+        <span><%= f.radio_button(:needs_review_equals, "") %>&nbsp;<%= f.label :needs_review_equals, "Ignore" %></span>
+        <br/>
+      </div>
+      <br/>
 
       <%= render :partial => 'shared/advanced_search_partial_dates',
                  :locals => {:f => f,
