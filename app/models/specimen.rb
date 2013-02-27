@@ -62,10 +62,6 @@ class Specimen < ActiveRecord::Base
     codes.join(", ")
   end
 
-  def determinations_naturalised_is
-
-  end
-
   def items_comma_separated_excluding_specimen_sheet
     item_types = unique_item_types
     item_types.delete(ItemType::TYPE_SPECIMEN_SHEET)
