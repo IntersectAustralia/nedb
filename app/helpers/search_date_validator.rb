@@ -34,30 +34,20 @@ class SearchDateValidator < ActiveModel::Validator
   end
 
   def validate(year, month, day, field_name)
-    if empty? month and not_empty? day
-      @record = "Enter a month for #{field_name}."
-    else
-      # if a day and month are included check if day is valid in given month
-      if !empty? month and !empty? day
-        days_in_month = days_in_month(month, year)
-        if day > days_in_month
-          @record = "You have entered an invalid day for the given month for #{field_name}."
+    if not_empty?(month) || not_empty?(day)
+      if not_empty?(year)
+        if empty?(month)
+          @record = "Enter a month for #{field_name}."
+        else
+          if not_empty?(day)
+            days_in_month = days_in_month(month, year)
+              if day > days_in_month
+                @record = "You have entered an invalid day for the given month for #{field_name}."
+              end
+          end
         end
-      end
-    end
-  else
-    if not_empty? month or not_empty? day and empty? year
-      @record = "Enter a year for #{field_name}."
-      # check that the month field is not empty if a day is filled in
-    elsif empty? month and not_empty? day
-      @record = "Enter a month for #{field_name}."
-    else
-      # if a day and month are included check if day is valid in given month
-      if !empty? month and !empty? day
-        days_in_month = days_in_month(month, year)
-        if day > days_in_month
-          @record = "You have entered an invalid day for the given month for #{field_name}."
-        end
+      else
+        @record = "Enter a year for #{field_name}."
       end
     end
   end

@@ -28,25 +28,46 @@ class CoordinatesValidator < ActiveModel::Validator
 
   #TODO: fix up invalid for field == 0
   def validate(deg, min, sec, field_name, type)
-    # sec/min not empty - check for year
-    if not_empty? deg
-      if type.eql? :latitude and (deg > 90 or deg < 0)
-        @record = "You have entered an invalid degree for #{field_name}."
-      elsif type.eql? :longitude and (deg > 180 or deg < 0)
-        @record = "You have entered an invalid degree for #{field_name}."
-      elsif min > 60 or min < 0
-        @record = "You have entered an invalid minute for #{field_name}."
-      elsif sec > 60 or sec < 0
-        @record = "You have entered an invalid second for #{field_name}."
+    if not_empty?(deg)
+      if type.eql? :latitude
+        if deg > 90 or deg < 0
+          @record = "You have entered an invalid degree for #{field_name}."
+        end
+      elsif type.eql? :longitude
+        if deg > 180 or deg < 0
+          @record = "You have entered an invalid degree for #{field_name}."
+        end
       end
-    #check that min is not empty if sec
-  elsif empty? min and not_empty? sec
+    else
+      # min and/or sec without deg is invalid
+      if not_empty?(min) || not_empty?(sec)
+        @record = "Enter degrees for #{field_name}."
+      end
+    end
+
+    # sec without min is invalid
+    if not_empty?(sec) && empty?(min)
       @record = "Enter minutes for #{field_name}."
     end
-  else
-    if not_empty? min or not_empty? sec and empty? deg
-      @record = "Enter degrees for #{field_name}."
-    end
+  #  # sec/min not empty - check for year
+  #  if not_empty? deg
+  #    if type.eql? :latitude and (deg > 90 or deg < 0)
+  #      @record = "You have entered an invalid degree for #{field_name}."
+  #    elsif type.eql? :longitude and (deg > 180 or deg < 0)
+  #      @record = "You have entered an invalid degree for #{field_name}."
+  #    elsif min > 60 or min < 0
+  #      @record = "You have entered an invalid minute for #{field_name}."
+  #    elsif sec > 60 or sec < 0
+  #      @record = "You have entered an invalid second for #{field_name}."
+  #    end
+  #  #check that min is not empty if sec
+  #elsif empty? min and not_empty? sec
+  #    @record = "Enter minutes for #{field_name}."
+  #  end
+  #else
+  #  if not_empty? min or not_empty? sec and empty? deg
+  #    @record = "Enter degrees for #{field_name}."
+  #  end
   end
 
   def empty? (str)
