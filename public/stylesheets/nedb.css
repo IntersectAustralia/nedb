@@ -765,3 +765,7 @@ display:inline-block;
     display: inline-block;
     width: 100%;
 }
+
+.field_top_padding {
+    padding-top: 10px;
+}
