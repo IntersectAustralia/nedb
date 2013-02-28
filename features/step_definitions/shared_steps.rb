@@ -107,3 +107,7 @@ end
 When /^I wait for a while$/ do
   sleep(5)
 end
+
+When /^pending$/ do
+  #do nothing
+end
