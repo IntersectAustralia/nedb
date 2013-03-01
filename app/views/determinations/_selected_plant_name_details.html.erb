@@ -7,6 +7,7 @@
 <%= f.hidden_field :genus %>
 <%= f.hidden_field :species %>
 <%= f.hidden_field :species_authority %>
+<%= f.hidden_field :referenced, :value => true %>
 
 <% if  map_field_to_display_name(@field).eql?("Species") and (@determination.species.nil? or @subspecies.nil?)%>
   <span class="determination_not_found_text">The name selected for this determination is no longer in the database. Please select another name or contact the herbarium.</span>

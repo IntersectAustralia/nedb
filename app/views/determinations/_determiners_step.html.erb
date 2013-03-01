@@ -2,17 +2,17 @@
 
 <div id="new_determination">
 
-    <div class="field inlineblock">
-      <%= label_tag :determiner_ids, "Determiners" %>
-      <select multiple="multiple" size="6" name="determination[determiner_ids][]" id="determiner_ids">
-        <% selected_determiners = @determination.determiners.collect{|d|d.id} %>
-        <% @all_people.each{|person| %>
-          <option herb='<%="#{person.herbarium_id}" %>' value="<%= "#{person.id}"%>"    <%= "selected='selected'" if selected_determiners.include? person.id %>      ><%= "#{person.display_name}" %></option>
-        <%} %>
-      </select>
-    </div>
-
-    <div class="field">
+  <div class="field inlineblock">
+    <%= label_tag :determiner_ids, "Determiners" %>
+    <select multiple="multiple" size="6" name="determination[determiner_ids][]" id="determiner_ids">
+      <% selected_determiners = @determination.determiners.collect { |d| d.id } %>
+      <% @all_people.each { |person| %>
+        <option herb='<%= "#{person.herbarium_id}" %>' value="<%= "#{person.id}" %>"    <%= "selected='selected'" if selected_determiners.include? person.id %>      ><%= "#{person.display_name}" %></option>
+      <% } %>
+    </select>
+  </div>
+  <%= f.hidden_field :referenced, :value => true %>
+  <div class="field">
     <%= render :partial => 'shared/partial_date',
                :locals => {:f => f,
                            :label => "Determination date",
@@ -20,17 +20,17 @@
                            :object_prefix => "determination",
                            :year_field => :determination_date_year,
                            :month_field => :determination_date_month,
-                           :day_field => :determination_date_day }
+                           :day_field => :determination_date_day}
     %>
-    </div>
-
-    <div class="field inlineblock">
-      <%= f.label :determiner_herbarium_id %>
-      <%= f.collection_select(:determiner_herbarium_id,
-                             @all_herbaria,
-                             :id,
-                             :display_name,
-                             { :include_blank => "Please select" })
-       %>
-    </div>
   </div>
+
+  <div class="field inlineblock">
+    <%= f.label :determiner_herbarium_id %>
+    <%= f.collection_select(:determiner_herbarium_id,
+                            @all_herbaria,
+                            :id,
+                            :display_name,
+                            {:include_blank => "Please select"})
+    %>
+  </div>
+</div>

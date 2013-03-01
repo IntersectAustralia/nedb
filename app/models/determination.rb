@@ -31,6 +31,15 @@ class Determination < ActiveRecord::Base
 
   validates_with DateValidator, :legacy_data => :legacy, :field_name => 'Determination date', :fields =>  {:year => :determination_date_year, :month => :determination_date_month, :day => :determination_date_day}
 
+  validate :plant_name_present?
+
+  def plant_name_present?
+    # referenced flag is used to temporarily bypass the plant validation in step 1.
+    if !referenced and %w(division class_name order_name family sub_family tribe genus species).all?{|attr| self[attr].blank?}
+      errors.add(:base, "You must select a plant")
+    end
+  end
+
   def get_current_level
     if !species.blank?
       return "name"

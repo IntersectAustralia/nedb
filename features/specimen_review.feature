@@ -182,7 +182,6 @@ Feature: Specimens created by unauthorised users are marked as needing review
   Scenario: Superuser user gets a list of specimens needing review
     Given I am logged in as "georgina@intersect.org.au"
     And I have a specimen that needs review
-    And I have a specimen that needs review
     When I follow "Admin"
     And I follow "Specimens Needing Review"
     Then I should see "search_results_table" table with

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130102001938) do
+ActiveRecord::Schema.define(:version => 20130228230714) do
 
   create_table "botanical_divisions", :force => true do |t|
     t.integer  "state_id"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20130102001938) do
     t.string   "genus_uncertainty"
     t.boolean  "naturalised"
     t.boolean  "legacy"
+    t.boolean  "referenced"
   end
 
   create_table "forms", :force => true do |t|

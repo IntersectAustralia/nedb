@@ -101,7 +101,7 @@ class SpecimensController < ApplicationController
   end
 
   def latest
-    @specimens = Specimen.limit(40).order('updated_at desc').all
+    @specimens = Specimen.limit(40).where('updated_at is not null').order('updated_at desc').all
 
     respond_to do |format|
       format.html { flash.now[:notice] = "Showing latest 40 specimens in descending order"}

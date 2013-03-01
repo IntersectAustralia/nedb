@@ -57,6 +57,7 @@ Feature: Create Determination
     And I select "G.R. Adams" from the determiners select
     And I press "Continue"
     Then I should see "Enter a year for Determination date"
+    And I should not see "You must select a plant"
     And I should see "Step 1:"
     When I fill in "determination_determination_date_year" with "2010"
     And I press "Continue"
@@ -68,6 +69,7 @@ Feature: Create Determination
     And I fill in "determination_determination_date_year" with "2010"
     And I press "Continue"
     Then I should see "Determiners can't be blank"
+    And I should not see "You must select a plant"
     And I should see "Step 1:"
     And I select "G.R. Adams" from the determiners select
     And I press "Continue"
@@ -84,11 +86,7 @@ Feature: Create Determination
     And I select "NSW - NSW Botanical Gardens" from "Determiner herbarium"
     And I press "Continue"
     And I press "Save"
-    Then I should see "Determination was successfully created"
-    And I should see a determination table with
-      | Date Determined | Determiners            | Determiner Herbarium | Date Confirmed | Confirmer | Confirmer Herbarium |
-      | 25 Mar. 2010    | G.R. Adams, F.G. Wells | NSW                  |                |           |                     |
-    But I should not see "Division"
+    And I should see "You must select a plant"
 
   Scenario: Search by division
     Given I am at step 2 of adding a determination
@@ -479,17 +477,80 @@ Feature: Create Determination
     When I press "Search" within the main content
     Then I should see "No results were found for search 'blah'."
     When I press "Save"
-  # I can still save without selecting something
-    Then I should not see "Division"
+    Then I should see "You must select a plant"
 
-  Scenario: searching but selecting nothing
+  Scenario: Saving after searching without selecting a plant should not be allowed
     Given I am at step 2 of adding a determination
-    And I select "Species" from "level"
-    And I fill in "term" with "inte"
-    When I press "Search" within the main content
-    When I press "Save"
-  # I can still save without selecting something
-    Then I should not see "Division"
+    And I select "Division" from "level"
+    And I fill in "term" with "Div4"
+    And I press "Search" within the main content
+    Then I should see "search_results" table with
+      | Division |        |
+      | Div4     | Select |
+    And I press "Save"
+    And I should see "You must select a plant"
+    When I select "Class" from "level"
+    And I fill in "term" with "Cls7"
+    And I press "Search" within the main content
+    Then I should see "search_results" table with
+      | Division | Class |        |
+      | Div4     | Cls7  | Select |
+    And I press "Save"
+    And I should see "You must select a plant"
+    When I select "Order" from "level"
+    And I fill in "term" with "Rosaceaeord"
+    And I press "Search" within the main content
+    Then I should see "search_results" table with
+      | Division | Class | Order       |        |
+      | Div4     | Cls8  | Rosaceaeord | Select |
+    And I press "Save"
+    And I should see "You must select a plant"
+    When I select "Family" from "level"
+    And I fill in "term" with "Proteaceae"
+    And I press "Search" within the main content
+    Then I should see "search_results" table with
+      | Division | Class | Order         | Family     |        |
+      | Div4     | Cls8  | Proteaceaeord | Proteaceae | Select |
+    And I press "Save"
+    And I should see "You must select a plant"
+    When I select "Subfamily" from "level"
+    And I fill in "term" with "Subf3"
+    And I press "Search" within the main content
+    Then I should see "search_results" table with
+      | Division | Class | Order        | Family    | Subfamily |        |
+      | Div4     | Cls7  | Malvaceaeord | Malvaceae | Subf3     | Select |
+    And I press "Save"
+    And I should see "You must select a plant"
+    When I select "Tribe" from "level"
+    And I fill in "term" with "Trb1"
+    And I press "Search" within the main content
+    Then I should see "search_results" table with
+      | Division | Class | Order         | Family     | Subfamily | Tribe |        |
+      | Div4     | Cls8  | Proteaceaeord | Proteaceae | Subf1     | Trb1  | Select |
+    And I press "Save"
+    And I should see "You must select a plant"
+    When I select "Genus" from "level"
+    And I fill in "term" with "Dryas"
+    And I press "Search" within the main content
+    Then I should see "search_results" table with
+      | Division | Class | Order       | Family   | Subfamily | Tribe  | Genus |        |
+      | Div4     | Cls8  | Rosaceaeord | Rosaceae | Subf2     | Tribe2 | Dryas | Select |
+    And I press "Save"
+    And I should see "You must select a plant"
+    When I select "Species" from "level"
+    And I fill in "term" with "integrifolia"
+    And I press "Search" within the main content
+    Then I should see "search_results" table with
+      | Division | Class | Order           | Family       | Subfamily | Tribe  | Genus       | Species      | Authority |        |
+      | Div2     | Cls5  | Asteraceaeord   | Asteraceae   |           |        | Andryala    | integrifolia | F.Smith   | Select |
+      | Div4     | Cls8  | Proteaceaeord   | Proteaceae   | Subf1     | Trb1   | Banksia     | integrifolia | Def       | Select |
+      | Div4     | Cls8  | Rosaceaeord     | Rosaceae     | Subf2     | Tribe2 | Dryas       | integrifolia | Jkl       | Select |
+      | Div4     | Cls7  | Hedwigiaceaeord | Hedwigiaceae |           |        | Hedwigia    | integrifolia | R.Br      | Select |
+      | Div4     | Cls7  | Malvaceaeord    | Malvaceae    | Subf3     |        | Keraudrenia | integrifolia | Abc       | Select |
+      | Div4     | Cls8  | Proteaceaeord   | Proteaceae   | Subf1     | Trb2   | Macadamia   | integrifolia | Ghi       | Select |
+    And I press "Save"
+    And I should see "You must select a plant"
+
 
   Scenario: Search and select multiple times
     Given I am at step 2 of adding a determination
