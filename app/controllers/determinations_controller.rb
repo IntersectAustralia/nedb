@@ -52,8 +52,12 @@ class DeterminationsController < ApplicationController
         @step = "determiners"
       end
       # reset referenced flag after determiners step
-      @determination.update_attribute(:referenced, %w(division class_name order_name family sub_family tribe genus species).all?{|attr| @determination[attr].present?})
-      p @determination.referenced
+      # this is mainly for updating old determinations that have been created without plants
+      unless is_new
+        is_referenced = %w(division class_name order_name family sub_family tribe genus species).all?{|attr| @determination[attr].present?}
+        @determination.update_attribute(:referenced, is_referenced)
+      end
+
       render :action => action_to_render
 
     else

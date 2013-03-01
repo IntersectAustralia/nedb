@@ -21,13 +21,13 @@ end
 
 Given /^the person "([^"]*)" has a confirmation/ do |email|
   person = Person.find_by_email(email)
-  determination = Determination.create!(:specimen => Factory(:specimen, :collector => person), :determination_date_year => 2010, :determiners => [person])
+  determination = Determination.create!(:specimen => Factory(:specimen, :collector => person), :determination_date_year => 2010, :determiners => [person], :referenced => true)
   person.confirmations.create!(:determination => determination, :confirmation_date_year => 2010, :specimen => Factory(:specimen, :collector => person))
 end
 
 Given /^the person "([^"]*)" has a determination/ do |email|
   person = Person.find_by_email(email)
-  Determination.create!(:specimen => Factory(:specimen, :collector => person), :determination_date_year => 2010, :determiners => [person])
+  Determination.create!(:specimen => Factory(:specimen, :collector => person), :determination_date_year => 2010, :determiners => [person], :referenced => true)
 
 end
 
