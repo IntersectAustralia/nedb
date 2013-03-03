@@ -6,7 +6,7 @@ describe "SpecimenPdfFormatter" do
   before(:each) do
     @specimen = Factory(:specimen)
     @renderer = LabelFormatter.new(@specimen)
-    @det_attrs = {:determiners => [Factory(:person, :first_name => "Steve", :last_name => "Jacks", :initials => "S.J.")] ,:determination_date_year => '2010', :family => 'Rose'}
+    @det_attrs = {:determiners => [Factory(:person, :first_name => "Steve", :last_name => "Jacks", :initials => "S.J.")] ,:determination_date_year => '2010', :family => 'Rose', :referenced => true}
   end
 
   describe "Accession number rendering" do

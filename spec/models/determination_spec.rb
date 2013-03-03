@@ -14,7 +14,7 @@ describe Determination do
 
     describe "should test each date field individually" do
       before(:each) do
-        @defaults = {:specimen => Specimen.new, :determiners => [Factory(:person, :last_name => "John", :last_name => "Apple")], :legacy => false}
+        @defaults = {:specimen => Specimen.new, :determiners => [Factory(:person, :last_name => "John", :last_name => "Apple")], :legacy => false, :referenced => true}
       end
       it "should reject a totally empty determination date" do
         d = Determination.new @defaults
@@ -37,7 +37,7 @@ describe Determination do
         d.should be_valid
       end
       it "should accept a totally empty determination date if determination is legacy" do
-        d = Determination.new(:specimen => Specimen.new, :determiners => [Factory(:person, :last_name => "John", :last_name => "Apple")], :legacy => true)
+        d = Determination.new(:specimen => Specimen.new, :determiners => [Factory(:person, :last_name => "John", :last_name => "Apple")], :legacy => true, :referenced => true)
         d.should be_valid
       end
       it "should not accept a determination date with only the day filled in if determination is legacy" do
