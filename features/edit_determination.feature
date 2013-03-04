@@ -7,10 +7,10 @@ Feature: Edit Determination
   Background:
     Given I have a specimen
     And I have people
-      | initials  | first_name | last_name |
-      | G.R.      | Greg       | Adams     |
-      | F.        | Fiona      | Wells     |
-      | H.C.      | Henry      | Smith     |
+      | initials | first_name | last_name |
+      | G.R.     | Greg       | Adams     |
+      | F.       | Fiona      | Wells     |
+      | H.C.     | Henry      | Smith     |
     And I have herbaria
       | code | name                     |
       | NSW  | NSW Botanical Gardens    |
@@ -108,7 +108,7 @@ Feature: Edit Determination
     And I press "Continue"
     When I press "Save"
     And I should see a determination table with
-      | Date Determined | Determiners            | Determiner Herbarium | Date Confirmed | Confirmer | Confirmer Herbarium |
+      | Date Determined | Determiners          | Determiner Herbarium | Date Confirmed | Confirmer | Confirmer Herbarium |
       | 5 Dec. 1979     | G.R. Adams, F. Wells | NSW                  |                |           |                     |
 
   Scenario: Should not get past step 1 without passing date validation
@@ -164,7 +164,7 @@ Feature: Edit Determination
     And I select "NSW - NSW Botanical Gardens" from "Determiner herbarium"
     And I press "Continue"
     When I follow "Cancel"
-    # making this pending as we want hudson to pass - this is a known bug see UNEHERB-311
+  # making this pending as we want hudson to pass - this is a known bug see UNEHERB-311
     When pending
 #    And I should see a determination table with
 #      | Date Determined | Determiners | Determiner Herbarium | Date Confirmed | Confirmer | Confirmer Herbarium |
@@ -202,7 +202,7 @@ Feature: Edit Determination
   Scenario: Show warning if species has been renamed for an existing determination
     Given I am at step 2 of editing a determination
     Then the determination record should have
-      | species                | abcd        |
+      | species | abcd |
     And I should not see "The name selected for this determination is no longer in the database. Please select another name or contact the herbarium."
     When I am on the edit species page for "abcd"
     Then I should see "Edit Species"
@@ -212,7 +212,7 @@ Feature: Edit Determination
     And I follow "Edit determination"
     And I press "Continue"
     Then the determination record should have
-      | species                | abcd        |
+      | species | abcd |
     And I should see "The name selected for this determination is no longer in the database. Please select another name or contact the herbarium."
 
   Scenario: Search by division
@@ -232,7 +232,7 @@ Feature: Edit Determination
     And I should not see "Species"
     And I should not see "Subspecies"
     And I should see a determination table with
-      | Date Determined | Determiners            | Determiner Herbarium | Date Confirmed | Confirmer | Confirmer Herbarium |
+      | Date Determined | Determiners          | Determiner Herbarium | Date Confirmed | Confirmer | Confirmer Herbarium |
       | 1979            | G.R. Adams, F. Wells | NSW                  |                |           |                     |
 
   Scenario: Search by class
@@ -559,15 +559,15 @@ Feature: Edit Determination
     When I search for species "blah"
     Then I should see "No results were found for search 'blah'."
     When I press "Save"
-  # I can still save without selecting something
-    #Then I should not see "Division"
+# I can still save without selecting something
+#Then I should not see "Division"
 
   Scenario: searching but selecting nothing
     Given I am at step 2 of editing a determination
     When I search for species "inte"
     When I press "Save"
-  # I can still save without selecting something
-    #Then I should not see "Division"
+# I can still save without selecting something
+#Then I should not see "Division"
 
   Scenario: Search and select multiple times
     Given I am at step 2 of editing a determination
@@ -693,7 +693,34 @@ Feature: Edit Determination
       | tribe_uncertainty      |      |
       | genus_uncertainty      |      |
 
-
+  Scenario: Old determination without plant name does not crash when updated and raises plant name validation
+    Given I have a specimen
+    And the specimen has an old determination without a plant name
+      | determiner_herbarium_code | SCU        |
+      | determination_date_year   | 2010       |
+      | determination_date_month  | 06         |
+      | determination_date_day    | 10         |
+      | determiner                | H.C. Smith |
+    And I am on the specimen page
+    And I follow "Edit determination"
+    And I press "Continue"
+    And I press "Save"
+    And I should see "You must select a plant name"
+    And I select "Division" from "level"
+    And I fill in "term" with "Div4"
+    And I press "Search" within the main content
+    Then I should see "search_results" table with
+      | Division |        |
+      | Div4     | Select |
+    When I select the first result in the species search results
+    Then I should see field "Division" with value "Div4"
+    When I press "Save"
+    Then I should be on the specimen page
+    And I should see field "Division" with value "Div4"
+    And I should not see "Class"
+    And I should see a determination table with
+      | Date Determined | Determiners | Determiner Herbarium | Date Confirmed | Confirmer | Confirmer Herbarium |
+      | 10 June 2010    | H.C. Smith  | SCU                  |                |           |                     |
 
 # Edit naturalised flag
 # Change from no plant to plant

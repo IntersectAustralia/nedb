@@ -32,6 +32,30 @@ When /^the specimen has determination$/ do |table|
   @det.save!
 end
 
+When /^the specimen has an old determination without a plant name$/ do |table|
+  param_hash = {}
+  vals = table.raw
+  person = nil
+  vals.each do |row|
+    key = row[0]
+    val = row[1]
+    if (key == "determiner_herbarium_code")
+      herb = Herbarium.where(:code => val).first
+      param_hash[:determiner_herbarium] = herb
+    elsif (key == "determiner")
+      name = val.to_s.split(" ")
+      person = Person.where(:initials => name[0], :last_name => name[1]).first
+    else
+      param_hash[key] = val
+    end
+  end
+  @det = @created_specimen.determinations.new(param_hash)
+  @det.determiners = [person]
+  @det.referenced = false
+  @det.save(:validate => false)
+end
+
+
 Then /^the determination record should have$/ do |table|
   det = Determination.find(@det.id)
   vals = table.raw

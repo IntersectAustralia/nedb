@@ -36,7 +36,7 @@ class Determination < ActiveRecord::Base
   def plant_name_present?
     # referenced flag is used to temporarily bypass the plant validation in step 1.
     if !referenced and %w(division class_name order_name family sub_family tribe genus species).all?{|attr| self[attr].blank?}
-      errors.add(:base, "You must select a plant")
+      errors.add(:base, "You must select a plant name")
     end
   end
 
@@ -64,7 +64,7 @@ class Determination < ActiveRecord::Base
 
   def set_determining_at_level(field)
     fields             = Determination.plant_name_fields
-    index_of_our_field = fields.index(field)
+    index_of_our_field = fields.index(field) || 0
     fields_to_blank    = fields[index_of_our_field+1..fields.length]
 
     fields_to_blank.each do |field_name|
