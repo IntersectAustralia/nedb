@@ -84,6 +84,18 @@ Feature: Create Specimens
     And I should see "Collector can't be blank"
     And I should see "Enter a year for Collection date"
 
+  Scenario: Create specimen with random text as accession number
+    Given I am on the home page
+    When I follow "Add"
+    And I select "G.R. Adams" from the collector select
+    And I fill in "specimen_collection_date_year" with "2010"
+    And I select "Please select" from the country select
+    And I follow "Set"
+    And I fill in "Accession number" with "text"
+    And I press "Create Specimen"
+    Then I should see "1 error need to be corrected before this record can be saved."
+    And I should see "Accession number needs to be greater than 0"
+
   Scenario: Countries dropdown should be populated and default to Australia
     Given I am on the home page
     When I follow "Add"

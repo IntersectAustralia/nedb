@@ -184,8 +184,8 @@ class SpecimensController < ApplicationController
     Specimen.remove_fullstops(params[:specimen])
     @specimen = Specimen.new(params[:specimen])
 
-    unless params[:specimen][:id].to_i == 0
-      @specimen.id = params[:specimen][:id]
+    unless params[:specimen][:id].blank? or params[:specimen][:id].eql?("Autogenerate")
+      @specimen.id = params[:specimen][:id].to_i
     end
 
     @specimen.secondary_collectors = Person.find(params[:secondary_collector_ids]) if params[:secondary_collector_ids]
