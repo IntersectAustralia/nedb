@@ -13,7 +13,6 @@ box_width = 280
 
 pdf.font_size 10
 
-current_box = -1
 current_height = 0
 
 pdf_creator = SpecimenPdfCreator.new
@@ -29,24 +28,22 @@ pdf_creator = SpecimenPdfCreator.new
 
   current_label_number = 0
   items.each do |item_formatter|
-    current_box = current_box + 1
     current_label_number = current_label_number + 1
 
-    current_box = pdf_creator.layout_boxes(pdf, current_height, current_box)
+    pdf_creator.new_page(pdf)
 
     # draw the bounding box
-    pdf.bounding_box(pdf_creator.box_values[current_box], :width => box_width) do
+    pdf.bounding_box(pdf_creator.box_values[0], :width => box_width) do
       current_height = pdf_creator.generate_label(pdf, current_label_number, item_formatter)
     end
   end
 
   replicates.each do |rep_formatter|
-    current_box = current_box + 1
 
-    current_box = pdf_creator.layout_boxes(pdf, current_height, current_box)
+    pdf_creator.new_page(pdf)
 
     # draw the bounding box
-    pdf.bounding_box pdf_creator.box_values[current_box], :width => box_width do
+    pdf.bounding_box pdf_creator.box_values[0], :width => box_width do
       current_height = pdf_creator.generate_label(pdf, 0, rep_formatter)
     end
   end

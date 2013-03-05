@@ -117,21 +117,8 @@ class SpecimenPdfCreator
     return current_box_height
   end
 
-  # determine whether four boxes will fit on the page based
-  # on the height of the bounding_box
-  def layout_boxes(pdf, current_height, current_box)
-    if current_height > HALF_HEIGHT
-      if current_box > 1
-        pdf.start_new_page
-        return CURRENT_BOX_ZERO
-      end
-    else
-      if current_box > 3
-        pdf.start_new_page
-        return CURRENT_BOX_ZERO
-      end
-    end
-    return current_box
+  def new_page(pdf)
+    pdf.start_new_page
   end
 
   # position of the four boxes - position is defined by the top left corner, the coordinates start from the left and bottom of the page

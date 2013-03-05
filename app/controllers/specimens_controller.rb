@@ -7,7 +7,7 @@ class SpecimensController < ApplicationController
   before_filter :validate_search, :only => [:advanced_search]
   before_filter :load_static_search_data, :only => [:advanced_search]
 
-  prawnto :prawn => {:left_margin => 10, :right_margin => 9, :top_margin => 6, :bottom_margin => 6, :page_size => "A4", :filename => "labels-.pdf"}
+  prawnto :prawn => {:left_margin => 10, :right_margin => 9, :top_margin => 6, :bottom_margin => 6, :page_size => "A4", :filename => "labels-.pdf", :skip_page_creation => true}
 
   load_and_authorize_resource
 
