@@ -6,9 +6,9 @@
   <% title_components << "Needs Review" %>
 <% end %>
 <% if title_components.empty? %>
-  <% composed_title =  "NE #{@specimen.id}" %>
+  <% composed_title =  "#{Setting.instance.specimen_prefix} #{@specimen.id}" %>
 <% else %>
-  <% composed_title =  "#{title_components.join(' ')}: NE #{@specimen.id}" %>
+  <% composed_title =  "#{title_components.join(' ')}: #{Setting.instance.specimen_prefix} #{@specimen.id}" %>
 <% end %>
 <% title composed_title %>
 

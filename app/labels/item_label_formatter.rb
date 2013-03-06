@@ -12,7 +12,7 @@ class ItemLabelFormatter < LabelFormatter
 
   # the text that gets encoded into the barcode
   def barcode_value
-    "NE#{@specimen.id}.#{@item.id}"
+    "#{Setting.instance.specimen_prefix}#{@specimen.id}.#{@item.id}"
   end
 
   # the text that appears below the barcode

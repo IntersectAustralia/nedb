@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130228230714) do
+ActiveRecord::Schema.define(:version => 20130305050226) do
 
   create_table "botanical_divisions", :force => true do |t|
     t.integer  "state_id"
@@ -159,6 +159,19 @@ ActiveRecord::Schema.define(:version => 20130228230714) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "settings", :force => true do |t|
+    t.text   "citation"
+    t.string "app_title"
+    t.string "specimen_prefix"
+    t.string "breadcrumb_title1"
+    t.string "breadcrumb_title2"
+    t.string "breadcrumb_link1"
+    t.string "breadcrumb_link2"
+    t.string "institution"
+    t.string "institution_address"
+    t.string "institution_code"
+  end
 
   create_table "species", :force => true do |t|
     t.string   "name"

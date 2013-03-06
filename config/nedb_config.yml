@@ -5,12 +5,6 @@ defaults: &defaults
   new_deaccession_notification_sender: une-deaccession@intersect.org.au
   images_root: /tmp
 
- # SFTP settings
-  server: upload.ala.org.au
-  username: georginae
-  password: orenyoam
-  csv_root: /NE/specimens.csv
-
 development:
   <<: *defaults
 

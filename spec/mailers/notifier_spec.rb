@@ -11,7 +11,7 @@ describe Notifier do
       # check that the email has been queued for sending
       ActionMailer::Base.deliveries.empty?.should eq(false) 
       email.to.should eq([address])
-      email.subject.should eq("NCW Beadle Herbarium - access request approved") 
+      email.subject.should eq("N.C.W. Beadle Herbarium - access request approved")
     end
 
     it "should send mail to user if access request denied" do
@@ -22,7 +22,7 @@ describe Notifier do
       # check that the email has been queued for sending
       ActionMailer::Base.deliveries.empty?.should eq(false) 
       email.to.should eq([address])
-      email.subject.should eq("NCW Beadle Herbarium - access request status") 
+      email.subject.should eq("N.C.W. Beadle Herbarium - access request status")
     end
   end
 
@@ -35,7 +35,7 @@ describe Notifier do
 
     # check that the email has been queued for sending
     ActionMailer::Base.deliveries.empty?.should eq(false)
-    email.subject.should eq("NCW Beadle Herbarium - new access request")
+    email.subject.should eq("N.C.W. Beadle Herbarium - new access request")
     email.to.should eq(["super1@intersect.org.au", "super2@intersect.org.au"])
   end
 
@@ -46,7 +46,7 @@ describe Notifier do
       email = Notifier.notify_superusers_of_user_feedback(applicant, "Some feedback").deliver
 
       ActionMailer::Base.deliveries.empty?.should eq(false)
-      email.subject.should eq("NCW Beadle Herbarium - feedback from Fred Bloggs")
+      email.subject.should eq("N.C.W. Beadle Herbarium - feedback from Fred Bloggs")
       email.from.should eq(["fred@intersect.org.au"])
       email.to.should eq(["super1@intersect.org.au", "super2@intersect.org.au"])
       email.reply_to.should eq(["fred@intersect.org.au"])
@@ -61,7 +61,7 @@ describe Notifier do
       email = Notifier.notify_superusers_of_deaccession_request(specimen).deliver
 
       ActionMailer::Base.deliveries.empty?.should eq(false)
-      email.subject.should eq("NCW Beadle Herbarium - NE#{specimen.id} has been flagged for deaccession")
+      email.subject.should eq("N.C.W. Beadle Herbarium - NE#{specimen.id} has been flagged for deaccession")
       email.from.should eq([APP_CONFIG['new_deaccession_notification_sender']])
       email.to.should eq(["super1@intersect.org.au", "super2@intersect.org.au"])
     end

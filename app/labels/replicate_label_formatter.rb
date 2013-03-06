@@ -12,12 +12,12 @@ class ReplicateLabelFormatter < LabelFormatter
 
   # the text that gets encoded into the barcode
   def barcode_value
-    "NE#{@specimen.id}.#{@replicate.code.upcase}"
+    "#{Setting.instance.specimen_prefix}#{@specimen.id}.#{@replicate.code.upcase}"
   end
 
   # the text that appears below the barcode
   def barcode_label
-    "Do not cite: NE#{@specimen.id}.#{@replicate.code}"
+    "Do not cite: #{Setting.instance.specimen_prefix}#{@specimen.id}.#{@replicate.code}"
   end
 
   # replicate labels never have numbering

@@ -29,6 +29,8 @@ GEM
       activemodel (= 3.0.3)
       activesupport (= 3.0.3)
     activesupport (3.0.3)
+    acts_as_singleton (0.0.5)
+      activerecord
     addressable (2.3.2)
     arel (2.0.6)
     barby (0.4.2)
@@ -191,6 +193,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_singleton
   barby
   cancan
   capistrano

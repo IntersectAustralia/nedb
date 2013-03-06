@@ -48,6 +48,9 @@ gem "meta_search"
 # to fix URItoolarge in webrick, use mongrel
 gem 'mongrel', '1.2.0.pre2'
 
+# for database settings
+gem 'acts_as_singleton'
+
 group :development, :test do
   gem "rspec-rails", ">= 2.0.1"
 
