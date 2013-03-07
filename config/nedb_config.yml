@@ -14,6 +14,9 @@ test:
 production:
   <<: *defaults
 
+production_student:
+  <<: *defaults
+
 qa:
   <<: *defaults
 

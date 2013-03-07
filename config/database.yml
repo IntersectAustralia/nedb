@@ -28,6 +28,9 @@ production:
   pool: 5
   timeout: 5000
 
+production_student:
+  production # same configuration, but on different server
+
 staging:
   production # same configuration, but on different server
 

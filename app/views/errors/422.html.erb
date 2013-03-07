@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title><%= Setting.instance.app_title %> - Error</title>
+  <link href="/stylesheets/nedb.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<div id="header">
+  <div id="logo">
+    <a href="<%= Setting.instance.breadcrumb_link1 %>" target="_blank"><%= image_tag "spacer.gif", :height => "90", :width => "90", :alt => "#{Setting.instance.institution_code} Logo" %></a>
+  </div>
+  <div id="site_title"><%= link_to Setting.instance.app_title, root_path %></div>
+  <div id="website_breadcrumb">
+    <%= link_to Setting.instance.breadcrumb_title1, Setting.instance.breadcrumb_link1 %> /
+    <%= link_to Setting.instance.breadcrumb_title2, Setting.instance.breadcrumb_link2 %> /
+    <strong><%= Setting.instance.app_title %></strong>
+  </div>
+</div>
+
+
+<div class="content">
+
+  <h1>An Error Occurred</h1>
+
+  <div class="dialog">
+    <p>The change you wanted was rejected. Maybe you tried to change something you didn't have access to. <a href="/">Click here</a> to return to the home page.</p>
+  </div>
+
+  <div class="footer_spacer"></div>
+
+</div>
+
+<div id="footer">
+  <div class="footer_attribution">
+    <span><a target="_blank" href="http://www.intersect.org.au/policies" class="intersect_logo_link"></a> Developed by <a href="http://www.intersect.org.au/policies" target="_blank">Intersect Australia Ltd</a></span>
+  </div>
+</div>
+
+</body>
+</html>
+

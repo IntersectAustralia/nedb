@@ -1,4 +1,4 @@
-set :stages, %w(qa staging production)
+set :stages, %w(qa staging production production_student)
 set :default_stage, "qa"
 require 'capistrano/ext/multistage'
 
@@ -94,7 +94,7 @@ task :generate_database_yml, :roles => :app do
 end
 
 def fail_if_non_destructive_env(stage)
-  if stage.eql?(:production) || stage.eql?(:staging)
+  if stage.eql?(:production) || stage.eql?(:production_student) || stage.eql?(:staging)
     raise "Cannot run destructive action in staging or production"
   end
 end
