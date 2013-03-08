@@ -9,7 +9,7 @@ class LabelFormatter
   end
 
   def accession_number
-    "NE #{@specimen.id}"
+    "#{Setting.instance.specimen_prefix} #{@specimen.id}"
   end
 
   def family_sub_family

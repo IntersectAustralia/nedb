@@ -89,6 +89,8 @@ Nedb::Application.routes.draw do
   get "javascripts/determinations"
   get "javascripts/specimens"
 
+  match '*a', :to => 'application#routing_error'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

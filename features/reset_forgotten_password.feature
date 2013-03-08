@@ -12,7 +12,7 @@ Feature: Reset forgotten password
     And I press "Submit"
     Then "georgina@intersect.org.au" should receive an email
     When I open the email
-    Then I should see "You requested to reset your password for the NCW Beadle Herbarium site. You can do this by clicking the link below." in the email body
+    Then I should see "You requested to reset your password for the N.C.W. Beadle Herbarium site. You can do this by clicking the link below." in the email body
     When I follow "Change my password" in the email
     Then I should see "Change Your Password"
     When I fill in "user_password" with "Pass.456"

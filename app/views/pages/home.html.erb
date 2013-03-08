@@ -2,60 +2,57 @@
 
 <% if !user_signed_in? %>
 
-    <div id="public_login">
-      <h2>Login</h2>
-      <%= form_for("user", :url => user_session_path) do |f| %>
-          <%= render(:partial => 'devise/sessions/form', :locals => {:f => f}) %>
-      <% end %>
-      <%= link_to "Request an account", new_user_registration_path %>
-      <br/>
-      <%= link_to "Forgot your password?", new_user_password_path %>
-      <br/>
-    </div>
+  <div id="public_login">
+    <h2>Login</h2>
+    <%= form_for("user", :url => user_session_path) do |f| %>
+      <%= render(:partial => 'devise/sessions/form', :locals => {:f => f}) %>
+    <% end %>
+    <%= link_to "Request an account", new_user_registration_path %>
+    <br/>
+    <%= link_to "Forgot your password?", new_user_password_path %>
+    <br/>
+  </div>
 
 <% else %>
 
-    <div id="public_search">
+  <div id="public_search">
 
-      <%= form_tag(search_specimens_path, :method => "get") do %>
-          <h2><%= label_tag :quick_search, "Search" %></h2>
+    <%= form_tag(search_specimens_path, :method => "get") do %>
+      <h2><%= label_tag :quick_search, "Search" %></h2>
 
-          <p><%= text_field_tag :quick_search, nil, :size => 60, :maxlength => 50 %>&nbsp;&nbsp;&nbsp;</p>
+      <p><%= text_field_tag :quick_search, nil, :size => 60, :maxlength => 50 %>&nbsp;&nbsp;&nbsp;</p>
       <span class="iconSearch">
         <%= submit_tag "Go" %>
       </span>
-      <% end %>
+    <% end %>
 
-    </div>
+  </div>
 
-    <div id="public_login">
+  <div id="public_login">
 
-      <% if can?(:create, Specimen) %>
-          <h2>Add Specimen</h2>
+    <% if can?(:create, Specimen) %>
+      <h2>Add Specimen</h2>
 
-          <div id="btn_addspecimen">
-            <ul>
-              <li id="addspecimen"><%= link_to "Create a specimen", new_specimen_path %></li>
-            </ul>
-          </div>
-      <% end %>
+      <div id="btn_addspecimen">
+        <ul>
+          <li id="addspecimen"><%= link_to "Create a specimen", new_specimen_path %></li>
+        </ul>
+      </div>
+    <% end %>
 
-    </div>
+  </div>
 
-    <div class="clear"></div>
+  <div class="clear"></div>
 
-    <div id="citing_ne">
-      <h4>Citations</h4>
+  <div id="citing_ne">
+    <h4>Citations</h4>
 
-      <p>Please cite use of this database in papers, theses, reports, etc. as follows:</p>
-
-      <p>"NE-db (year). N.C.W. Beadle Herbarium (NE) database (NE-db). Version 1, Dec 2010 [and more or less
-        continuously updated since] www.une.edu.au/herbarium/nedb, accessed [day month year]."</p>
-
-      <p>And/or acknowledge use of the data as follows:</p>
-
-      <p>"I/we acknowledge access and use of data from the N.C.W. Beadle Herbarium (NE) database (NE-db)."</p>
-    </div>
+    <% Setting.instance.citation.split("\n").each do |line| %>
+      <p>
+        <%= line %>
+      </p>
+    <% end %>
+  </div>
 
 
 <% end %>

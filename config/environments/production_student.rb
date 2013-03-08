@@ -49,7 +49,7 @@ Nedb::Application.configure do
   config.active_support.deprecation = :notify
 
   # Set URL for action mailer
-  config.action_mailer.default_url_options = { :host => 'gsw1-herbarium01-vm.intersect.org.au' }
+  config.action_mailer.default_url_options = { :host => 'gsw1-herbarium02-vm.intersect.org.au' }
   
   # email configuration
   config.action_mailer.delivery_method = :smtp

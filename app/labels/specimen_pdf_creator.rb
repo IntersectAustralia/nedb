@@ -11,11 +11,11 @@ class SpecimenPdfCreator
 
   def generate_label(pdf, current_page, formatter)
 
-    header = "<b>N.C.W. Beadle Herbarium (NE)<b>"
+    header = "<b>#{Setting.instance.app_title} (#{Setting.instance.specimen_prefix})<b>"
     header = "<b><i>ex</i></b> " + header if formatter.show_ex?
-    institution = "University of New England"
-    address = "Armidale NSW 2351 Australia"
-    notification = "Notification of change of determination would be appreciated by NE"
+    institution = Setting.instance.institution
+    address = Setting.instance.institution_address
+    notification = "Notification of change of determination would be appreciated by #{Setting.instance.specimen_prefix}"
 
     pdf.text header,      :inline_format => true, :align => :center
     pdf.text institution, :align => :center

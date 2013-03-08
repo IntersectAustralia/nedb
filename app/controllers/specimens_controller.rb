@@ -261,7 +261,7 @@ class SpecimensController < ApplicationController
   end
 
   def download_zip
-    file_name = "NE#{@specimen.id}_images.zip"
+    file_name = "#{Setting.instance.specimen_prefix}#{@specimen.id}_images.zip"
     @specimen.with_images_in_temp_zip_file do |zip_file|
       zip_data = File.read zip_file
       send_data zip_data, type: 'application/zip', filename: file_name
@@ -536,11 +536,11 @@ class SearchTermParser
   end
 
   def accession_number
-    if @raw_search_term =~ /^NE[0-9]+\.[0-9a-zA-Z]+$/
+    if @raw_search_term =~ /^#{Setting.instance.specimen_prefix}[0-9]+\.[0-9a-zA-Z]+$/
       # its in the format NE[accession_no].[item_number or rep code]
       dot_location = @raw_search_term.index(".")
       return @raw_search_term[2..(dot_location - 1)]
-    elsif @raw_search_term =~ /^NE[0-9]+$/
+    elsif @raw_search_term =~ /^#{Setting.instance.specimen_prefix}[0-9]+$/
       # its in the format NE[accession_no]
       return @raw_search_term[2, @raw_search_term.length]
     elsif @raw_search_term =~ /^[0-9]+$/
