@@ -1,4 +1,5 @@
 <%= form_for(@search, :url => advanced_search_specimens_path) do |f| %>
+    <%= f.submit "Search" %>
     <div id="advanced_search_criteria">
     <div id="adv_search_general">
       <div class="field">
@@ -20,6 +21,11 @@
         <%= f.label :replicate_from %>
         <%= f.text_field :replicate_from_contains, :maxlength => 50, :size => 30 %>  <br/>
       </div>
+
+      <div class="field">
+        <%= f.label :replicate_from_number %>
+        <%= f.text_field :replicate_from_no_contains, :maxlength => 50, :size => 30 %> <br/>
+      </div> <br/>
 
       <div class="field">
         <%= f.label :topography %>
@@ -162,30 +168,82 @@
         <%= f.label :longitude_seconds, :style => "display:none;" %>
         <%= f.text_field :longitude_seconds_less_than_or_equal_to, :size => 6, :value => @searchparams[:longitude_seconds_less_than_or_equal_to],  :maxlength => 10 %>
         "&nbsp;
-      </div>
-    </div>
-    <div id="adv_search_determinations">
-      <div class="field">
-        <%= f.label :collector_id %>
-        <%= f.collection_select(:collector_id_equals,
-                                @all_people,
-                                :id,
-                                :display_name,
-                                { :include_blank => "None" })
+      </div><br/>
+
+
+      <div id="adv_search_additional">
+        <div class="field">
+          <%= f.label :collector_number %>
+          <%= f.text_field :collector_number_equals, :maxlength => 50, :size => 30 %>
+        </div><br/>
+
+        <div class="field">
+          <%= f.label :other_collectors %>
+          <%= f.collection_select(:secondary_collectors_id_equals,
+                                  @all_people,
+                                  :id,
+                                  :display_name,
+                                  { :include_blank => "None" })
+          %>
+          <br/>
+        </div><br/>
+
+        <div class="field">
+          <%= f.label :replicate_to %>
+          <%= f.collection_select(:replicates_id_equals,
+                                  @all_herbaria,
+                                  :id,
+                                  :display_name,
+                                  { :include_blank => "None" }, {:style=>'width:270px;'})
+          %>
+        </div><br/>
+
+        <div>
+          <label class="field_radiobtn_label">Needs review</label>
+          <span><%= f.radio_button(:needs_review_equals, true) %>&nbsp;<%= f.label :needs_review_equals, "True" %></span>
+          <span><%= f.radio_button(:needs_review_equals, false) %>&nbsp;<%= f.label :needs_review_equals, "False" %></span>
+          <span><%= f.radio_button(:needs_review_equals, "") %>&nbsp;<%= f.label :needs_review_equals, "Ignore" %></span>
+          <br/>
+        </div>
+        <br/>
+
+        <div class="field">
+          <%= f.label :confirmations_confirmer_id %>
+          <%= f.collection_select(:confirmations_confirmer_id_equals,
+                                  @all_people,
+                                  :id,
+                                  :display_name,
+                                  { :include_blank => "None" })
+          %>
+          <br/>
+        </div><br/>
+
+
+
+        <%= render :partial => 'shared/advanced_search_partial_dates',
+                   :locals => {:f => f,
+                               :label => "Confirmation date",
+                               :date_picker_id => "confirmation_date_picker_equals",
+                               :object_prefix => "confirmation",
+                               :year_field => :confirmations_confirmation_date_year_equals,
+                               :month_field => :confirmations_confirmation_date_month_equals,
+                               :day_field => :confirmations_confirmation_date_day_equals }
         %>
         <br/>
+
+        <br/>
+
       </div>
 
-      <div class="field">
-        <%= f.label :confirmations_confirmer_id %>
-        <%= f.collection_select(:confirmations_confirmer_id_equals,
-                                @all_people,
-                                :id,
-                                :display_name,
-                                { :include_blank => "None" })
-        %>
-        <br/>
-      </div>
+    </div>
+
+
+
+
+
+
+
+    <div id="adv_search_determinations">
       <div class="field">
         <%= f.label :determinations_determiners_id %>
         <%= f.collection_select(:determinations_determiners_id_equals,
@@ -195,7 +253,7 @@
                                 { :include_blank => "None" })
         %>
         <br/>
-      </div>
+      </div><br/>
       <%= render :partial => 'shared/advanced_search_partial_dates',
                  :locals => {:f => f,
                              :label => "Determination date from",
@@ -261,7 +319,7 @@
       </div>
       <br/>
       <div class="field">
-        <%= f.label :determinations_sub_family %>
+        <%= f.label :determinations_subfamily %>
         <%= f.collection_select(:determinations_sub_family_contains,
                                 @all_subfamily,
                                 :sub_family,
@@ -294,7 +352,7 @@
       </div>
       <br/>
       <div class="field">
-        <%= f.label :determinations_sub_species %>
+        <%= f.label :determinations_subspecies %>
         <%= f.collection_select(:determinations_sub_species_contains,
                                 @all_subspecies,
                                 :subspecies,
@@ -326,61 +384,6 @@
         <br/>
       </div>
       <br/>
-    </div>
-
-    <div id="adv_search_additional">
-
-      <div class="field">
-        <%= f.label :collector_number %>
-        <%= f.text_field :collector_number_equals, :maxlength => 50, :size => 30 %>
-      </div><br/>
-
-      <div class="field">
-        <%= f.label :other_collectors %>
-        <%= f.collection_select(:secondary_collectors_id_equals,
-                                @all_people,
-                                :id,
-                                :display_name,
-                                { :include_blank => "None" })
-        %>
-        <br/>
-      </div><br/>
-
-      <div class="field">
-        <%= f.label :replicate_from_number %>
-        <%= f.text_field :replicate_from_no_contains, :maxlength => 50, :size => 30 %>
-      </div><br/>
-
-      <div class="field">
-        <%= f.label :replicate_to %>
-        <%= f.collection_select(:replicates_id_equals,
-                                @all_herbaria,
-                                :id,
-                                :display_name,
-                                { :include_blank => "None" })
-        %>
-      </div><br/>
-
-      <div>
-        <label class="field_radiobtn_label">Needs review</label>
-        <span><%= f.radio_button(:needs_review_equals, true) %>&nbsp;<%= f.label :needs_review_equals, "True" %></span>
-        <span><%= f.radio_button(:needs_review_equals, false) %>&nbsp;<%= f.label :needs_review_equals, "False" %></span>
-        <span><%= f.radio_button(:needs_review_equals, "") %>&nbsp;<%= f.label :needs_review_equals, "Ignore" %></span>
-        <br/>
-      </div>
-      <br/>
-
-      <%= render :partial => 'shared/advanced_search_partial_dates',
-                 :locals => {:f => f,
-                             :label => "Confirmation date",
-                             :date_picker_id => "confirmation_date_picker_equals",
-                             :object_prefix => "confirmation",
-                             :year_field => :confirmations_confirmation_date_year_equals,
-                             :month_field => :confirmations_confirmation_date_month_equals,
-                             :day_field => :confirmations_confirmation_date_day_equals }
-      %>
-      <br/>
-
       <div class="field">
         <%= f.label :determinations_species_uncertainty %>
         <%= f.collection_select(:determinations_species_uncertainty_contains,
@@ -424,10 +427,8 @@
                                 { :include_blank => "None" })
         %>
         <br/>
-      </div><br/><br/>
-
+      </div>
     </div>
-
     <div id="adv_search_checkboxes">
       <div class="checkbox_field">
         <label class="field_checkbox_label">Items</label>
