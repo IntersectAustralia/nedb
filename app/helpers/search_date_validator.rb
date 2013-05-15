@@ -5,6 +5,14 @@ class SearchDateValidator < ActiveModel::Validator
   end
 
   def validate_dates
+    created_at_year_from = @search_params[:created_at_from_year].to_i
+    created_at_month_from = @search_params[:created_at_from_month].to_i
+    created_at_day_from = @search_params[:created_at_from_day].to_i
+    created_at_year_to = @search_params[:created_at_to_year].to_i
+    created_at_month_to = @search_params[:created_at_to_month].to_i
+    created_at_day_to = @search_params[:created_at_to_day].to_i
+
+
     collection_year_from = @search_params[:collection_date_year_greater_than_or_equal_to].to_i
     collection_month_from = @search_params[:collection_date_month_greater_than_or_equal_to].to_i
     collection_day_from = @search_params[:collection_date_day_greater_than_or_equal_to].to_i
@@ -20,6 +28,10 @@ class SearchDateValidator < ActiveModel::Validator
     determination_month_to = @search_params[:determinations_determination_date_month_less_than_or_equal_to].to_i
     determination_day_to = @search_params[:determinations_determination_date_day_less_than_or_equal_to].to_i
 
+    validate(created_at_year_from, created_at_month_from, created_at_day_from, 'Creation date from')
+    validate(created_at_year_to, created_at_month_to, created_at_day_to, 'Creation date to')
+    compare_dates(created_at_year_from, created_at_month_from, created_at_day_from,
+                  created_at_year_to, created_at_month_to, created_at_day_to, 'Creation date') if @record.nil?
 
     validate(collection_year_from, collection_month_from, collection_day_from, 'Collection date from')
     validate(collection_year_to, collection_month_to, collection_day_to, 'Collection date to')

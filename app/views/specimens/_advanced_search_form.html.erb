@@ -2,6 +2,27 @@
     <%= f.submit "Search" %>
     <div id="advanced_search_criteria">
     <div id="adv_search_general">
+      <%= render :partial => 'shared/advanced_search_partial_dates',
+                   :locals => {:f => f,
+                               :label => "Created date from",
+                               :date_picker_id => "specimen_created_at_picker_from",
+                               :object_prefix => "specimen",
+                               :year_field => :created_at_from_year,
+                               :month_field => :created_at_from_month,
+                               :day_field => :created_at_from_day }
+      %>
+      <br/>
+      <%= render :partial => 'shared/advanced_search_partial_dates',
+                   :locals => {:f => f,
+                               :label => "Created date to",
+                               :date_picker_id => "specimen_created_at_date_picker_to",
+                               :object_prefix => "specimen",
+                               :year_field => :created_at_to_year,
+                               :month_field => :created_at_to_month,
+                               :day_field => :created_at_to_day }
+      %>
+      <br/>
+
       <div class="field">
         <%= f.label :locality %>
         <%= f.text_field :locality_description_contains, :maxlength => 50, :size => 30 %>  <br/>

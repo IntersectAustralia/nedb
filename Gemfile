@@ -58,6 +58,7 @@ group :development, :test do
   gem "shoulda"
 
   gem "escape_utils"
+  gem 'selenium-webdriver'
 
 end
 

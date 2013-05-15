@@ -5,11 +5,11 @@ Feature: Advanced Search
 
   Background:
     Given I have specimens
-    | locality_description    | vegetation        | plant_description | replicate_from | topography   | aspect | substrate    | frequency     |
-    | botanical gardens       | cactus            | spikey.           |                | desert-like  |   W    | yellow sand  |   rare        |
-    | botany                  | gum tree          | approx. 15 m tall |   a            | outback      |   N    | grey sand    |   occasional  |
-    |                         | tall gum, acacia  | yellow flowers    |                | out back     |   S    | dirt         |               |
-    | kuringai national park  |                   |                   |                | outback      |   E    |              |   rare        |
+      | locality_description    | vegetation        | plant_description | replicate_from | topography   | aspect | substrate    | frequency     | created_at            |
+      | botanical gardens       | cactus            | spikey.           |                | desert-like  |   W    | yellow sand  |   rare        | 2013-05-07 12:45:00   |
+      | botany                  | gum tree          | approx. 15 m tall |   a            | outback      |   N    | grey sand    |   occasional  | 2013-05-09 12:45:00   |
+      |                         | tall gum, acacia  | yellow flowers    |                | out back     |   S    | dirt         |               | 2013-05-09 12:45:00   |
+      | kuringai national park  |                   |                   |                | outback      |   E    |              |   rare        | 2013-05-09 12:45:00   |
     And I have the usual profiles and permissions
     And I have a user "super@intersect.org.au" with profile "Superuser"
     And I have a user "admin@intersect.org.au" with profile "Administrator"
@@ -213,3 +213,49 @@ Feature: Advanced Search
     Then the advanced search result table should contain
       | Locality      | Vegetation    | Plant Description   |
       | a datum plant | silly plant   | i am datum          |
+
+  Scenario: search for creation date
+    Given I am logged in as "super@intersect.org.au"
+    And I am on the Advanced Search page
+    When I fill in "search_created_at_from_day" with "07"
+    When I fill in "search_created_at_from_month" with "05"
+    When I fill in "search_created_at_from_year" with "2013"
+    When I fill in "search_created_at_to_day" with "09"
+    When I fill in "search_created_at_to_month" with "05"
+    When I fill in "search_created_at_to_year" with "2013"
+    And I press "search_submit"
+    Then I should see "Found 4 matching specimens."
+
+  Scenario: search for creation date with reduced range
+    Given I am logged in as "super@intersect.org.au"
+    And I am on the Advanced Search page
+    When I fill in "search_created_at_from_day" with "07"
+    When I fill in "search_created_at_from_month" with "05"
+    When I fill in "search_created_at_from_year" with "2013"
+    When I fill in "search_created_at_to_day" with "08"
+    When I fill in "search_created_at_to_month" with "05"
+    When I fill in "search_created_at_to_year" with "2013"
+    And I press "search_submit"
+    Then I should see "Found 1 matching specimens."
+
+  Scenario: search for creation date with error on 'from' field
+    Given I am logged in as "super@intersect.org.au"
+    And I am on the Advanced Search page
+    When I fill in "search_created_at_from_day" with "07"
+    When I fill in "search_created_at_from_year" with "2013"
+    When I fill in "search_created_at_to_day" with "08"
+    When I fill in "search_created_at_to_month" with "05"
+    When I fill in "search_created_at_to_year" with "2013"
+    And I press "search_submit"
+    Then I should see "Enter a month for Creation date from."
+
+  Scenario: search for creation date with error on 'to' field
+    Given I am logged in as "super@intersect.org.au"
+    And I am on the Advanced Search page
+    When I fill in "search_created_at_from_day" with "07"
+    When I fill in "search_created_at_from_month" with "05"
+    When I fill in "search_created_at_from_year" with "2013"
+    When I fill in "search_created_at_to_day" with "08"
+    When I fill in "search_created_at_to_month" with "05"
+    And I press "search_submit"
+    Then I should see "Enter a year for Creation date to."

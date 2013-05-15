@@ -19,7 +19,10 @@ class SpecimensController < ApplicationController
     @searchparams = {}
     params_hash = Marshal.load(Marshal.dump(params))
     unless params[:search].nil?
-      @searchparams = params[:search]
+
+      #Needs to be duplicated because some attributes are removed later from the search key
+      @searchparams = params[:search].dup
+      created_at_query = created_at_date_query
       c_query = collection_date_query
       d_query = determination_date_query
       lat_query = latitude_query
@@ -33,6 +36,7 @@ class SpecimensController < ApplicationController
                         .where(d_query)
                         .where(lat_query)
                         .where(long_query)
+                        .where(created_at_query)
                         .search(params_hash[:search])
       q = @search.select("DISTINCT specimens.*").order('specimens.id')
       session[:search_results] = q.collect { |specimen| specimen.id }.sort
@@ -359,6 +363,22 @@ class SpecimensController < ApplicationController
   end
 
   def delete_params(params_hash)
+    params_hash[:search].delete :created_at_to_year
+    params_hash[:search].delete :created_at_to_month
+    params_hash[:search].delete :created_at_to_day
+    params_hash[:search].delete :created_at_from_year
+    params_hash[:search].delete :created_at_from_month
+    params_hash[:search].delete :created_at_from_day
+
+    # Since I am not using this fields with metaSearch notation, I need to remove
+    # then manually.
+    params[:search].delete :created_at_to_year
+    params[:search].delete :created_at_to_month
+    params[:search].delete :created_at_to_day
+    params[:search].delete :created_at_from_year
+    params[:search].delete :created_at_from_month
+    params[:search].delete :created_at_from_day
+
     params_hash[:search].delete :collection_date_year_greater_than_or_equal_to
     params_hash[:search].delete :collection_date_month_greater_than_or_equal_to
     params_hash[:search].delete :collection_date_day_greater_than_or_equal_to
@@ -449,6 +469,19 @@ class SpecimensController < ApplicationController
     end
   end
 
+  def created_at_date_query
+    year_from = params[:search][:created_at_from_year]
+    month_from = params[:search][:created_at_from_month]
+    day_from = params[:search][:created_at_from_day]
+    year_to = params[:search][:created_at_to_year]
+    month_to = params[:search][:created_at_to_month]
+    day_to = params[:search][:created_at_to_day]
+
+    query_object = "created_at"
+    date_param = date_search_format(year_from, month_from, day_from, year_to, month_to, day_to)
+    timestamp_query(date_param, query_object)
+  end
+
   def collection_date_query
     year_from = params[:search][:collection_date_year_greater_than_or_equal_to]
     month_from = params[:search][:collection_date_month_greater_than_or_equal_to]
@@ -495,6 +528,28 @@ class SpecimensController < ApplicationController
     date_param[0] = date_param[0].to_i
     date_param[1] = date_param[1].to_i
     date_param
+  end
+
+  def timestamp_query(date_param, query_object)
+    # In order to get the specimens created exactly in the upper bound of the range
+    # we need to add the hours to the timestamp.
+    if (date_param[1] != 0)
+      begin
+        date_param[1] = DateTime.strptime(date_param[1].to_s, '%Y%m%d').end_of_day
+      rescue
+        # Do nothing. The date was already validated
+      end
+    end
+
+    if date_param[0] == 0 && date_param[1] == 0
+      date_query = ""
+    elsif date_param[0] != 0 && date_param[1] == 0
+      date_query = "#{query_object} >= '#{date_param[0]}'"
+    elsif date_param[0] == 0 && date_param[1] != 0
+      date_query = "#{query_object} <= '#{date_param[1]}'"
+    else
+      date_query = "#{query_object} BETWEEN '#{date_param[0]}' AND '#{date_param[1]}'"
+    end
   end
 
   def date_query(date_param, query_object)
