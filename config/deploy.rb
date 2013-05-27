@@ -1,12 +1,14 @@
-
 require 'capistrano/ext/multistage'
 require 'bundler/capistrano'
 require 'capistrano_colors'
 require 'colorize'
 
+# Extra capistrano tasks
+load 'lib/intersect_capistrano_tasks'
+
+set :application, "nedb"
 set :stages, %w(qa staging production production_student)
 set :default_stage, "qa"
-set :application, "nedb"
 
 set :scm, 'git'
 set :repository, 'git@github.com:IntersectAustralia/nedb.git'
@@ -32,7 +34,7 @@ namespace :deploy do
 
   # Passenger specifics: restart by touching the restart.txt file
   task :start, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+    restart
   end
   task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
@@ -42,7 +44,7 @@ namespace :deploy do
   # Remote bundle install
   task :rebundle do
     run "cd #{current_path} && bundle install"
-    sudo "touch #{current_path}/tmp/restart.txt"
+    restart
   end
 
   # Load the schema
@@ -74,9 +76,23 @@ namespace :deploy do
 
   # Helper task which re-creates the database
   task :refresh_db, :roles => :db do
-    schema_load
-    seed
-    populate
+    require 'colorize'
+
+    # Prompt to refresh_db on unless we're in QA
+    if stage.eql?(:qa)
+      input = "yes"
+    else
+      puts "This step (deploy:refresh_db) will erase all data and start from scratch.\nYou probably don't want to do it. Are you sure?' [NO/yes]".colorize(:red)
+      input = STDIN.gets.chomp
+    end
+
+    if input.match(/^yes/)
+      schema_load
+      seed
+      populate
+    else
+      puts "Skipping database nuke"
+    end
   end
 
   desc "Safe redeployment"
@@ -85,10 +101,10 @@ namespace :deploy do
     update
     rebundle
 
-    cat_migrations_output = capture("cd #{current_path} && rake db:cat_pending_migrations 2>&1", :env => {'RAILS_ENV' => stage}).chomp
+    cat_migrations_output = capture("cd #{current_path} && bundle exec rake db:cat_pending_migrations 2>&1", :env => {'RAILS_ENV' => stage}).chomp
     puts cat_migrations_output
 
-    if cat_migrations_output != '0 pending migration(s)'
+    unless cat_migrations_output[/0 pending migration\(s\)/]
       print "There are pending migrations. Are you sure you want to continue? [NO/yes] ".colorize(:red)
       abort "Exiting because you didn't type 'yes'" unless STDIN.gets.chomp == 'yes'
     end
@@ -106,26 +122,13 @@ after 'deploy:update_code' do
   deploy.set_revision
 end
 
-desc "After updating code we need to populate a new database.yml"
-task :generate_database_yml, :roles => :app do
-  require "yaml"
-  set :production_database_password, proc { Capistrano::CLI.password_prompt("Database password: ") }
-
-  buffer = YAML::load_file('config/database.yml')
-  # get ride of uneeded configurations
-  buffer.delete('test')
-  buffer.delete('development')
-  buffer.delete('cucumber')
-  buffer.delete('spec')
-
-  # Populate production password
-  buffer['production']['password'] = production_database_password
-
-  put YAML::dump(buffer), "#{release_path}/config/database.yml", :mode => 0664
-end
-
 def fail_if_non_destructive_env(stage)
   if stage.eql?(:production) || stage.eql?(:production_student) || stage.eql?(:staging)
     raise "Cannot run destructive action in staging or production"
   end
+end
+
+
+after 'multistage:ensure' do
+  set(:rails_env) { "#{defined?(rails_env) ? rails_env : stage.to_s}" }
 end
