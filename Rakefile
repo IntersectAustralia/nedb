@@ -9,26 +9,26 @@ Nedb::Application.load_tasks
 
 task :create_views =>  :environment do
   ActiveRecord::Base.establish_connection(Rails.env.to_sym)
-  sql = "create view determination_dates as " +
+  sql = "create or replace view determination_dates as " +
         "   select COALESCE(determination_date_year*10000,0)+COALESCE(determination_date_month*100,0)+COALESCE(determination_date_day,0) as det_date, * " +
         "   from determinations;" +
-        "create view latest_determination as " +
+        "create or replace view latest_determination as " +
         "   select * from determination_dates " +
         "   where (specimen_id,det_date) in " +
         "         (select specimen_id, max(det_date) from determination_dates group by specimen_id);" +
-        "create view specimen_dates as " +
+        "create or replace view specimen_dates as " +
         "   select id as id, COALESCE(collection_date_year*10000,null)+COALESCE(collection_date_month*100,null)+COALESCE(collection_date_day,null) as collection_date" +
         "   from specimens " +
         "   where collection_date_year is not null " +
         "   and collection_date_year is not null " +
         "   and collection_date_year is not null;" +
-        "create view det_dates as " +
+        "create or replace view det_dates as " +
         "   select specimen_id as id, COALESCE(determination_date_year*10000,null)+COALESCE(determination_date_month*100,null)+COALESCE(determination_date_day,null) as date" +
         "   from determinations " +
         "   where determination_date_year is not null " +
         "   and determination_date_month is not null " +
         "   and determination_date_day is not null;" +
-        "create view specimen_coordinates as" +
+        "create or replace view specimen_coordinates as" +
         "   select id as id, COALESCE(round(latitude_degrees+((latitude_minutes*60 + latitude_seconds)/3600), 13),null) as latitude," +
         "    COALESCE(round(longitude_degrees+((longitude_minutes*60 + longitude_seconds)/3600),13),null) as longitude" +
         "   from specimens " +

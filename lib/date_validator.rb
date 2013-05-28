@@ -7,14 +7,14 @@ class DateValidator < ActiveModel::Validator
 
   def validate(record)
     if record[options[:legacy_data]] == true
-      if not_empty? record[options[:fields][:month]] or not_empty? record[options[:fields][:day]] and empty? (record[options[:fields][:year]])
+      if not_empty? record[options[:fields][:month]] or not_empty? record[options[:fields][:day]] and empty?(record[options[:fields][:year]])
         record.errors[:base] << "Enter a year for #{options[:field_name]}"
         # check that the month field is not empty if a day is filled in
       elsif empty? record[options[:fields][:month]] and not_empty? record[options[:fields][:day]]
         record.errors[:base] << "Enter a month for #{options[:field_name]}"
       else
         # if a day and month are included check if day is valid in given month
-        if !empty? (record[options[:fields][:month]]) and !empty? (record[options[:fields][:day]])
+        if !empty? (record[options[:fields][:month]]) and !empty?(record[options[:fields][:day]])
           days_in_month = days_in_month(record[options[:fields][:month]], record[options[:fields][:year]])
           if record[options[:fields][:day]] > days_in_month
             record.errors[:base] << "You have entered an invalid day for the given month for #{options[:field_name]}"
@@ -22,14 +22,14 @@ class DateValidator < ActiveModel::Validator
         end
       end
     elsif !options[:field_name].eql?("Date of birth") and !options[:field_name].eql?("Date of death")
-      if empty? (record[options[:fields][:year]])
+      if empty?(record[options[:fields][:year]])
         record.errors[:base] << "Enter a year for #{options[:field_name]}"
       # check that the month field is not empty if a day is filled in
       elsif empty? record[options[:fields][:month]] and not_empty? record[options[:fields][:day]]
         record.errors[:base] << "Enter a month for #{options[:field_name]}"
       else
         # if a day and month are included check if day is valid in given month
-        if !empty? (record[options[:fields][:month]]) and !empty? (record[options[:fields][:day]]) 
+        if !empty?(record[options[:fields][:month]]) and !empty? (record[options[:fields][:day]]) 
           days_in_month = days_in_month(record[options[:fields][:month]], record[options[:fields][:year]])
           if record[options[:fields][:day]] > days_in_month
             record.errors[:base] << "You have entered an invalid day for the given month for #{options[:field_name]}"
@@ -37,14 +37,14 @@ class DateValidator < ActiveModel::Validator
         end
       end
     else 
-      if not_empty? record[options[:fields][:month]] or not_empty? record[options[:fields][:day]] and empty? (record[options[:fields][:year]])
+      if not_empty? record[options[:fields][:month]] or not_empty? record[options[:fields][:day]] and empty?(record[options[:fields][:year]])
         record.errors[:base] << "Enter a year for #{options[:field_name]}"
       # check that the month field is not empty if a day is filled in
       elsif empty? record[options[:fields][:month]] and not_empty? record[options[:fields][:day]]
         record.errors[:base] << "Enter a month for #{options[:field_name]}"
       else
         # if a day and month are included check if day is valid in given month
-        if !empty? (record[options[:fields][:month]]) and !empty? (record[options[:fields][:day]])
+        if !empty?(record[options[:fields][:month]]) and !empty?(record[options[:fields][:day]])
           days_in_month = days_in_month(record[options[:fields][:month]], record[options[:fields][:year]])
           if record[options[:fields][:day]] > days_in_month
             record.errors[:base] << "You have entered an invalid day for the given month for #{options[:field_name]}"
@@ -67,8 +67,8 @@ class DateValidator < ActiveModel::Validator
     end
   end
 
-  def empty? (str)
-    not not_empty? (str)
+  def empty?(str)
+    not not_empty?(str)
   end
 
   def not_empty?(str)

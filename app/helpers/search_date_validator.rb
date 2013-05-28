@@ -77,8 +77,8 @@ class SearchDateValidator < ActiveModel::Validator
     end
   end
 
-  def empty? (str)
-    not not_empty? (str)
+  def empty?(str)
+    not not_empty?(str)
   end
 
   def not_empty?(str)

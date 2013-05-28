@@ -105,7 +105,7 @@ class SpecimenPdfCreator
     current_width = pdf.bounds.width
     barcode_height = 30
 
-    pdf.move_down (barcode_height + 2)
+    pdf.move_down(barcode_height + 2)
 
     pdf.bounding_box [0, barcode_height], :width => current_width, :height => barcode_height do
       barcode.annotate_pdf(pdf, :height => barcode_height)

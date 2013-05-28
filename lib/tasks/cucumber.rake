@@ -51,8 +51,15 @@ begin
   end
 
   # In case we don't have ActiveRecord, append a no-op task that we can depend upon.
-  task 'db:test:prepare' do
+  namespace :db do
+    namespace :test do
+      task :prepare do
+        Rails.env = "test"
+        Rake::Task['create_views'].invoke
+      end
+    end
   end
+
 
   task :stats => 'cucumber:statsetup'
 rescue LoadError

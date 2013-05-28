@@ -31,13 +31,7 @@ class SpecimensController < ApplicationController
     end
 
     if @valid_search.nil?
-      @search = Specimen.joins('LEFT OUTER JOIN specimen_dates ON specimens.id = specimen_dates.id LEFT OUTER JOIN det_dates ON specimens.id = det_dates.id LEFT OUTER JOIN specimen_coordinates ON specimens.id = specimen_coordinates.id')
-                        .where(c_query)
-                        .where(d_query)
-                        .where(lat_query)
-                        .where(long_query)
-                        .where(created_at_query)
-                        .search(params_hash[:search])
+      @search = Specimen.joins('LEFT OUTER JOIN specimen_dates ON specimens.id = specimen_dates.id LEFT OUTER JOIN det_dates ON specimens.id = det_dates.id LEFT OUTER JOIN specimen_coordinates ON specimens.id = specimen_coordinates.id').where(c_query).where(d_query).where(lat_query).where(long_query).where(created_at_query).search(params_hash[:search])
       q = @search.select("DISTINCT specimens.*").order('specimens.id')
       session[:search_results] = q.collect { |specimen| specimen.id }.sort
       @adv_search_results = q.paginate(:page => params[:page])
@@ -268,7 +262,7 @@ class SpecimensController < ApplicationController
     file_name = "#{Setting.instance.specimen_prefix}#{@specimen.id}_images.zip"
     @specimen.with_images_in_temp_zip_file do |zip_file|
       zip_data = File.read zip_file
-      send_data zip_data, type: 'application/zip', filename: file_name
+      send_data zip_data, :type => 'application/zip', :filename => file_name
     end
   end
 
