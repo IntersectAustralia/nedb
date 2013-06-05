@@ -6,7 +6,7 @@ def cat_pending_migrations
     puts migration.filename
     puts content
   end
-  
+
   filenames = migrations.map(&:filename)
 end
 

@@ -19,7 +19,7 @@ test: &test
   pool: 5
   timeout: 5000
 
-production: &production
+production:
   adapter: postgresql
   host: localhost
   database: nedb
@@ -29,16 +29,13 @@ production: &production
   timeout: 5000
 
 production_student:
-  <<: *production 
-  # same configuration, but on different server
+  production # same configuration, but on different server
 
 staging:
-  <<: *production 
-  # same configuration, but on different server
+  production # same configuration, but on different server
 
 qa:
-  <<: *production 
-  # same configuration, but on different server
+  production # same configuration, but on different server
 
 cucumber:
   <<: *test
