@@ -1,12 +1,11 @@
-
-require 'capistrano/ext/multistage'
-require 'bundler/capistrano'
-require 'capistrano_colors'
-require 'colorize'
-
 set :stages, %w(qa staging production production_student)
 set :default_stage, "qa"
+require 'capistrano/ext/multistage'
+
+require 'bundler/capistrano'
+
 set :application, "nedb"
+
 
 set :scm, 'git'
 set :repository, 'git@github.com:IntersectAustralia/nedb.git'
@@ -15,16 +14,6 @@ set :copy_exclude, [".git/*", "features/upload-files/*"]
 
 set :deploy_to, "/home/devel/nedb"
 set :user, "devel"
-
-set :branch do
-  default_tag = 'HEAD'
-
-  puts "Availible tags:".yellow
-  puts `git tag`
-  tag = Capistrano::CLI.ui.ask "Tag to deploy (make sure to push the branch/tag first) or HEAD?: [#{default_tag}] ".yellow
-  tag = default_tag if tag.empty?
-  tag
-end
 
 default_run_options[:pty] = true
 
@@ -77,26 +66,6 @@ namespace :deploy do
     schema_load
     seed
     populate
-  end
-
-  desc "Safe redeployment"
-  task :safe do # TODO roles?
-    require 'colorize'
-    update
-    rebundle
-
-    cat_migrations_output = capture("cd #{current_path} && rake db:cat_pending_migrations 2>&1", :env => {'RAILS_ENV' => stage}).chomp
-    puts cat_migrations_output
-
-    if cat_migrations_output != '0 pending migration(s)'
-      print "There are pending migrations. Are you sure you want to continue? [NO/yes] ".colorize(:red)
-      abort "Exiting because you didn't type 'yes'" unless STDIN.gets.chomp == 'yes'
-    end
-
-    backup.db.dump
-    backup.db.trim
-    migrate
-    restart
   end
 
 end

@@ -9,8 +9,6 @@ gem "prawn", ">= 0.11.1.pre"
 # Deploy with Capistrano
 gem "capistrano"
 gem "capistrano-ext"
-gem "capistrano_colors"
-gem "colorize"
 
 # Postgres adapter
 gem "pg"
