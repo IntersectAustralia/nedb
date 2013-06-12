@@ -72,8 +72,8 @@ group :test do
   gem "cucumber-rails", :require => false
   gem "capybara", "~> 1.0" # we're not ready for 2.0
   gem "database_cleaner"
-  gem "spork"
   gem "launchy"    # So you can do Then show me the page
   gem "email_spec"
   gem "simplecov", :require => false
+  gem "simplecov-rcov", :require => false
 end
