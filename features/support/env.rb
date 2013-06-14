@@ -6,7 +6,6 @@ require 'rubygems'
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 require 'simplecov'
-require 'simplecov-rcov'
 
 require 'cucumber/rails'
 require 'email_spec'

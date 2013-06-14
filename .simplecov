@@ -1,3 +1,4 @@
+require 'simplecov-rcov'
 class SimpleCov::Formatter::MergedFormatter
   def format(result)
     SimpleCov::Formatter::HTMLFormatter.new.format(result)
