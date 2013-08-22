@@ -143,10 +143,11 @@ def unselect_determiner(determiner)
 end
 
 When /^I select the first result in the species search results$/ do
-  with_scope('"#search_results"') do
+  with_scope("search results") do
     links = all("a")
     links.first.click
   end
+  #find("#search_results").all("a").first.click
 end
 
 When /^I check the species uncertainty checkbox with the value "([^"]*)"$/ do |label|

@@ -39,4 +39,8 @@ en:
         subject: 'Unlock Instructions'
     user_registers:
       user:
+        signed_up_but_inactive: 'Thanks for requesting an account. You will receive an email when your request has been approved.'
         updated: Your account details have been successfully updated.
+        updated_password: Your password has been updated.
+        create: Thanks for requesting an account. You will receive an email when your request has been approved.
+        send_feedback: Your feedback has been submitted successfully

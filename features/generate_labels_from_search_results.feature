@@ -27,7 +27,7 @@ Feature: Labels
   Scenario: Error message shown where none will generate labels
     Given I am on the Advanced Search page
     When I fill in "search_vegetation_contains" with "cactus"
-    And I press "search_submit"
+    And I press Search
     Then the advanced search result table should contain
       | Locality            | Vegetation       |
       | botany              | cactus           |
@@ -37,6 +37,6 @@ Feature: Labels
 
   Scenario: Labels produced where at least one specimen will generate labels
     Given I am on the Advanced Search page
-    And I press "search_submit"
+    And I press Search
     When I follow "Print Labels"
     Then I should get a file with name "labels.pdf" and content type "application/pdf"

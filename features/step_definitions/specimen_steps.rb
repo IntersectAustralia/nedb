@@ -29,7 +29,6 @@ Given /^I have item types (.+)$/ do |types|
 end
 
 Given /^I have specimens$/ do |table|
-
   table.hashes.each do |hash|
     tag = hash.delete('tag')
     @specimen = Factory(:specimen, hash)
@@ -100,7 +99,7 @@ Then /^the country dropdown should contain$/ do |table|
     # click the link that expands the options
     find('a.select2-choice').click
     # allow time to expand
-    sleep(0.2)
+    sleep(1)
     table.hashes.each do |hash|
       page.should have_content(hash[:name])
     end

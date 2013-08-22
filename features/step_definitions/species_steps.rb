@@ -1,6 +1,6 @@
 Given /^I have species/ do |table|
   table.hashes.each do |hash|
-    Factory(:species, hash)
+    species = Factory(:species, hash)
   end
 end
 

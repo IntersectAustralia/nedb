@@ -30,6 +30,15 @@ module HtmlSelectorsHelpers
       when "the replicates"
         "#reps"
 
+      when "search results"
+        "#search_results"
+
+      when "determination search field headers"
+        "tr.field_header"
+
+      when "determination search field results"
+        "tr.field_results"
+
       # Add more mappings here.
       # Here is an example that pulls values out of the Regexp:
       #

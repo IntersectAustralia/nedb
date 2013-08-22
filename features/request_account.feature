@@ -29,7 +29,6 @@ Feature: Request an account
     And I fill in "Last name" with "Bloggs"
     And I press "Submit Request"
     Then I should see "Thanks for requesting an account. You will receive an email when your request has been approved."
-    And I should be on the login page
     
   Scenario: Requesting an account with mismatched password confirmation should be rejected
     Given I am on the request account page

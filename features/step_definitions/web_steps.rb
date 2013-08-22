@@ -55,8 +55,13 @@ When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
 end
 
+# Resolving multiple search ID conflict
+When /^(?:|I )press Search$/ do
+  click_button("search_submit_bottom")
+end
+
 When /^(?:|I )follow "([^"]*)"$/ do |link|
-  click_link(link)
+  first(:link, link).click
 end
 
 When /^(?:|I )follow exact link "([^"]*)"$/ do |link|
@@ -115,7 +120,7 @@ When /^(?:|I )uncheck "([^"]*)"$/ do |field|
 end
 
 When /^(?:|I )choose "([^"]*)"$/ do |field|
-  choose(field)
+  first(:radio_button, field).set(true)
 end
 
 When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
