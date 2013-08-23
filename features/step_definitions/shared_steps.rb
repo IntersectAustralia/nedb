@@ -113,7 +113,7 @@ def select_from_select2(parent_div, value)
 end
 
 When /^I wait for a while$/ do
-  sleep(50)
+  sleep(0.5)
 end
 
 When /^pending$/ do
