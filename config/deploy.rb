@@ -20,12 +20,14 @@ default_run_options[:pty] = true
 namespace :deploy do
 
   # Passenger specifics: restart by touching the restart.txt file
-  task :start, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  task :start, :roles => :app, :except => {:no_release => true} do
+    run "#{try_sudo} touch #{File.join(current_path, 'tmp', 'restart.txt')}"
   end
-  task :stop do ; end
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  task :stop do
+    ;
+  end
+  task :restart, :roles => :app, :except => {:no_release => true} do
+    run "#{try_sudo} touch #{File.join(current_path, 'tmp', 'restart.txt')}"
   end
 
   # Remote bundle install
@@ -68,11 +70,16 @@ namespace :deploy do
     populate
   end
 
+  task :new_secret, :roles => :app do
+    run("cd #{current_path} && rake app:generate_secret", :env => {'RAILS_ENV' => "#{stage}"})
+  end
+
 end
 
 after 'deploy:update_code' do
   generate_database_yml
   deploy.set_revision
+  deploy.new_secret
 end
 
 desc "After updating code we need to populate a new database.yml"
