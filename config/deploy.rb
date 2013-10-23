@@ -3,6 +3,9 @@ set :default_stage, "qa"
 require 'capistrano/ext/multistage'
 
 require 'bundler/capistrano'
+require 'capistrano_colors'
+require 'colorize'
+
 
 set :application, "nedb"
 
@@ -16,6 +19,19 @@ set :deploy_to, "/home/devel/nedb"
 set :user, "devel"
 
 default_run_options[:pty] = true
+
+set :branch do
+  default_tag = 'HEAD'
+
+  #puts "Availible remote branches:".yellow
+  #puts `git branch -r`.gsub /origin\//, ''
+  puts "Availible tags:".yellow
+  puts `git tag`
+  tag = Capistrano::CLI.ui.ask "Tag to deploy (make sure to push the branch/tag first) or HEAD?: [#{default_tag}] ".yellow
+  tag = default_tag if tag.empty?
+  tag
+end
+
 
 namespace :deploy do
 
@@ -71,7 +87,7 @@ namespace :deploy do
   end
 
   task :new_secret, :roles => :app do
-    run("cd #{current_path} && rake app:generate_secret", :env => {'RAILS_ENV' => "#{stage}"})
+    run("cd #{current_path} && bundle exec rake app:generate_secret", :env => {'RAILS_ENV' => "#{stage}"})
   end
 
 end
