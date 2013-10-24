@@ -43,7 +43,7 @@ def create_user(attrs)
 end
 
 def create_unapproved_user(attrs)
-  User.create!(attrs.merge(:password => "Pass.123"))
+  u = User.create!(attrs.merge(:password => "Pass.123"))
 end
 
 def create_test_species

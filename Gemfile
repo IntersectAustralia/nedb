@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem "rails", "3.0.19"
+gem "rails", "3.0.3"
 gem "rake", "0.9.2"
 
 # Prawn is for PDF generation
@@ -17,7 +17,7 @@ gem "pg"
 gem "sqlite3"
 
 # Devise for authentication
-gem "devise", "1.5.4"
+gem "devise"
 
 # For creating test data
 gem "forgery"
@@ -68,11 +68,10 @@ end
 
 group :test do
   gem "cucumber-rails", :require => false
-  gem "capybara", "~> 2.1.0"
+  gem "capybara", "~> 1.0" # we're not ready for 2.0
   gem "database_cleaner"
   gem "launchy"    # So you can do Then show me the page
   gem "email_spec"
   gem "simplecov", :require => false
   gem "simplecov-rcov", :require => false
-  gem "zeus"
 end

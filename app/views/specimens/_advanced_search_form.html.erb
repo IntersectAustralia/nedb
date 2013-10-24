@@ -1,5 +1,5 @@
 <%= form_for(@search, :url => advanced_search_specimens_path) do |f| %>
-    <%= f.submit "Search", :id => 'search_submit_top' %>
+    <%= f.submit "Search" %>
     <div id="advanced_search_criteria">
     <div id="adv_search_general">
       <%= render :partial => 'shared/advanced_search_partial_dates',
@@ -472,6 +472,6 @@
       </div>
       <br/>
     </div>
-    <%= f.submit "Search", :id => 'search_submit_bottom' %>
+    <%= f.submit "Search" %>
     </div>
 <% end %>

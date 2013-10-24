@@ -5,40 +5,25 @@ class UserRegistersController < Devise::RegistrationsController
   # Override the create method in the RegistrationsController
   def create
     build_resource
-
-    if resource.valid?
-      resource.save
-      Notifier.notify_superusers_of_access_request(resource)
-
-      if resource.active_for_authentication?
-        set_flash_message :notice, :signed_up if is_navigational_format?
-        respond_with resource, :location => after_sign_up_path_for(resource)
-      else
-        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
-        expire_session_data_after_sign_in!
-        redirect_to root_path
-      end
+    if resource.save
+      set_flash_message :notice, "Thanks for requesting an account. You will receive an email when your request has been approved."
+      
+      # send the superadmin an email
+      resource.notify_admin_by_email
+      sign_in_and_redirect(resource_name, resource)
     else
-      clean_up_passwords resource
-      respond_with resource
+      clean_up_passwords(resource)
+      render_with_scope :new
     end
   end
   
   def update
-    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
-
     if resource.update_attributes(params[resource_name])
-      if is_navigational_format?
-        if resource.respond_to?(:pending_reconfirmation?) && resource.pending_reconfirmation?
-          flash_key = :update_needs_confirmation
-        end
-        set_flash_message :notice, flash_key || :updated
-      end
-      sign_in resource_name, resource, :bypass => true
-      respond_with resource, :location => after_update_path_for(resource)
+      set_flash_message :notice, :updated
+      redirect_to after_update_path_for(resource)
     else
-      clean_up_passwords resource
-      respond_with resource
+      clean_up_passwords(resource)
+      render_with_scope :edit
     end
   end
   
@@ -48,7 +33,7 @@ class UserRegistersController < Devise::RegistrationsController
 
   def update_password
     if resource.update_password(params[resource_name])
-      set_flash_message :notice, :updated_password
+      set_flash_message :notice, "Your password has been updated."
       redirect_to root_path
     else
       clean_up_passwords(resource)
@@ -63,7 +48,7 @@ class UserRegistersController < Devise::RegistrationsController
     @user = current_user
     feedback = params[:feedback]
     @user.submit_feedback(feedback)
-    redirect_to(root_path, :notice => :send_feedback)
+    redirect_to(root_path, :notice => "Your feedback has been submitted successfully")
   end
 
 end

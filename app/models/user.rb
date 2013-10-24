@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   scope :deactivated_or_approved, where("status = 'D' or status = 'A' ").order(:email)
 
   # Override Devise active method so that users must be approved before being allowed to log in
-  def active_for_authentication?
+  def active?
     super && approved?
   end
   
@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   def send_reset_password_instructions
     if approved?
       generate_reset_password_token!
-      Devise.mailer.reset_password_instructions(self).deliver
+      ::Devise.mailer.reset_password_instructions(self).deliver
     else
       errors.add(:base, "Your account is not active.")
     end

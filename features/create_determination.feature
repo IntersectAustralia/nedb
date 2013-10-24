@@ -98,8 +98,9 @@ Feature: Create Determination
       | Div4     | Select |
     When I select the first result in the species search results
     Then I should see field "Division" with value "Div4"
-    Then I press "Save"
-    And I should be on the specimen page
+    When I press "Save"
+    Then I should be on the specimen page
+    And I should see field "Division" with value "Div4"
     And I should not see "Class"
     And I should see a determination table with
       | Date Determined | Determiners            | Determiner Herbarium | Date Confirmed | Confirmer | Confirmer Herbarium |
@@ -431,16 +432,16 @@ Feature: Create Determination
     Then I should be on the specimen page
     And I should see field "Subspecies" with value "subsp. subsp1 s. lat. s1 auth"
     And I should see field "Variety" with value "var. var2 vel. aff. v2 auth"
-    And I should see field "Form" with value "f. form3 vel. aff. f3 auth"
+    And I should see field "Form" with value "f. aff. form3 f3 auth"
     And the specimen title should include "Rosaceae subfam. Subf2"
     And the specimen title should include "Tribe2 Dryas abcd Mno"
     And the specimen title should include "subsp. subsp1 s. lat. s1 auth"
     And the specimen title should include "var. var2 vel. aff. v2 auth"
-    And the specimen title should include "f. form3 vel. aff. f3 auth"
+    And the specimen title should include "f. aff. form3 f3 auth"
     When I follow "View"
     Then I should see field "Subspecies" with value "subsp. subsp1 s. lat. s1 auth"
     And I should see field "Variety" with value "var. var2 vel. aff. v2 auth"
-    And I should see field "Form" with value "f. form3 vel. aff. f3 auth"
+    And I should see field "Form" with value "f. aff. form3 f3 auth"
 
   Scenario: search type and term should be remembered
     Given I am at step 2 of adding a determination

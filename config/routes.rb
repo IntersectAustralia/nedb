@@ -1,7 +1,6 @@
 Nedb::Application.routes.draw do
 
-  devise_for :users, :controllers => { :registrations => "user_registers" }
-  devise_scope :user do
+  devise_for :users, :controllers => {:registrations => "user_registers"} do
     get "/users/edit_password", :to => "user_registers#edit_password" #allow users to edit their own password
     put "/users/update_password", :to => "user_registers#update_password" #allow users to edit their own password
     get "/users/feedback", :to => "user_registers#feedback" #allow users to send feedback

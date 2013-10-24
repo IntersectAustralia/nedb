@@ -5,13 +5,11 @@ class SubspeciesController < ApplicationController
   load_and_authorize_resource :subspecies, :through => :species
 
   def new
-    @species = Species.find(params[:species_id])
-    @subspecies = Subspecies.new
+
   end
 
   def edit
-    @species = Species.find(params[:species_id])
-    @subspecies = Subspecies.find(params[:id])
+
   end
 
   def create

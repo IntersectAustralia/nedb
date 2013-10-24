@@ -1,23 +1,4 @@
 <% title 'New Subspecies' %>
 
-<%= form_for([@species, @subspecies], :url => species_subspecies_index_path(@species, @subspecies)) do |f| %>
-    <%= render "shared/error_messages", :target => @subspecies %>
-
-    <div class="field">
-      <%= f.label :subspecies %>
-      <%= f.text_field :subspecies %>
-    </div>
-    <div class="field">
-      <%= f.label :authority %>
-      <%= f.text_field :authority %>
-    </div>
-
-    <div class="hr"></div>
-
-    <div class="actions">
-      <%= f.submit %>
-      <%= link_to 'Cancel', @species %>
-    </div>
-
-<% end %>
+<%= render 'form' %>
 

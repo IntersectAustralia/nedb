@@ -10,14 +10,6 @@ Then /^I should see field "([^"]*)" with value "([^"]*)"$/ do |field, value|
     page.should have_content(field)
     page.should have_content(value)
   end
-
-  #with_scope("determination search field headers") do
-  #  page.should have_content(field)
-  #end
-  #
-  #with_scope("determination search field results") do
-  #  page.should have_content(value)
-  #end
 end
 
 Then /^I should see button "([^"]*)"$/ do |arg1|
@@ -113,7 +105,7 @@ def select_from_select2(parent_div, value)
 end
 
 When /^I wait for a while$/ do
-  sleep(50)
+  sleep(5)
 end
 
 When /^pending$/ do

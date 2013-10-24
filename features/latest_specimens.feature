@@ -153,7 +153,6 @@ Feature: View Latest 40 Specimens
       | tag        | botanical_division |
       | Specimen 1 | BotDiv 1.          |
       | Specimen 2 | BotDiv 2.          |
-#    And "Specimen 1" has a determination with string "abcd"
     And I have people
       | first_name | last_name | middle_name | initials |
       | Greg       | Adams     | Robert      | G.R.     |
@@ -195,7 +194,6 @@ Feature: View Latest 40 Specimens
       | Division |        |
       | Div4     | Select |
     When I select the first result in the species search results
-    And I wait for a while
     Then I should see field "Division" with value "Div4"
     And I press "Save"
     Then I should see "Determination was successfully created"

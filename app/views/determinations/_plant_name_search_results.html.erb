@@ -8,9 +8,7 @@
 <table class="data_table" id="search_results">
   <tr>
     <% @fields_to_show.each do |field| %>
-      <th>
-        <%= map_field_to_display_name(field) %>
-      </th>
+      <th><%= map_field_to_display_name(field) %></th>
     <% end %>
     <% if @field == "name" %>
       <th>Authority</th>
@@ -18,16 +16,16 @@
     <th></th>
   </tr>
 
-  <% @species.each do |species| %>
-      <tr class="<%= cycle('field_bg', 'field_nobg') %>">
+  <% @species.each do |current_species| %>
+    <tr class="<%= cycle('field_bg', 'field_nobg') %>">
       <% @fields_to_show.each do |field| %>
-        <td><%= species.send("#{field}") %></td>
+        <td><%= current_species.send("#{field}") %></td>
       <% end %>
       <% if @field == "name" %>
-        <td><%= species.authority %></td>
+        <td><%= current_species.authority %></td>
       <% end %>
       <td>
-        <%= link_to "Select", "#", hash_of_field_values(species, @fields_to_show) %>
+        <%= link_to "Select", "#", hash_of_field_values(current_species, @fields_to_show) %>
       </td>
     </tr>
   <% end %>
@@ -41,7 +39,7 @@
       <% @fields_to_show.each do |field| %>
         <% attr = field %>
         <% attr = "species" if field == "name" %>
-        $('input#determination_<%=attr%>').val(link.attr('<%=field %>'));
+        <%= "$('input#determination_#{attr}').val(link.attr('#{field}'))" %>
       <% end %>
 
       $('#det_action').val("select");
