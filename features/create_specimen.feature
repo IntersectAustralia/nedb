@@ -150,7 +150,6 @@ Feature: Create Specimens
   Scenario: Supply a valid accession
     Given I am on the home page
     When I follow "Add"
-    And I wait for a while
     And I follow "Set"
     And I fill in "specimen_id" with an available accession number
     And I select "G.R. Adams" from the collector select
