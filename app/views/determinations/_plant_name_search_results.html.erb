@@ -39,7 +39,7 @@
       <% @fields_to_show.each do |field| %>
         <% attr = field %>
         <% attr = "species" if field == "name" %>
-        <%= "$('input#determination_#{attr}').val(link.attr('#{field}'))" %>
+        <%= "$('input#determination_#{attr}').val(link.attr('#{field}'))".html_safe %>
       <% end %>
 
       $('#det_action').val("select");

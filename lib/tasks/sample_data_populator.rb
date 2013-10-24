@@ -8,6 +8,8 @@ def populate_data
   create_test_users
   create_test_species
   create_test_specimens
+
+  create_settings
 end
 
 def create_test_users
@@ -58,7 +60,18 @@ def create_test_species
   species_params[:sub_family] = "CESub Family"
   species_params[:tribe] = "CE Tribe"
 
+  # clean up first
+  old_species = Species.where(:genus => species_params[:genus], :name => species_params[:name]).first
+
+  if old_species
+    old_species.subspecies.delete_all
+    old_species.forms.delete_all
+    old_species.varieties.delete_all
+    old_species.destroy
+  end
+
   species = Species.create!(species_params)
+
 
   Subspecies.create!(:species => species, :subspecies => "Subspecies Primera", :authority => "Don Siegel")
   Subspecies.create!(:species => species, :subspecies => "Subspecies Segunda", :authority => "Ted Post")
@@ -150,4 +163,18 @@ end
 def random_herbarium
   herbs = Herbarium.all
   herbs[random_number(0..herbs.length-1)]
+end
+
+def create_settings
+  Setting.instance.update_attributes(:app_title => "N.C.W. Beadle Herbarium",
+                                     :specimen_prefix => "NE",
+                                     :breadcrumb_title1 => "UNE Home",
+                                     :breadcrumb_title2 => "Herbarium",
+                                     :breadcrumb_link1 => "http://www.une.edu.au",
+                                     :breadcrumb_link2 => "http://www.une.edu.au/herbarium",
+                                     :institution => "University of New England",
+                                     :institution_address => "Armidale NSW 2351 Australia",
+                                     :institution_code => "UNE",
+                                     :citation => "Please cite use of this database in papers, theses, reports, etc. as follows:\n\"NE-db (year). N.C.W. Beadle Herbarium (NE) database (NE-db). Version 1, Dec 2010 [and more or less continuously updated since] www.une.edu.au/herbarium/nedb, accessed [day month year].\"\nAnd/or acknowledge use of the data as follows:\n\"I/we acknowledge access and use of data from the N.C.W. Beadle Herbarium (NE) database (NE-db).\"")
+
 end

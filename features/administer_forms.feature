@@ -43,6 +43,7 @@ Feature: Administer Species
     And I fill in "Form" with "NewForm"
     And I fill in "Authority" with "NewAuth"
     And I press "Update Form"
+    Then show me the page
     Then I should see "The form was successfully updated."
     And I should see "forms_table" table with
       | Form    | Authority |

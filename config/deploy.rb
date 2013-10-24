@@ -23,9 +23,7 @@ default_run_options[:pty] = true
 set :branch do
   default_tag = 'HEAD'
 
-  #puts "Availible remote branches:".yellow
-  #puts `git branch -r`.gsub /origin\//, ''
-  puts "Availible tags:".yellow
+  puts "Available tags:".yellow
   puts `git tag`
   tag = Capistrano::CLI.ui.ask "Tag to deploy (make sure to push the branch/tag first) or HEAD?: [#{default_tag}] ".yellow
   tag = default_tag if tag.empty?
