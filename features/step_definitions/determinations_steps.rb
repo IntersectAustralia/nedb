@@ -143,7 +143,7 @@ def unselect_determiner(determiner)
 end
 
 When /^I select the first result in the species search results$/ do
-  with_scope('"#search_results"') do
+  with_scope('determination search results') do
     links = all("a")
     links.first.click
   end
