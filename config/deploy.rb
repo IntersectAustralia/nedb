@@ -93,6 +93,9 @@ end
 after 'deploy:update_code' do
   generate_database_yml
   deploy.set_revision
+end
+
+after 'deploy:update' do
   deploy.new_secret
 end
 
