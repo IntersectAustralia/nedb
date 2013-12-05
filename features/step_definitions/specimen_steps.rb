@@ -312,3 +312,7 @@ When /^(?:|I )fill in "([^"]*)" with an accession number that's out of range$/ d
   value = Specimen.last.id + 10
   fill_in(field, :with => value)
 end
+
+Then /^the specimen should have status "(.*?)"$/ do |expected_status|
+  Specimen.first.status.should eq(expected_status)
+end

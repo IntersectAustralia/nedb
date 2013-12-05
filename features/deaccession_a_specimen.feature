@@ -27,6 +27,7 @@ Feature: Deaccession
     When I press "Flag for deaccession"
     Then I should see "The request for deaccession has been successful."
     And I should not see button "Flag for deaccession"
+    And the specimen should have status "DeAccReq"
 
   Scenario: Superusers should receive an email when deaccession requested
     Given I am logged in as "georgina@intersect.org.au"
@@ -47,6 +48,7 @@ Feature: Deaccession
     And I press "Unflag deaccession"
     Then I should see "The deaccession has been unflagged."
     And I should see button "Flag for deaccession"
+    And the specimen should have status ""
 
   Scenario: Confirm de-accesssion
     Given I am logged in as "georgina@intersect.org.au"
@@ -55,7 +57,9 @@ Feature: Deaccession
     And I press "Confirm deaccession"
     Then I should see "The deaccession has been approved."
     But I should not see button "Flag for deaccession"
-    And I should see "Deaccessed: " 
+    And I should see "Deaccessed: "
+    And the specimen should have status "DeAcc"
+
 
   Scenario: Administrators can request but not approve or unflag de-accession
     Given I am logged in as "raul@intersect.org.au"
