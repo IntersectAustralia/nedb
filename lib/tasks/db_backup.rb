@@ -3,7 +3,7 @@ require 'tempfile'
 def db_backup(output_dir)
   db_config = Rails.configuration.database_configuration[Rails.env]
 
-  raise 'i only know postgres' unless db_config['adapter'] == 'postgresql'
+  raise "I only know postgres! Adapter: #{db_config['adapter']}" unless db_config['adapter'] == 'postgresql'
 
   db = db_config['database']
   host = db_config['host']
