@@ -31,6 +31,20 @@ set :branch do
 end
 
 
+namespace :backup do
+  namespace :db do
+    desc "make a database backup"
+    task :dump do
+      run "cd #{current_path} && bundle exec rake db:backup", :env => {'RAILS_ENV' => stage}
+    end
+
+    desc "trim database backups"
+    task :trim do
+      run "cd #{current_path} && bundle exec rake db:trim_backups", :env => {'RAILS_ENV' => stage}
+    end
+  end
+end
+
 namespace :deploy do
 
   # Passenger specifics: restart by touching the restart.txt file
