@@ -19,7 +19,7 @@ test: &test
   pool: 5
   timeout: 5000
 
-production:
+production: &production
   adapter: postgresql
   host: localhost
   database: nedb
@@ -35,13 +35,7 @@ staging:
   production # same configuration, but on different server
 
 qa:
-  adapter: postgresql
-  host: localhost
-  database: nedb-dev
-  username: nedb
-  password: nedb
-  pool: 5
-  timeout: 5000
+  <<: *production
 
 cucumber:
   <<: *test
