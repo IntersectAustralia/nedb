@@ -66,6 +66,7 @@ end
 
 group :development do
   gem "rails3-generators"
+  gem 'pry-rails'
 end
 
 group :test do

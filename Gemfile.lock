@@ -54,6 +54,7 @@ GEM
       xpath (~> 0.1.4)
     childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
+    coderay (1.1.0)
     colorize (0.6.0)
     configuration (1.2.0)
     cucumber (1.2.1)
@@ -103,6 +104,7 @@ GEM
       activerecord (~> 3.0.2)
       activesupport (~> 3.0.2)
       arel (~> 2.0.2)
+    method_source (0.8.2)
     mime-types (1.25)
     mongrel (1.2.0.pre2)
       daemons (~> 1.0.10)
@@ -125,6 +127,12 @@ GEM
     polyglot (0.3.3)
     prawn (0.11.1.pre)
       pdf-reader (>= 0.8.1)
+    pry (0.9.12.4)
+      coderay (~> 1.0)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+    pry-rails (0.3.2)
+      pry (>= 0.9.10)
     rack (1.2.8)
     rack-mount (0.6.14)
       rack (>= 1.0.0)
@@ -177,6 +185,7 @@ GEM
     simplecov-html (0.7.1)
     simplecov-rcov (0.2.3)
       simplecov (>= 0.4.1)
+    slop (3.4.7)
     sqlite3 (0.1.1)
       ffi (>= 0.6.3)
     thor (0.14.6)
@@ -217,6 +226,7 @@ DEPENDENCIES
   paperclip
   pg
   prawn (>= 0.11.1.pre)
+  pry-rails
   rails (= 3.0.20)
   rails3-generators
   rails3-jquery-autocomplete
