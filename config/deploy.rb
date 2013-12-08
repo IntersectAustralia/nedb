@@ -99,7 +99,7 @@ namespace :deploy do
   end
 
   task :new_secret, :roles => :app do
-    p :env  
+    p Rails.application.config
     run("cd #{current_path} && bundle exec rake app:generate_secret", :env => {'RAILS_ENV' => "#{stage}"})
   end
 
