@@ -35,8 +35,7 @@ staging:
   production # same configuration, but on different server
 
 qa:
-production
-  #<<: *production
+  <<: *production
 
 cucumber:
   <<: *test

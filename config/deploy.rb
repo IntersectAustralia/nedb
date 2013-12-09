@@ -127,9 +127,9 @@ after 'deploy:update_code' do
   deploy.set_revision
 end
 
-after 'deploy:update' do
-  deploy.new_secret
-end
+# after 'deploy:update' do
+#   deploy.new_secret
+# end
 
 desc "After updating code we need to populate a new database.yml"
 task :generate_database_yml, :roles => :app do
