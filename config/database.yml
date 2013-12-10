@@ -29,10 +29,10 @@ production: &production
   timeout: 5000
 
 production_student:
-  production # same configuration, but on different server
+  <<: *production
 
 staging:
-  production # same configuration, but on different server
+  <<: *production
 
 qa:
   <<: *production
