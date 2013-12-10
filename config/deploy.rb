@@ -117,7 +117,8 @@ namespace :deploy do
 
     backup.db.dump
     backup.db.trim
-    migrate
+    # migrate
+    run("bundle exec rake app:generate_secret", :env => {'RAILS_ENV' => "#{stage}"}))
   end
 
 end
