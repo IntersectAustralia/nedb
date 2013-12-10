@@ -143,8 +143,10 @@ task :generate_database_yml, :roles => :app do
   buffer.delete('cucumber')
   buffer.delete('spec')
 
-  # Populate production password
-  buffer[stage]['password'] = production_database_password
+  # Populate passwords
+  for stage in :stages do
+    buffer[stage]['password'] = production_database_password
+  end
 
   put YAML::dump(buffer), "#{release_path}/config/database.yml", :mode => 0664
 end
