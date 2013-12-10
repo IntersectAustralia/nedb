@@ -117,7 +117,7 @@ namespace :deploy do
 
     backup.db.dump
     backup.db.trim
-    migrate
+    run("cd #{current_path} && bundle exec rake app:generate_secret", :env => {'RAILS_ENV' => "#{stage}"})
   end
 
 end
@@ -127,9 +127,9 @@ after 'deploy:update_code' do
   deploy.set_revision
 end
 
-# after 'deploy:update' do
-#   deploy.new_secret
-# end
+after 'deploy:update' do
+  deploy.new_secret
+end
 
 desc "After updating code we need to populate a new database.yml"
 task :generate_database_yml, :roles => :app do
@@ -143,8 +143,8 @@ task :generate_database_yml, :roles => :app do
   buffer.delete('cucumber')
   buffer.delete('spec')
 
-  # Populate production password
-  buffer['production']['password'] = production_database_password
+  # Populate passwords
+  buffer[stage.to_s]['password'] = production_database_password
 
   put YAML::dump(buffer), "#{release_path}/config/database.yml", :mode => 0664
 end
