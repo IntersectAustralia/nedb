@@ -69,7 +69,7 @@ end
 
 Then /^I should get a file with name "([^"]*)" and content type "([^"]*)"$/ do |name, type|
   page.response_headers['Content-Type'].should == type
-  page.response_headers['Content-Disposition'].should include("filename=\"#{name}\"")
+  page.response_headers['Content-Disposition'].should include("filename=#{name}")
   page.response_headers['Content-Disposition'].should include("attachment")
 end
 

@@ -16,7 +16,7 @@ Feature: Administer Herbaria
     When I follow "Admin"
     And I follow "Manage Herbaria"
     Then I should see "List of Herbaria"
-    And I should see "herbaria_table" table with
+    And I should see "search_results_table" table with
       | Code | Name                               |
       | ACH  | Women's and Children's Hospital    |
       | AD   | State Herbarium of South Australia |
@@ -27,7 +27,7 @@ Feature: Administer Herbaria
     And I fill in "Code" with "CNS"
     And I fill in "Name" with "Australian Tropical Herbarium"
     And I press "Create Herbarium"
-    Then I should see "herbaria_table" table with
+    Then I should see "search_results_table" table with
       | Code | Name                               |
       | ACH  | Women's and Children's Hospital    |
       | AD   | State Herbarium of South Australia |
@@ -52,7 +52,7 @@ Feature: Administer Herbaria
     And I fill in "Code" with "MQU"
     And I fill in "Name" with "Macquarie University"
     And I press "Update Herbarium"
-    Then I should see "herbaria_table" table with
+    Then I should see "search_results_table" table with
       | Code | Name                               |
       | AD   | State Herbarium of South Australia |
       | KPBG | Kings Park and Botanic Garden      |
@@ -63,7 +63,7 @@ Feature: Administer Herbaria
     And I fill in "Code" with "MQU"
     And I fill in "Name" with "Macquarie University"
     And I click on "Cancel"
-    Then I should see "herbaria_table" table with
+    Then I should see "search_results_table" table with
       | Code | Name                               |
       | ACH  | Women's and Children's Hospital    |
       | AD   | State Herbarium of South Australia |
