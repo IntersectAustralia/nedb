@@ -623,3 +623,16 @@ Feature: Create Determination
     When I press "Search" within the main content
     Then I should see "Please enter a search term"
 
+  Scenario: Using the search auto complete
+    Given I am at step 2 of adding a determination
+    And I select "Division" from "level"
+    And I fill in "term" with "Div"
+    And I wait for a second
+    Then I should see the choice "Div2" in the autocomplete menu
+    And I should see the choice "Div4" in the autocomplete menu
+    Then I click on "Div2"
+    When I press "Search" within the main content
+    Then I should see "search_results" table with
+      | Division |        |
+      | Div2     | Select |
+
