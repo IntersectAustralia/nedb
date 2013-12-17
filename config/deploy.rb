@@ -117,7 +117,7 @@ namespace :deploy do
 
     backup.db.dump
     backup.db.trim
-    migrate
+    run("cd #{current_path} && bundle exec rake db:migrate", :env => {'RAILS_ENV' => "#{stage}"})
   end
 
 end
@@ -143,8 +143,8 @@ task :generate_database_yml, :roles => :app do
   buffer.delete('cucumber')
   buffer.delete('spec')
 
-  # Populate production password
-  buffer['production']['password'] = production_database_password
+  # Populate passwords
+  buffer[stage.to_s]['password'] = production_database_password
 
   put YAML::dump(buffer), "#{release_path}/config/database.yml", :mode => 0664
 end
