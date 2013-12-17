@@ -14,3 +14,8 @@ Background:
     And I press "Go"
     And I click on "Export CSV"
     Then I should get a file with name "search_results.csv" and content type "text/csv; charset=utf-16 header=present"
+
+  Scenario: Download an advanced search result as CSV
+    Given I am on the Advanced Search page
+    And I click on "Export CSV"
+    Then I should get a file with name "search_results.csv" and content type "text/csv; charset=utf-16 header=present"
