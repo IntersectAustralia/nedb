@@ -3,11 +3,11 @@ Feature: Download search results as CSV
   As a user
   I want to download my search results as a CSV file
 
-Background:
-  Given I have 30 specimens
-  And I have the usual profiles and permissions
-  And I have a user "georgina@intersect.org.au" with profile "Superuser"
-  And I am logged in as "georgina@intersect.org.au"
+  Background:
+    Given I have 30 specimens
+    And I have the usual profiles and permissions
+    And I have a user "georgina@intersect.org.au" with profile "Superuser"
+    And I am logged in as "georgina@intersect.org.au"
 
   Scenario: Download basic search results as CSV
     Given I am on the home page

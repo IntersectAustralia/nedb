@@ -57,6 +57,8 @@ Feature: Create Specimens
     And I fill in "Vegetation" with "veg"
     And I fill in "Frequency" with "freq"
     And I fill in "Plant description" with "desc"
+    And I fill in "Replicate From" with "replicate"
+    And I fill in "Replicate From No" with "123"
 
     And I press "Create Specimen"
     Then I should see "The specimen was successfully created."

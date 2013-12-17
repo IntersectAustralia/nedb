@@ -79,6 +79,15 @@ Feature: Administer Species
     And I should see field "Species" with value "InCaNa"
     And I should see field "Authority" with value "auth"
 
+  Scenario: Species name uniqueness is case insensitive
+    When I follow "Create New Species"
+    Then I should see "New Species"
+    And I fill in "Species" with "INteGriFolia"
+    And I fill in "Genus" with "Banksia"
+    And I fill in "Authority" with "auth"
+    And I press "Create Species"
+    Then I should see "Species has already been taken"
+
   Scenario Outline: Create Species with validation errors
     When I follow "Create New Species"
     Then I should see "New Species"
