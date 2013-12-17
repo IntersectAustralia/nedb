@@ -627,7 +627,7 @@ Feature: Create Determination
     Given I am at step 2 of adding a determination
     And I select "Division" from "level"
     And I fill in "term" with "Div"
-    And I wait for a second
+    And I wait for a while
     Then I should see the choice "Div2" in the autocomplete menu
     And I should see the choice "Div4" in the autocomplete menu
     Then I click on "Div2"
