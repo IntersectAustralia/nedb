@@ -111,3 +111,12 @@ end
 When /^pending$/ do
   #do nothing
 end
+
+Then /^I should see the choice "([^"]*)" in the autocomplete menu$/ do |value|
+  field = page.find(".ui-autocomplete", text: value)
+  field.should_not be_nil
+end
+
+Then /^I should not see the choice "([^"]*)" in the autocomplete menu$/ do |value|
+  page.should have_no_xpath("//*[@class='ui-autocomplete' and text()='#{value}']")
+end

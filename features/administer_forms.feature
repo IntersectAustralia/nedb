@@ -31,6 +31,21 @@ Feature: Administer Species
       | f3      | F3-auth   |
       | newform | NewAuth   |
 
+  Scenario Outline: Create form with validation errors
+    Given I am on the species page for "integrifolia"
+    And I follow "Create New Form"
+    And I fill in "<field>" with "<value>"
+    And I press "Create Form"
+    Then I should see /\d error(s)? need to be corrected before this record can be saved\./
+    And the "<field>" field should have the error "<error>"
+
+  Examples:
+    | field      | value                                                                                                                                                                                                                                                           | error                                   |
+    | Authority | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+    | Authority  |                                                                                                                                                                                                                                                                 | can't be blank                          |
+    | Form       | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+    | Form       |                                                                                                                                                                                                                                                                 | can't be blank                          |
+
   Scenario: Cancel out of create
     Given I am on the species page for "integrifolia"
     And I follow "Create New Form"
@@ -50,6 +65,21 @@ Feature: Administer Species
       | f2      | F2-auth   |
       | f3      | F3-auth   |
       | newform | NewAuth   |
+
+  Scenario Outline: Edit a form with validation errors
+    Given I am on the species page for "integrifolia"
+    And I follow "Edit" for form "f1"
+    And I fill in "<field>" with "<value>"
+    And I press "Update Form"
+    Then I should see /\d error(s)? need to be corrected before this record can be saved\./
+    And the "<field>" field should have the error "<error>"
+
+  Examples:
+    | field      | value                                                                                                                                                                                                                                                           | error                                   |
+    | Authority | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+    | Authority  |                                                                                                                                                                                                                                                                 | can't be blank                          |
+    | Form       | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+    | Form       |                                                                                                                                                                                                                                                                 | can't be blank                          |
 
   Scenario: Cancel out of edit
     Given I am on the species page for "integrifolia"

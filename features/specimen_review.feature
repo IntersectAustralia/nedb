@@ -172,6 +172,8 @@ Feature: Specimens created by unauthorised users are marked as needing review
     And I am logged in as "georgina@intersect.org.au"
     When I am on the specimen page
     Then I should see button "Mark as Reviewed"
+    When I press "Mark as Reviewed"
+    Then I should not see button "Mark as Reviewed"
 
   Scenario: Student user cannot mark specimen as reviewed
     Given I have a specimen that needs review

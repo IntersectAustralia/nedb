@@ -31,6 +31,21 @@ Feature: Administer Species
       | v2      | V2-auth   |
       | v3      | V3-auth   |
 
+  Scenario Outline: Create variety with validation errors
+    Given I am on the species page for "integrifolia"
+    And I follow "Create New Variety"
+    And I fill in "<field>" with "<value>"
+    And I press "Create Variety"
+    Then I should see /\d error(s)? need to be corrected before this record can be saved\./
+    And the "<field>" field should have the error "<error>"
+
+  Examples:
+    | field      | value                                                                                                                                                                                                                                                           | error                                   |
+    | Authority | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+    | Authority  |                                                                                                                                                                                                                                                                 | can't be blank                          |
+    | Variety    | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+    | Variety    |                                                                                                                                                                                                                                                                 | can't be blank                          |
+
   Scenario: Cancel out of create
     Given I am on the species page for "integrifolia"
     And I follow "Create New Variety"
@@ -49,6 +64,21 @@ Feature: Administer Species
       | newvar  | NewAuth   |
       | v2      | V2-auth   |
       | v3      | V3-auth   |
+
+  Scenario Outline: Edit a variety with validation errors
+    Given I am on the species page for "integrifolia"
+    And I follow "Edit" for variety "v1"
+    And I fill in "<field>" with "<value>"
+    And I press "Update Variety"
+    Then I should see /\d error(s)? need to be corrected before this record can be saved\./
+    And the "<field>" field should have the error "<error>"
+
+  Examples:
+    | field      | value                                                                                                                                                                                                                                                           | error                                   |
+    | Authority | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+    | Authority  |                                                                                                                                                                                                                                                                 | can't be blank                          |
+    | Variety    | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+    | Variety    |                                                                                                                                                                                                                                                                 | can't be blank                          |
 
   Scenario: Cancel out of edit
     Given I am on the species page for "integrifolia"

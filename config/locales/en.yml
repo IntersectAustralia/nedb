@@ -8,3 +8,10 @@ en:
       all: "You do not have permissions to perform this action."
     read:
       specimen: "You do not have permissions to view this specimen."
+  activerecord:
+    attributes:
+      species:
+        name: 'Species'
+        class_name: 'Class'
+        sub_family: 'Subfamily'
+        order_name: 'Order'

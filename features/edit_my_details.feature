@@ -26,3 +26,15 @@ Feature: Edit my details
     And I follow "Edit My Details"
     And the "First name" field should contain "Fred"
 
+  Scenario Outline: Editing my information with invalid data
+    Given I am on the home page
+    When I follow "Edit My Details"
+    And I fill in "<field>" with "<value>"
+    And I press "Update"
+    Then I should see /\d error(s)? need to be corrected before this record can be saved\./
+    And the "<field>" field should have the error "<error>"
+
+  Examples:
+    | field      | value | error          |
+    | First name |       | can't be blank |
+    | Last name  |       | can't be blank |

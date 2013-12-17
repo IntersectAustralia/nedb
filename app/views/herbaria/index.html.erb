@@ -22,7 +22,7 @@
     <% end %>
   </div>
 
-  <table id="search_results_table" class="data_table">
+  <table id="herbaria_table" class="data_table">
     <tr>
       <th>Code</th>
       <th>Name</th>
@@ -35,7 +35,7 @@
           <td><%= herbarium.name %></td>
           <td>
             <% if can?(:update, herbarium) %>
-                <%= icon 'edit' %><%= link_to 'Edit', edit_herbarium_path(herbarium) %>
+                <%= icon 'edit' %><%= link_to 'Edit', edit_herbarium_path(herbarium), :id => "edit_#{herbarium.id}"%>
             <% end %>
           </td>
         </tr>

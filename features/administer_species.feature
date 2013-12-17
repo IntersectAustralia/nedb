@@ -56,6 +56,54 @@ Feature: Administer Species
     And I should see field "Species" with value "incana"
     And I should see field "Authority" with value "auth"
 
+  Scenario: Create Species with same details
+    When I follow "Create New Species"
+    Then I should see "New Species"
+    And I fill in "Species" with "integrifolia"
+    And I fill in "Genus" with "Banksia"
+    And I fill in "Authority" with "auth"
+    And I press "Create Species"
+    Then I should see "Species has already been taken"
+
+  # UNEHERB-387
+  Scenario: Create Species with upper and lowercase names
+    When I follow "Create New Species"
+    Then I should see "New Species"
+    And I fill in "Species" with "InCaNa"
+    And I fill in "Genus" with "Banksia"
+    And I fill in "Authority" with "auth"
+    And I press "Create Species"
+    Then I should see "Species was successfully created."
+    And I should see "Species Details"
+    And I should see field "Genus" with value "Banksia"
+    And I should see field "Species" with value "InCaNa"
+    And I should see field "Authority" with value "auth"
+
+  Scenario Outline: Create Species with validation errors
+    When I follow "Create New Species"
+    Then I should see "New Species"
+    And I fill in "<field>" with "<value>"
+    And I press "Create Species"
+    Then I should see /\d error(s)? need to be corrected before this record can be saved\./
+    And the "<field>" field should have the error "<error>"
+
+  Examples:
+    | field     | value                                                                                                                                                                                                                                                            | error                                   |
+    | Species   |                                                                                                                                                                                                                                                                  | can't be blank                          |
+    | Species   | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+    | Genus     |                                                                                                                                                                                                                                                                  | can't be blank                          |
+    | Genus     | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+    | Authority |                                                                                                                                                                                                                                                                  | can't be blank                          |
+    | Authority | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+    | Division  | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+    | Family    | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+    | Tribe     | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+
+    | Subfamily | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+    | Class     | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+    | Order     | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+
+
   Scenario: Cancel out of create
     When I follow "Create New Species"
     And I follow "Cancel"
@@ -115,6 +163,30 @@ Feature: Administer Species
     And I should see field "Genus" with value "Banksia2"
     And I should see field "Species" with value "integrifolia2"
     And I should see field "Authority" with value "auth2"
+
+   Scenario Outline: Editing species details with validation errors
+     When I do a species search for "Div"
+     And I follow "Edit" for species "integrifolia"
+     And I fill in "<field>" with "<value>"
+     And I press "Update Species"
+     Then I should see /\d error(s)? need to be corrected before this record can be saved\./
+     And the "<field>" field should have the error "<error>"
+
+   Examples:
+     | field     | value                                                                                                                                                                                                                                                            | error                                   |
+     | Species   |                                                                                                                                                                                                                                                                  | can't be blank                          |
+     | Species   | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+     | Genus     |                                                                                                                                                                                                                                                                  | can't be blank                          |
+     | Genus     | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+     | Authority |                                                                                                                                                                                                                                                                  | can't be blank                          |
+     | Authority | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+     | Division  | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+     | Family    | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+     | Tribe     | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+
+     | Subfamily | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+     | Class     | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
+     | Order     | ABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCDEFGHIJKLMNOPQRSTUABCD | is too long (maximum is 255 characters) |
 
   Scenario: Cancel out of edit
     When I do a species search for "Div"
