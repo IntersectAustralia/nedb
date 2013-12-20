@@ -260,4 +260,32 @@ describe SpecimensController do
     it "should return all results when CSV requested"
   end
 
+  # DEVSUPPORT-1153
+  describe "POST advanced_search" do
+
+    describe "with params of latitude degrees range" do
+      it "should return results with latitude degree in the range" do
+        specimen = Factory(:specimen)
+        specimen.latitude_degrees = 68
+        post :advanced_search, :search => {
+          :latitude_degrees_greater_than_or_equal_to => "60",
+          :latitude_degrees_less_than_or_equal_to => "70"
+        }
+        session[:search_results].size.should be(1)
+      end
+    end
+
+    describe "with params of longitude degrees range" do
+      it "should return results with longitude degree in the range" do
+        specimen = Factory(:specimen)
+        specimen.longitude_degrees = 32
+        post :advanced_search, :search => {
+          :longitude_degrees_greater_than_or_equal_to => "30",
+          :longitude_degrees_less_than_or_equal_to => "33"
+        }
+        session[:search_results].size.should be(1)
+      end
+    end
+  end
+
 end
