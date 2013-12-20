@@ -28,16 +28,14 @@ task :create_views =>  :environment do
         "   where determination_date_year is not null " +
         "   and determination_date_month is not null " +
         "   and determination_date_day is not null;" +
-        "create or replace view specimen_coordinates as" +
-        "   select id as id, COALESCE(round(latitude_degrees+((latitude_minutes*60 + latitude_seconds)/3600), 13),null) as latitude," +
-        "    COALESCE(round(longitude_degrees+((longitude_minutes*60 + longitude_seconds)/3600),13),null) as longitude" +
-        "   from specimens " +
-        "   where latitude_degrees is not null " +
-        "   and latitude_minutes is not null " +
-        "   and latitude_seconds is not null " +
-        "   and longitude_degrees is not null " +
-        "   and longitude_minutes is not null " +
-        "   and longitude_seconds is not null;"
+	"create or replace view specimen_coordinates as" +
+	"   select id as id," +
+	"   coalesce(round(latitude_degrees::numeric + ((coalesce(latitude_minutes, 0) * 60)::numeric + coalesce(latitude_seconds, 0)::numeric) / 3600::numeric, 13), null::numeric)" +
+	"   as latitude," +
+	"   coalesce(round(longitude_degrees::numeric + ((coalesce(longitude_minutes, 0) * 60)::numeric + coalesce(longitude_seconds, 0)::numeric) / 3600::numeric, 13), null::numeric)" +
+	"   as longitude" +
+	"   from specimens" +
+	"   where latitude_degrees is not null or longitude_degrees is not null;"
   ActiveRecord::Base.connection.execute(sql)
 end
 
