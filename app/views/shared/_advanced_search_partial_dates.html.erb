@@ -23,7 +23,7 @@
         <%= date_picker_id %>.datepicker({
             changeYear:true,
             changeMonth:true,
-            yearRange:'1860:nn',
+            yearRange:'1860:c+10',
             onSelect:function(dateText,inst){
                 var toks = dateText.split('/');
                 var day = toks[1];
