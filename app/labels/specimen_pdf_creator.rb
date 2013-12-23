@@ -80,8 +80,6 @@ class SpecimenPdfCreator
     if !collection_date_line.empty?
       pdf.move_up 12
       pdf.text collection_date_line, :align => :right
-    else
-      hanging_indent(pdf, collection_date_line)
     end
 
     secondary_collectors(pdf, formatter)
@@ -143,15 +141,7 @@ class SpecimenPdfCreator
 
   private
   def hanging_indent(pdf, line)
-    #tagless_line = words.join.gsub(/<.*?>/, '')
-    @line_wrap = Prawn::Text::LineWrap.new
-    #TODO: why is this 320 when the line is 280?
-    fitted_text = @line_wrap.wrap_line(line, :kerning => true, :document => pdf, :width => 320, :size => 10)
-    pdf.text fitted_text, :inline_format => true
-    remaining_text = line.gsub(fitted_text, '')
-    if !remaining_text.blank?
-      pdf.text remaining_text, :indent_paragraphs => 30, :inline_format => true
-    end
+    pdf.text line, :inline_format => true, :overflow => :shrink_to_fit
   end
   
 end
