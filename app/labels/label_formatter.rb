@@ -25,7 +25,6 @@ class LabelFormatter
   def genus_species_and_authority
     det = @specimen.current_determination
     parts = []
-    parts << tribe
     parts << SpecimenNameFormatter.genus(det.genus, det.genus_uncertainty, det.naturalised).html_safe
     parts << SpecimenNameFormatter.short_name(det.species, det.species_authority, det.species_uncertainty)
     parts.join(" ").html_safe

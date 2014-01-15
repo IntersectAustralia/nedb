@@ -36,32 +36,37 @@ describe "SpecimenPdfFormatter" do
   describe "Genus and species rendering" do
     it "should bold and italicise genus and species" do
       @specimen.determinations.create!(@det_attrs.merge({:genus =>"Rose", :species => 'aspecies', :species_authority => "my auth"}))
-      @renderer.genus_species_and_authority.should eq(" <b><i>Rose</i></b> <b><i>aspecies</i></b> my auth ")
+      @renderer.genus_species_and_authority.should eq("<b><i>Rose</i></b> <b><i>aspecies</i></b> my auth ")
     end
 
     it "should not italicise species if contains sp." do
       @specimen.determinations.create!(@det_attrs.merge({:genus =>"Rose", :species => 'sp. aspecies', :species_authority => "my auth"}))
-      @renderer.genus_species_and_authority.should eq(" <b><i>Rose</i></b> sp. aspecies my auth ")
+      @renderer.genus_species_and_authority.should eq("<b><i>Rose</i></b> sp. aspecies my auth ")
     end
 
     it "should add uncertainty info to species" do
       @specimen.determinations.create!(@det_attrs.merge({:genus =>"Rose", :species => 'aspecies', :species_uncertainty => "sens. strict.", :species_authority => "my auth"}))
-      @renderer.genus_species_and_authority.should eq(" <b><i>Rose</i></b> <b><i>aspecies</i></b> my auth <i>s. str.</i>")
+      @renderer.genus_species_and_authority.should eq("<b><i>Rose</i></b> <b><i>aspecies</i></b> my auth <i>s. str.</i>")
     end
 
     it "should not add uncertainty info to species if species blank" do
       @specimen.determinations.create!(@det_attrs.merge({:genus =>"Rose", :species => "", :species_uncertainty => "sens. strict.", :species_authority => "my auth"}))
-      @renderer.genus_species_and_authority.should eq(" <b><i>Rose</i></b> ")
+      @renderer.genus_species_and_authority.should eq("<b><i>Rose</i></b> ")
     end
 
     it "should handle missing species" do
       @specimen.determinations.create!(@det_attrs.merge({:genus =>"Rose", :species => "", :species_authority => ""}))
-      @renderer.genus_species_and_authority.should eq(" <b><i>Rose</i></b> ")
+      @renderer.genus_species_and_authority.should eq("<b><i>Rose</i></b> ")
     end
 
     it "should handle missing everything" do
       @specimen.determinations.create!(@det_attrs.merge({:genus =>"", :species => "", :species_authority => ""}))
-      @renderer.genus_species_and_authority.should eq("  ")
+      @renderer.genus_species_and_authority.should eq(" ")
+    end
+
+    it "should not print tribe name on the same line as genus and species" do
+      @specimen.determinations.create!(@det_attrs.merge({:tribe => "A Tribe", :genus =>"Rose", :species => 'aspecies', :species_authority => "my auth"}))
+      @renderer.genus_species_and_authority.should eq("<b><i>Rose</i></b> <b><i>aspecies</i></b> my auth ")
     end
   end
 
