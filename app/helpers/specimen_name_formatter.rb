@@ -10,13 +10,23 @@ class SpecimenNameFormatter
     format_and_add_uncertainty(authority, name, prefix, uncertainty)
   end
 
-  def self.variety_and_authority(name, authority, uncertainty)
+  def self.variety_and_authority(name, authority, uncertainty, species)
     prefix = "var."
+
+    if species == name
+      # don't show the variety authority if species is same as variety (the authority for the species and variety will be the same)
+      authority = ""
+    end
     format_and_add_uncertainty(authority, name, prefix, uncertainty)
   end
 
-  def self.form_and_authority(name, authority, uncertainty)
+  def self.form_and_authority(name, authority, uncertainty, species)
     prefix = "f."
+
+    if species == name
+      # don't show the form authority if species is same as form (the authority for the species and form will be the same)
+      authority = ""
+    end
     format_and_add_uncertainty(authority, name, prefix, uncertainty)
   end
 

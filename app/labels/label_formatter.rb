@@ -37,12 +37,12 @@ class LabelFormatter
 
   def variety_and_authority
     det = @specimen.current_determination
-    SpecimenNameFormatter.variety_and_authority(det.variety, det.variety_authority, det.variety_uncertainty)
+    SpecimenNameFormatter.variety_and_authority(det.variety, det.variety_authority, det.variety_uncertainty, det.species)
   end
 
   def form_and_authority
     det = @specimen.current_determination
-    SpecimenNameFormatter.form_and_authority(det.form, det.form_authority, det.form_uncertainty)
+    SpecimenNameFormatter.form_and_authority(det.form, det.form_authority, det.form_uncertainty, det.species)
   end
 
   def frequency_plant_description

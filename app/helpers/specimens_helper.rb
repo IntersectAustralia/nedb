@@ -7,11 +7,11 @@ include ApplicationHelper
 module SpecimensHelper
 
   def form_and_authority(det)
-    SpecimenNameFormatter.form_and_authority(h(det.form), h(det.form_authority), det.form_uncertainty).html_safe
+    SpecimenNameFormatter.form_and_authority(h(det.form), h(det.form_authority), det.form_uncertainty, det.species).html_safe
   end
 
   def variety_and_authority(det)
-    SpecimenNameFormatter.variety_and_authority(h(det.variety), h(det.variety_authority), det.variety_uncertainty).html_safe
+    SpecimenNameFormatter.variety_and_authority(h(det.variety), h(det.variety_authority), det.variety_uncertainty, det.species).html_safe
   end
 
   def subspecies_and_authority(det)

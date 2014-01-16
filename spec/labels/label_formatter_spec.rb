@@ -64,6 +64,7 @@ describe "SpecimenPdfFormatter" do
       @renderer.genus_species_and_authority.should eq(" ")
     end
 
+    # DEVSUPPORT-1172
     it "should not print tribe name on the same line as genus and species" do
       @specimen.determinations.create!(@det_attrs.merge({:tribe => "A Tribe", :genus =>"Rose", :species => 'aspecies', :species_authority => "my auth"}))
       @renderer.genus_species_and_authority.should eq("<b><i>Rose</i></b> <b><i>aspecies</i></b> my auth ")
@@ -117,6 +118,18 @@ describe "SpecimenPdfFormatter" do
       @specimen.determinations.create!(@det_attrs.merge({:variety =>"", :variety_authority => "auth"}))
       @renderer.variety_and_authority.should eq("")
     end
+
+    # DEVSUPPORT-1182
+    it "should not include variety authority if variety is the same as the identified species" do
+      @specimen.determinations.create!(@det_attrs.merge({:variety => "rose", :species => "rose", :variety_authority => "my auth", :variety_uncertainty => "aff."}))
+      @renderer.variety_and_authority.should eq("var. <i>aff.</i> <b><i>rose</i></b>")
+    end
+
+    # DEVSUPPORT-1182
+    it "should include variety authority if variety is not the same as the identified species" do
+      @specimen.determinations.create!(@det_attrs.merge({:variety => "rose", :species => "flower", :variety_authority => "my auth", :variety_uncertainty => "aff."}))
+      @renderer.variety_and_authority.should eq("var. <i>aff.</i> <b><i>rose</i></b> my auth")
+    end
   end
 
   describe "Form rendering" do
@@ -138,6 +151,18 @@ describe "SpecimenPdfFormatter" do
     it "should show nothing if form missing" do
       @specimen.determinations.create!(@det_attrs.merge({:form =>"", :form_authority => "auth"}))
       @renderer.form_and_authority.should eq("")
+    end
+
+    # DEVSUPPORT-1182
+    it "should not include form authority if form is the same as the identified species" do
+      @specimen.determinations.create!(@det_attrs.merge({:form =>"rose", :species => "rose", :form_authority => "my auth", :form_uncertainty => "aff."}))
+      @renderer.form_and_authority.should eq("f. <i>aff.</i> <b><i>rose</i></b>")
+    end
+
+    # DEVSUPPORT-1182
+    it "should include form authority if form is not the same as the identified species" do
+      @specimen.determinations.create!(@det_attrs.merge({:form =>"rose", :species => "flower", :form_authority => "my auth", :form_uncertainty => "aff."}))
+      @renderer.form_and_authority.should eq("f. <i>aff.</i> <b><i>rose</i></b> my auth")
     end
   end
 

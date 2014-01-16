@@ -32,6 +32,7 @@ Feature: Edit Determination
       | form1 | f1 auth   |
       | form2 | f2 auth   |
       | form3 | f3 auth   |
+      | abcd  | Mno       |
     And species "abcd" has subspecies
       | subspecies | authority |
       | subsp1     | s1 auth   |
@@ -42,6 +43,7 @@ Feature: Edit Determination
       | var1    | v1 auth   |
       | var2    | v2 auth   |
       | var3    | v3 auth   |
+      | abcd    | Mno       |
     And species "efgh" has forms
       | form  | authority |
       | form4 | f4 auth   |
@@ -730,3 +732,14 @@ Feature: Edit Determination
 # Remove sub/var/f
 # Add/Remove uncertainty
 # Leave as is (should remain the same)
+
+  # DEVSUPPORT-1182
+  Scenario: When specimen form/variety is the same as the identified species, only the species authority should be included in the scientific name displayed
+    Given I am at step 2 of editing a determination
+    And I select "abcd" from "Variety"
+    And I select "abcd" from "Form"
+    And I press "Save"
+    Then I should see field "Variety" with value "var. abcd vel. aff."
+    And I should see field "Form" with value "f. aff. abcd"
+    And I should not see "var. abcd vel. aff. Mno"
+    And I should not see "f. aff. abcd Mno"
