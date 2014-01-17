@@ -28,38 +28,46 @@ class SearchDateValidator < ActiveModel::Validator
     determination_month_to = @search_params[:determinations_determination_date_month_less_than_or_equal_to].to_i
     determination_day_to = @search_params[:determinations_determination_date_day_less_than_or_equal_to].to_i
 
+    @messages = []
+
     validate(created_at_year_from, created_at_month_from, created_at_day_from, 'Creation date from')
     validate(created_at_year_to, created_at_month_to, created_at_day_to, 'Creation date to')
     compare_dates(created_at_year_from, created_at_month_from, created_at_day_from,
-                  created_at_year_to, created_at_month_to, created_at_day_to, 'Creation date') if @record.nil?
+                  created_at_year_to, created_at_month_to, created_at_day_to, 'Creation date') if @messages.empty?
 
     validate(collection_year_from, collection_month_from, collection_day_from, 'Collection date from')
     validate(collection_year_to, collection_month_to, collection_day_to, 'Collection date to')
     compare_dates(collection_year_from, collection_month_from, collection_day_from,
-                  collection_year_to, collection_month_to, collection_day_to, 'Collection date') if @record.nil?
+                  collection_year_to, collection_month_to, collection_day_to, 'Collection date') if @messages.empty?
 
     validate(determination_year_from, determination_month_from, determination_day_from, 'Determination date from')
     validate(determination_year_to, determination_month_to, determination_day_to, 'Determination date to')
     compare_dates(determination_year_from, determination_month_from, determination_day_from,
-                  determination_year_to, determination_month_to, determination_day_to, 'Determination date') if @record.nil?
-    @record
+                  determination_year_to, determination_month_to, determination_day_to, 'Determination date') if @messages.empty?
+    @messages.empty? ? nil : @messages.join("<br>").html_safe #map { |a| "<div>#{a}</div>" }.join().html_safe
   end
 
   def validate(year, month, day, field_name)
-    if not_empty?(month) || not_empty?(day)
-      if not_empty?(year)
-        if empty?(month)
-          @record = "Enter a month for #{field_name}."
-        else
-          if not_empty?(day)
-            days_in_month = days_in_month(month, year)
-              if day > days_in_month
-                @record = "You have entered an invalid day for the given month for #{field_name}."
-              end
-          end
+    has_day = not_empty?(day)
+    has_month = not_empty?(month)
+    has_year = not_empty?(year)
+
+    if has_day || has_month || has_year
+      begin
+        DateTime.strptime("#{day}/#{month}/#{year}", "%d/%m/%Y")
+      rescue
+        if not has_month
+          @messages << "Enter a month for #{field_name}."
+        elsif month < 1 or month > 13
+          @messages << "You have entered an invalid month for #{field_name}."
         end
-      else
-        @record = "Enter a year for #{field_name}."
+        days_in_month = days_in_month(month, year)
+        if day > days_in_month || day < 1
+          @messages << "You have entered an invalid day for the given month for #{field_name}."
+        end
+        if not has_year
+          @messages << "Enter a year for #{field_name}."
+        end
       end
     end
   end
@@ -90,7 +98,7 @@ class SearchDateValidator < ActiveModel::Validator
     date_to = date_string_to(year_to, month_to, day_to)
 
     if date_from != 0 and date_to != 0 and date_from > date_to
-      @record = "#{field_name} to cannot precede the #{field_name} from."
+      @messages << "#{field_name} to cannot precede the #{field_name} from."
     end
   end
 

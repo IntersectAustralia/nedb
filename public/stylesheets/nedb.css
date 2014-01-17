@@ -21,7 +21,7 @@
   background-position:10px;
   border: 1px solid #ce2e2e;
   background-color:#ffcccc;
-  display:inline;
+  display:inline-block;
 }
 
 .notice_fail_error_explanation {
