@@ -53,11 +53,11 @@ class SearchDateValidator < ActiveModel::Validator
   def validate(year, month, day, field_name)
     time_str = "#{day}/#{month}/#{year}"
     format_str = ""
-    if /\d+\/\d+\/\d+/.match(time_str)
+    if /\d{2}\/\d{2}\/\d{4}/.match(time_str)
       format_str = "%d/%m/%Y"
-    elsif /\/\d+\/\d+/.match(time_str)
+    elsif /\/\d{2}\/\d{4}/.match(time_str)
       format_str = "/%m/%Y"
-    elsif /\/\d+/.match(time_str)
+    elsif /\/\d{4}/.match(time_str)
       format_str = "//%Y"
     elsif /^\/\/$/.match(time_str)
       return nil
@@ -66,7 +66,7 @@ class SearchDateValidator < ActiveModel::Validator
     begin
       DateTime.strptime(time_str, format_str)
     rescue ArgumentError
-      @messages << "Enter a valid date for #{field_name}"
+      @messages << "Enter a valid date (dd/mm/yyyy) for #{field_name}"
     end
   end
 
