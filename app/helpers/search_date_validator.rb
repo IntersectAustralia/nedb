@@ -59,7 +59,7 @@ class SearchDateValidator < ActiveModel::Validator
       format_str = "/%m/%Y"
     elsif /\/\d+/.match(time_str)
       format_str = "//%Y"
-    elsif /\/\//.match(time_str)
+    elsif /^\/\/$/.match(time_str)
       return nil
     end
 

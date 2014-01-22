@@ -247,7 +247,7 @@ Feature: Advanced Search
     When I fill in "search_created_at_to_month" with "05"
     When I fill in "search_created_at_to_year" with "2013"
     And I press "search_submit"
-    Then I should see "Enter a month for Creation date from."
+    Then I should see "Enter a valid date for Creation date from"
 
   Scenario: search for creation date with error on 'to' field
     Given I am logged in as "super@intersect.org.au"
@@ -258,4 +258,49 @@ Feature: Advanced Search
     When I fill in "search_created_at_to_day" with "08"
     When I fill in "search_created_at_to_month" with "05"
     And I press "search_submit"
-    Then I should see "Enter a year for Creation date to."
+    Then I should see "Enter a valid date for Creation date to"
+
+  # DEVSUPPORT-1155
+  Scenario Outline: search using an invalid date
+    Given I am logged in as "super@intersect.org.au"
+    And I am on the Advanced Search page
+    When I fill in "<day_field>" with "0"
+    And I fill in "<month_field>" with "99"
+    And I fill in "<year_field>" with "1000"
+    And I press "search_submit"
+    Then I should see "Enter a valid date for <field_name>"
+    When I fill in "<day_field>" with "30"
+    And I fill in "<month_field>" with "2"
+    And I fill in "<year_field>" with "2010"
+    And I press "search_submit"
+    Then I should see "Enter a valid date for <field_name>"
+    When I fill in "<day_field>" with "31"
+    And I fill in "<month_field>" with "6"
+    And I fill in "<year_field>" with "2010"
+    And I press "search_submit"
+    Then I should see "Enter a valid date for <field_name>"
+    # check invalid partial dates
+    When I fill in "<day_field>" with "1"
+    And I fill in "<month_field>" with "2"
+    And I fill in "<year_field>" with ""
+    And I press "search_submit"
+    Then I should see "Enter a valid date for <field_name>"
+    When I fill in "<day_field>" with "1"
+    And I fill in "<month_field>" with ""
+    And I fill in "<year_field>" with ""
+    And I press "search_submit"
+    Then I should see "Enter a valid date for <field_name>"
+    When I fill in "<day_field>" with ""
+    And I fill in "<month_field>" with "2"
+    And I fill in "<year_field>" with ""
+    And I press "search_submit"
+    Then I should see "Enter a valid date for <field_name>"
+    Examples:
+      |   day_field   |   month_field   |   year_field  |   field_name  |
+      | search_determinations_determination_date_day_greater_than_or_equal_to | search_determinations_determination_date_month_greater_than_or_equal_to | search_determinations_determination_date_year_greater_than_or_equal_to | Determination date from |
+      | search_determinations_determination_date_day_less_than_or_equal_to    | search_determinations_determination_date_month_less_than_or_equal_to    | search_determinations_determination_date_year_less_than_or_equal_to    | Determination date to   |
+      | search_collection_date_day_greater_than_or_equal_to                   | search_collection_date_month_greater_than_or_equal_to                   | search_collection_date_year_greater_than_or_equal_to | Collection date from                      |
+      | search_collection_date_day_less_than_or_equal_to                      | search_collection_date_month_less_than_or_equal_to                      | search_collection_date_year_less_than_or_equal_to    | Collection date to                        |
+      | search_confirmations_confirmation_date_day_equals                     | search_confirmations_confirmation_date_month_equals                     | search_confirmations_confirmation_date_year_equals   | Confirmation date                         |
+      | search_created_at_from_day                                            | search_created_at_from_month                                            | search_created_at_from_year                          | Creation date from |
+      | search_created_at_to_day                                              | search_created_at_to_month                                              | search_created_at_to_year                            | Creation date to   |
