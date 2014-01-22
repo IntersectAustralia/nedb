@@ -247,7 +247,7 @@ Feature: Advanced Search
     When I fill in "search_created_at_to_month" with "05"
     When I fill in "search_created_at_to_year" with "2013"
     And I press "search_submit"
-    Then I should see "Enter a valid date for Creation date from"
+    Then I should see "Enter a valid date (dd/mm/yyyy) for Creation date from"
 
   Scenario: search for creation date with error on 'to' field
     Given I am logged in as "super@intersect.org.au"
@@ -258,7 +258,7 @@ Feature: Advanced Search
     When I fill in "search_created_at_to_day" with "08"
     When I fill in "search_created_at_to_month" with "05"
     And I press "search_submit"
-    Then I should see "Enter a valid date for Creation date to"
+    Then I should see "Enter a valid date (dd/mm/yyyy) for Creation date to"
 
   # DEVSUPPORT-1155
   Scenario Outline: search using an invalid date
