@@ -307,7 +307,7 @@
       <br/>
       <div class="field">
         <%= f.label :determinations_division %>
-        <%= f.collection_select(:determinations_division_contains,
+        <%= f.collection_select(:determinations_division_equals,
                                 @all_divisions,
                                 :division,
                                 :division,
@@ -318,7 +318,7 @@
       <br/>
       <div class="field">
         <%= f.label :determinations_class_name %>
-        <%= f.collection_select(:determinations_class_name_contains,
+        <%= f.collection_select(:determinations_class_name_equals,
                                 @all_class,
                                 :class_name,
                                 :class_name,
@@ -329,7 +329,7 @@
       <br/>
       <div class="field">
         <%= f.label :determinations_order_name %>
-        <%= f.collection_select(:determinations_order_name_contains,
+        <%= f.collection_select(:determinations_order_name_equals,
                                 @all_order,
                                 :order_name,
                                 :order_name,
@@ -340,7 +340,7 @@
       <br/>
       <div class="field">
         <%= f.label :determinations_family %>
-        <%= f.collection_select(:determinations_family_contains,
+        <%= f.collection_select(:determinations_family_equals,
                                 @all_family,
                                 :family,
                                 :family,
@@ -351,7 +351,7 @@
       <br/>
       <div class="field">
         <%= f.label :determinations_subfamily %>
-        <%= f.collection_select(:determinations_sub_family_contains,
+        <%= f.collection_select(:determinations_sub_family_equals,
                                 @all_subfamily,
                                 :sub_family,
                                 :sub_family,
@@ -362,7 +362,7 @@
       <br/>
       <div class="field">
         <%= f.label :determinations_genus %>
-        <%= f.collection_select(:determinations_genus_contains,
+        <%= f.collection_select(:determinations_genus_equals,
                                 @all_genus,
                                 :genus,
                                 :genus,
@@ -373,7 +373,7 @@
       <br/>
       <div class="field">
         <%= f.label :determinations_species %>
-        <%= f.collection_select(:determinations_species_contains,
+        <%= f.collection_select(:determinations_species_equals,
                                 @all_species,
                                 :name,
                                 :name,
@@ -384,7 +384,7 @@
       <br/>
       <div class="field">
         <%= f.label :determinations_subspecies %>
-        <%= f.collection_select(:determinations_sub_species_contains,
+        <%= f.collection_select(:determinations_sub_species_equals,
                                 @all_subspecies,
                                 :subspecies,
                                 :subspecies,
@@ -395,7 +395,7 @@
       <br/>
       <div class="field">
         <%= f.label :determinations_variety %>
-        <%= f.collection_select(:determinations_variety_contains,
+        <%= f.collection_select(:determinations_variety_equals,
                                 @all_variety,
                                 :variety,
                                 :variety,
@@ -406,7 +406,7 @@
       <br/>
       <div class="field">
         <%= f.label :determinations_tribe %>
-        <%= f.collection_select(:determinations_tribe_contains,
+        <%= f.collection_select(:determinations_tribe_equals,
                                 @all_tribe,
                                 :tribe,
                                 :tribe,
@@ -417,7 +417,7 @@
       <br/>
       <div class="field">
         <%= f.label :determinations_species_uncertainty %>
-        <%= f.collection_select(:determinations_species_uncertainty_contains,
+        <%= f.collection_select(:determinations_species_uncertainty_equals,
                                 @all_uncertainty_types,
                                 :uncertainty_type,
                                 :uncertainty_type,
@@ -428,7 +428,7 @@
 
       <div class="field">
         <%= f.label :determinations_subspecies_uncertainty %>
-        <%= f.collection_select(:determinations_subspecies_uncertainty_contains,
+        <%= f.collection_select(:determinations_subspecies_uncertainty_equals,
                                 @all_uncertainty_types,
                                 :uncertainty_type,
                                 :uncertainty_type,
@@ -439,7 +439,7 @@
 
       <div class="field">
         <%= f.label :determinations_variety_uncertainty %>
-        <%= f.collection_select(:determinations_variety_uncertainty_contains,
+        <%= f.collection_select(:determinations_variety_uncertainty_equals,
                                 @all_uncertainty_types,
                                 :uncertainty_type,
                                 :uncertainty_type,
@@ -451,7 +451,7 @@
 
       <div class="field">
         <%= f.label :determinations_form_uncertainty %>
-        <%= f.collection_select(:determinations_form_uncertainty_contains,
+        <%= f.collection_select(:determinations_form_uncertainty_equals,
                                 @all_uncertainty_types,
                                 :uncertainty_type,
                                 :uncertainty_type,
