@@ -7,6 +7,15 @@ Given /^the specimen has replicates$/ do |table|
   @created_specimen.replicates = reps
 end
 
+Given /^the specimen "([^"]*)" has replicates "([^"]*)"$/ do |tag, codes|
+  reps = []
+  codes.split(",").each do |code|
+    herbarium = Herbarium.where(:code => code).first
+    reps << herbarium
+  end
+  @specimens[tag].replicates = reps
+end
+
 Then /^I should only see replicates$/ do |table|
   # first check that there's the correct number of items in the list
   all('#reps span.rep').count.should eq(table.hashes.size)

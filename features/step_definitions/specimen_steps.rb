@@ -210,6 +210,32 @@ Given /^I have specimen "([^"]*)"$/ do |tag|
   @specimens[tag] = Factory(:specimen)
 end
 
+Given /^I have specimen:/ do |table|
+  fields = table.rows_hash
+  @specimens[fields['tag']] = Factory(:specimen,
+                                      :country => fields['country'],
+                                      :state => fields['state'],
+                                      :botanical_division => fields['botanical division'],
+                                      :locality_description => fields['locality description'],
+                                      :latitude_degrees => fields['latitude degrees'],
+                                      :latitude_minutes => fields['latitude minutes'],
+                                      :latitude_hemisphere => fields['latitude hemisphere'],
+                                      :latitude_seconds => fields['latitude seconds'],
+                                      :longitude_degrees => fields['longitude degrees'],
+                                      :longitude_minutes => fields['longitude minutes'],
+                                      :longitude_hemisphere => fields['longitude hemisphere'],
+                                      :longitude_seconds => fields['longitude seconds'],
+                                      :altitude => fields['altitude'],
+                                      :datum => fields['datum'],
+                                      :topography => fields['topography'],
+                                      :aspect => fields['aspect'],
+                                      :substrate => fields['substrate'],
+                                      :vegetation => fields['vegetation'],
+                                      :frequency => fields['frequency'],
+                                      :plant_description => fields['plant description']
+                                      )
+end
+
 When /^I have an uncertainty type "([^\"]*)"$/ do |uncertainty_type|
   @created_uncertainties ||= []
   @created_uncertainties << Factory(:uncertainty_type, :uncertainty_type => uncertainty_type)
