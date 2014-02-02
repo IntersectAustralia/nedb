@@ -53,6 +53,12 @@ gem 'mongrel', '1.2.0.pre2'
 # for database settings
 gem 'acts_as_singleton'
 
+# set up Deployment Tracker
+gem "create_deployment_record", git: 'https://github.com/IntersectAustralia/create_deployment_record.git'
+
+# set up Whoops
+gem 'whoops_rails_logger', :git=> 'https://github.com/IntersectAustralia/whoops_rails_logger.git'
+
 group :development, :test do
   gem "rspec-rails", ">= 2.0.1"
 

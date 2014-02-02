@@ -1,3 +1,5 @@
+require 'deploy/create_deployment_record'
+
 set :stages, %w(qa staging production production_student)
 set :default_stage, "qa"
 require 'capistrano/ext/multistage'
