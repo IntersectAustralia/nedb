@@ -53,9 +53,6 @@ gem 'mongrel', '1.2.0.pre2'
 # for database settings
 gem 'acts_as_singleton'
 
-# set up Deployment Tracker
-gem "create_deployment_record", git: 'https://github.com/IntersectAustralia/create_deployment_record.git'
-
 # set up Whoops
 gem 'whoops_rails_logger', :git=> 'https://github.com/IntersectAustralia/whoops_rails_logger.git'
 
@@ -73,6 +70,8 @@ end
 group :development do
   gem "rails3-generators"
   gem 'pry-rails'
+  # set up Deployment Tracker
+  gem "create_deployment_record", git: 'https://github.com/IntersectAustralia/create_deployment_record.git'
 end
 
 group :test do
