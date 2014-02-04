@@ -1,13 +1,11 @@
+require 'capistrano/ext/multistage'
+require 'bundler/capistrano'
+require 'capistrano_colors'
+require 'colorize'
 require 'deploy/create_deployment_record'
 
 set :stages, %w(qa staging production production_student)
 set :default_stage, "qa"
-require 'capistrano/ext/multistage'
-
-require 'bundler/capistrano'
-require 'capistrano_colors'
-require 'colorize'
-
 
 set :application, "nedb"
 
@@ -19,6 +17,8 @@ set :copy_exclude, [".git/*", "features/upload-files/*"]
 
 set :deploy_to, "/home/devel/nedb"
 set :user, "devel"
+
+set(:rails_env) { stage }
 
 default_run_options[:pty] = true
 
