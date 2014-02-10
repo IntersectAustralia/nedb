@@ -30,6 +30,8 @@ Feature: Permissions to manage people
       | Confirmation  | read                   | Superuser, Administrator |
       | Confirmation  | create                 | Superuser                |
       | Confirmation  | update                 | Superuser                |
+    # REVIEWME
+    # Given I have the usual profiles and permissions
     And I have enough static data to create specimens
     And I have a user "super@intersect.org.au" with profile "Superuser"
     And I have a user "admin@intersect.org.au" with profile "Administrator"
@@ -45,7 +47,7 @@ Feature: Permissions to manage people
   Scenario: Student can't do anything on specimens
     Given I am logged in as "student@intersect.org.au"
     Then I should get the following security outcomes
-      | page                                             | outcome | message                                             |
+      | page | outcome | message |
       | the new specimen page                            | error   | You do not have permissions to perform this action. |
       | the specimen page for "specimen 1"               | error   | You do not have permissions to view this specimen.  |
       | the edit specimen page for "specimen 1"          | error   | You do not have permissions to perform this action. |
@@ -58,12 +60,24 @@ Feature: Permissions to manage people
       | the specimens needing review page                | error   | You do not have permissions to perform this action. |
       | the view specimen image page for "specimen 1"    | error   | You do not have permissions to view this specimen.  |
       | the new specimen image page for "specimen 1"     | error   | You do not have permissions to view this specimen.  |
-
+    # REVIEWME
+      # | the new specimen page                          | ok    |                                                     |
+      # | the specimen page for "specimen 1"             | ok    |                                                     |
+      # | the edit specimen page for "specimen 1"        | ok    |                                                     |
+      # | the edit replicates page for "specimen 1"      | ok    |                                                     |
+      # | the view determination page for "specimen 1"   | ok    |                                                     |
+      # | the create determination page for "specimen 1" | ok    |                                                     |
+      # | the edit determination page for "specimen 1"   | ok    |                                                     |
+      # | the create confirmation page for "specimen 1"  | ok    |                                                     |
+      # | the edit confirmation page for "specimen 1"    | ok    |                                                     |
+      # | the specimens needing review page              | error | You do not have permissions to perform this action. |
+      # | the view specimen image page for "specimen 1"  | ok    |                                                     |
+      # | the new specimen image page for "specimen 1"   | ok    |                                                     |
 
   Scenario: Admin can view but not edit specimens
     Given I am logged in as "admin@intersect.org.au"
     Then I should get the following security outcomes
-      | page                                              | outcome | message                                             |
+      | page | outcome | message |
       | the new specimen page                             | error   | You do not have permissions to perform this action. |
       | the specimen page for "specimen 1"                | ok      |                                                     |
       | the edit specimen page for "specimen 1"           | error   | You do not have permissions to perform this action. |
@@ -76,23 +90,36 @@ Feature: Permissions to manage people
       | the specimens needing review page                 | ok      |                                                     |
       | the view specimen image page for "specimen 1"     | ok      |                                                     |
       | the new specimen image page for "specimen 1"      | error   | You do not have permissions to perform this action. |
+    # REVIEWME
+      # | the new specimen page                          | ok |  |
+      # | the specimen page for "specimen 1"             | ok |  |
+      # | the edit specimen page for "specimen 1"        | ok |  |
+      # | the edit replicates page for "specimen 1"      | ok |  |
+      # | the view determination page for "specimen 1"   | ok |  |
+      # | the create determination page for "specimen 1" | ok |  |
+      # | the edit determination page for "specimen 1"   | ok |  |
+      # | the create confirmation page for "specimen 1"  | ok |  |
+      # | the edit confirmation page for "specimen 1"    | ok |  |
+      # | the specimens needing review page              | ok |  |
+      # | the view specimen image page for "specimen 1"  | ok |  |
+      # | the new specimen image page for "specimen 1"   | ok |  |
 
   Scenario: Superuser can do everything
     Given I am logged in as "super@intersect.org.au"
     Then I should get the following security outcomes
-      | page                                              | outcome | message |
-      | the new specimen page                             | ok      |         |
-      | the specimen page for "specimen 1"                | ok      |         |
-      | the edit specimen page for "specimen 1"           | ok      |         |
-      | the edit replicates page for "specimen 1"         | ok      |         |
-      | the view determination page for "specimen 1"      | ok      |         |
-      | the create determination page for "specimen 1"    | ok      |         |
-      | the edit determination page for "specimen 1"      | ok      |         |
-      | the create confirmation page for "specimen 1"     | ok      |         |
-      | the edit confirmation page for "specimen 1"       | ok      |         |
-      | the specimens needing review page                 | ok      |         |
-      | the view specimen image page for "specimen 1"     | ok      |         |
-      | the new specimen image page for "specimen 1"      | ok      |         |
+      | page                                           | outcome | message |
+      | the new specimen page                          | ok      |         |
+      | the specimen page for "specimen 1"             | ok      |         |
+      | the edit specimen page for "specimen 1"        | ok      |         |
+      | the edit replicates page for "specimen 1"      | ok      |         |
+      | the view determination page for "specimen 1"   | ok      |         |
+      | the create determination page for "specimen 1" | ok      |         |
+      | the edit determination page for "specimen 1"   | ok      |         |
+      | the create confirmation page for "specimen 1"  | ok      |         |
+      | the edit confirmation page for "specimen 1"    | ok      |         |
+      | the specimens needing review page              | ok      |         |
+      | the view specimen image page for "specimen 1"  | ok      |         |
+      | the new specimen image page for "specimen 1"   | ok      |         |
 
 
   Scenario: Admin can view but not edit so should not see edit links
@@ -113,6 +140,24 @@ Feature: Permissions to manage people
     When I am on the view specimen image page for "specimen 1"
     Then I should not see link "Delete Image"
     Then I should see link "Download Image"
+    # REVIEW ME
+    # Given I am logged in as "admin@intersect.org.au"
+    # When I am on the specimen page for "specimen 1"
+    # Then I should see link "Edit Specimen Details"
+    # And I should see link "Edit Replicates"
+    # And I should see link "Add Determination"
+    # And I should see link "Edit determination"
+    # And I should see link "Edit confirmation"
+    # And I should see button "Add" within the items area
+    # And I should see link "Delete" inside the items area
+    # When I am on the specimen page for "specimen 2"
+    # Then I should see link "Add confirmation"
+    # And I should see link "Add Image"
+    # When I am on the view determination page for "specimen 1"
+    # Then I should see link "Edit"
+    # When I am on the view specimen image page for "specimen 1"
+    # Then I should not see link "Delete Image"
+    # Then I should see link "Download Image"
 
   Scenario: Superuser can do anything so should see edit links
     Given I am logged in as "super@intersect.org.au"

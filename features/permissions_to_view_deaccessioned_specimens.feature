@@ -4,27 +4,7 @@ Feature: Permissions to view specimens
   I want to restrict access to some specimens
 
   Background:
-    Given I have profiles
-      | name      |
-      | Superuser |
-      | Student   |
-    And I have permissions
-      | entity        | action              | profiles           |
-      | Specimen      | view_deaccessioned  | Superuser          |
-      | Specimen      | request_deaccession | Superuser, Student |
-      | Specimen      | approve_deaccession | Superuser          |
-      | Specimen      | unflag_deaccession  | Superuser          |
-      | Specimen      | read                | Superuser, Student |
-      | Specimen      | create              | Superuser, Student |
-      | Specimen      | update              | Superuser, Student |
-      | Specimen      | update_replicates   | Superuser, Student |
-      | Specimen      | add_item            | Superuser, Student |
-      | Determination | read                | Superuser, Student |
-      | Determination | create              | Superuser, Student |
-      | Determination | update              | Superuser, Student |
-      | Confirmation  | read                | Superuser, Student |
-      | Confirmation  | create              | Superuser, Student |
-      | Confirmation  | update              | Superuser, Student |
+    Given I have the usual profiles and permissions
     And I have enough static data to create specimens
     And I have a user "georgina@intersect.org.au" with profile "Superuser"
     And I have a user "raul@intersect.org.au" with profile "Student"
@@ -120,4 +100,4 @@ Feature: Permissions to view specimens
       | the create determination page for "specimen 3" | ok      |         |
       | the edit determination page for "specimen 3"   | ok      |         |
       | the create confirmation page for "specimen 3"  | ok      |         |
-      | the edit confirmation page for "specimen 3"    | ok      |         | 
+      | the edit confirmation page for "specimen 3"    | ok      |         |

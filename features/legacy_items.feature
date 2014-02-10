@@ -4,32 +4,7 @@ Feature: Handling legacy data
   I want to edit legacy records
 
   Background:
-    Given I have profiles
-      | name          |
-      | Superuser     |
-      | Administrator |
-      | Student       |
-    And I have permissions
-      | entity        | action                 | profiles                 |
-      | Specimen      | read                   | Superuser, Administrator |
-      | Specimen      | create                 | Superuser                |
-      | Specimen      | update                 | Superuser                |
-      | Specimen      | update_replicates      | Superuser                |
-      | Specimen      | update_specimen_images | Superuser                |
-      | Specimen      | add_item               | Superuser                |
-      | Specimen      | view_needing_review    | Superuser, Administrator |
-      | Item          | destroy                | Superuser                |
-      | Determination | read                   | Superuser, Administrator |
-      | Determination | create                 | Superuser                |
-      | Determination | update                 | Superuser                |
-      | SpecimenImage | read                   | Superuser, Administrator |
-      | SpecimenImage | create                 | Superuser                |
-      | SpecimenImage | update                 | Superuser                |
-      | SpecimenImage | destroy                | Superuser                |
-      | SpecimenImage | download               | Superuser, Administrator |
-      | Confirmation  | read                   | Superuser, Administrator |
-      | Confirmation  | create                 | Superuser                |
-      | Confirmation  | update                 | Superuser                |
+    Given I have the usual profiles and permissions
     And I have enough static data to create specimens
     And I have a user "georgina@intersect.org.au" with profile "Superuser"
     And I am logged in as "georgina@intersect.org.au"

@@ -4,19 +4,7 @@ Feature: Permissions to manage users
   I want to restrict access to the user management functionality
 
   Background:
-    Given I have profiles
-      | name          |
-      | Superuser     |
-      | Administrator |
-      | Student       |
-    And I have permissions
-      | entity | action               | profiles                 |
-      | User   | read                 | Superuser, Administrator |
-      | User   | update_profile       | Superuser                |
-      | User   | activate_deactivate  | Superuser                |
-      | User   | view_access_requests | Superuser, Administrator |
-      | User   | reject               | Superuser                |
-      | User   | approve              | Superuser                |
+    Given I have the usual profiles and permissions
     And I have a user "super@intersect.org.au" with profile "Superuser"
     And I have a user "admin@intersect.org.au" with profile "Administrator"
     And I have a user "student@intersect.org.au" with profile "Student"

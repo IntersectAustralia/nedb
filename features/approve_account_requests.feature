@@ -2,20 +2,10 @@ Feature: Approve access requests
   In order to allow users to access the system
   As an administrator
   I want to approve access requests
-  
+
   Background:
     Given I have no users
-    Given I have profiles
-      | name          |
-      | Superuser     |
-      | Administrator |
-      | Student       |
-    And I have permissions
-      | entity | action               | profiles                 |
-      | User   | read                 | Superuser, Administrator |
-      | User   | view_access_requests | Superuser, Administrator |
-      | User   | reject               | Superuser                |
-      | User   | approve              | Superuser                |
+    Given I have the usual profiles and permissions
     And I have a user "georgina@intersect.org.au"
     And "georgina@intersect.org.au" has profile "Superuser"
     And I have access requests
@@ -32,7 +22,7 @@ Feature: Approve access requests
       | First name | Last name        | Email                  | Telephone  | Group/School/Institution |
       | Diego      | Alonso de Marcos | diego@intersect.org.au | 08 8345678 | Intersect                |
       | Ryan       | Braganza         | ryan@intersect.org.au  | 0411111111 |                          |
-      
+
   Scenario: Approve an access request from the list page
     Given I am on the access requests page
     When I follow "Approve" for "diego@intersect.org.au"
@@ -53,7 +43,7 @@ Feature: Approve access requests
       | First name | Last name        | Email                  | Telephone  | Group/School/Institution |
       | Diego      | Alonso de Marcos | diego@intersect.org.au | 08 8345678 | Intersect                |
       | Ryan       | Braganza         | ryan@intersect.org.au  | 0411111111 |                          |
-  
+
   Scenario: View details of an access request
     Given I am on the access requests page
     When I follow "View Details" for "diego@intersect.org.au"
@@ -104,7 +94,7 @@ Feature: Approve access requests
       | First name | Last name        | Email                  | Telephone  | Group/School/Institution |
       | Diego      | Alonso de Marcos | diego@intersect.org.au | 08 8345678 | Intersect                |
       | Ryan       | Braganza         | ryan@intersect.org.au  | 0411111111 |                          |
-  
+
   Scenario: Profile should be mandatory when approving an access request
     Given I am on the access requests page
     When I follow "Approve" for "diego@intersect.org.au"

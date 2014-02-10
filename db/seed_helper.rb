@@ -70,6 +70,7 @@ def create_species
   species = read_hashes_from_csv('species.csv')
 
   species.each do |hash|
+    return if Rails.env.test? && Species.count == 50
     s = Species.new(hash)
     if !s.valid?
       puts "Warning: species not valid: #{hash["name"]} due to #{s.errors}"

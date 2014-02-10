@@ -4,17 +4,7 @@ Feature: Permissions to manage species
   I want to restrict access to the species management functionality
 
   Background:
-    Given I have profiles
-      | name          |
-      | Superuser     |
-      | Administrator |
-      | Student       |
-    And I have permissions
-      | entity  | action  | profiles                 |
-      | Species | read    | Superuser, Administrator |
-      | Species | create  | Superuser                |
-      | Species | update  | Superuser                |
-      | Species | destroy | Superuser                |
+    Given I have the usual profiles and permissions
     And I have species
       | name         |
       | integrifolia |

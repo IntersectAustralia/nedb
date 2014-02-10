@@ -27,29 +27,7 @@ Feature: Specimens created by unauthorised users are marked as needing review
       | name | state           |
       | BD1  | New South Wales |
       | BD2  | New South Wales |
-    And I have profiles
-      | name          |
-      | Superuser     |
-      | Administrator |
-      | Student       |
-    And I have permissions
-      | entity        | action                    | profiles                          |
-      | Specimen      | create_not_needing_review | Superuser, Administrator          |
-      | Specimen      | view_needing_review       | Superuser, Administrator          |
-      | Specimen      | mark_as_reviewed          | Superuser                         |
-      | Specimen      | read                      | Superuser, Administrator, Student |
-      | Specimen      | update                    | Superuser, Administrator, Student |
-      | Specimen      | update_replicates         | Superuser, Administrator, Student |
-      | Specimen      | create                    | Superuser, Administrator, Student |
-      | Specimen      | update_specimen_images    | Superuser, Administrator, Student |
-      | Specimen      | add_item                  | Superuser, Administrator, Student |
-      | Item          | destroy                   | Superuser, Administrator, Student |
-      | SpecimenImage | read                      | Superuser, Administrator, Student |
-      | SpecimenImage | create                    | Superuser, Administrator, Student |
-      | SpecimenImage | update                    | Superuser, Administrator, Student |
-      | SpecimenImage | download                  | Superuser, Administrator, Student |
-      | SpecimenImage | display_image             | Superuser, Administrator, Student |
-      | SpecimenImage | destroy                   | Superuser                         |
+    Given I have the usual profiles and permissions
     And I have a user "georgina@intersect.org.au" with profile "Superuser"
     And I have a user "raul@intersect.org.au" with profile "Administrator"
     And I have a user "diego@intersect.org.au" with profile "Student"

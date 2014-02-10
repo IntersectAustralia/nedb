@@ -24,67 +24,67 @@
       <br/>
 
       <div class="field">
-        <%= f.label :locality %>
+        <%= f.label :locality_description_contains, "Locality" %>
         <%= f.text_field :locality_description_contains, :maxlength => 50, :size => 30 %>  <br/>
       </div>
 
       <div class="field">
-        <%= f.label :vegetation %>
+        <%= f.label :vegetation_contains, "Vegetation" %>
         <%= f.text_field :vegetation_contains, :maxlength => 50, :size => 30 %>  <br/>
       </div>
 
       <div class="field">
-        <%= f.label :plant_description %>
+        <%= f.label :plant_description_contains, "Plant description" %>
         <%= f.text_field :plant_description_contains, :maxlength => 50, :size => 30 %>  <br/>
       </div>
 
       <div class="field">
-        <%= f.label :replicate_from %>
+        <%= f.label :replicate_from_contains, "Replicate from" %>
         <%= f.text_field :replicate_from_contains, :maxlength => 50, :size => 30 %>  <br/>
       </div>
 
       <div class="field">
-        <%= f.label :replicate_from_number %>
+        <%= f.label :replicate_from_no_contains, "Replicate from number" %>
         <%= f.text_field :replicate_from_no_contains, :maxlength => 50, :size => 30 %> <br/>
       </div> <br/>
 
       <div class="field">
-        <%= f.label :topography %>
+        <%= f.label :topography_contains, "Topography" %>
         <%= f.text_field :topography_contains, :maxlength => 50, :size => 30 %>  <br/>
       </div>
 
       <div class="field">
-        <%= f.label :aspect %>
+        <%= f.label :aspect_contains, "Aspect" %>
         <%= f.text_field :aspect_contains, :maxlength => 50, :size => 30 %>  <br/>
       </div>
 
       <div class="field">
-        <%= f.label :substrate %>
+        <%= f.label :substrate_contains, "Substrate" %>
         <%= f.text_field :substrate_contains, :maxlength => 50, :size => 30 %>  <br/>
       </div>
 
       <div class="field">
-        <%= f.label :frequency %>
+        <%= f.label :frequency_contains, "Frequency" %>
         <%= f.text_field :frequency_contains, :maxlength => 50, :size => 30 %>  <br/>
       </div>
 
       <div class="field">
-        <%= f.label :country %>
+        <%= f.label :country_contains, "Country" %>
         <%= f.text_field :country_contains, :maxlength => 50, :size => 30 %>  <br/>
       </div>
 
       <div class="field">
-        <%= f.label :state %>
+        <%= f.label :state_contains, "State" %>
         <%= f.text_field :state_contains, :maxlength => 50, :size => 30 %>  <br/>
       </div>
 
       <div class="field">
-        <%= f.label :botanical_division %>
+        <%= f.label :botanical_division_contains, "Botanical division" %>
         <%= f.text_field :botanical_division_contains, :maxlength => 50, :size => 30 %>  <br/>
       </div>
 
       <div class="field">
-        <%= f.label :datum %>
+        <%= f.label :datum_contains, "Datum" %>
         <%= f.text_field :datum_contains, :maxlength => 50, :size => 30 %>  <br/>
       </div>
 
@@ -137,7 +137,7 @@
                              :day_field => :collection_date_day_less_than_or_equal_to }
       %>
       <div class="field">
-        <%= f.label :latitude_hemisphere %>
+        <%= f.label :latitude_hemisphere_equals, 'Latitude hemisphere' %>
         <%= f.select :latitude_hemisphere_equals, {"North" => "N", "South" => "S"}, { :include_blank => "None" }%>
       </div>
       <br/>
@@ -164,7 +164,7 @@
         "&nbsp;
       </div>
       <div class="field">
-        <%= f.label :longitude_hemisphere %>
+        <%= f.label :longitude_hemisphere_equals, 'Longitude hemisphere' %>
         <%= f.select :longitude_hemisphere_equals, {"East" => "E", "West" => "W"}, { :include_blank => "None" }%>
       </div>
       <br/>
@@ -194,7 +194,7 @@
 
       <div id="adv_search_additional">
         <div class="field">
-          <%= f.label :collector_id %>
+          <%= f.label :collector_id_equals, "Collector" %>
           <%= f.collection_select(:collector_id_equals,
                                   @all_people,
                                   :id,
@@ -204,12 +204,12 @@
          </div>
         <br/>
         <div class="field">
-          <%= f.label :collector_number %>
+          <%= f.label :collector_number_equals, "Collector number" %>
           <%= f.text_field :collector_number_equals, :maxlength => 50, :size => 30 %>
         </div><br/>
 
         <div class="field">
-          <%= f.label :other_collectors %>
+          <%= f.label :secondary_collectors_id_equals, "Other collectors" %>
           <%= f.collection_select(:secondary_collectors_id_equals,
                                   @all_people,
                                   :id,
@@ -220,7 +220,7 @@
         </div><br/>
 
         <div class="field">
-          <%= f.label :replicate_to %>
+          <%= f.label :replicates_id_equals, "Replicate to" %>
           <%= f.collection_select(:replicates_id_equals,
                                   @all_herbaria,
                                   :id,
@@ -239,7 +239,7 @@
         <br/>
 
         <div class="field">
-          <%= f.label :confirmations_confirmer_id %>
+          <%= f.label :confirmations_confirmer_id_equals, "Confirmations confirmer" %>
           <%= f.collection_select(:confirmations_confirmer_id_equals,
                                   @all_people,
                                   :id,
@@ -276,7 +276,7 @@
 
     <div id="adv_search_determinations">
       <div class="field">
-        <%= f.label :determinations_determiners_id %>
+        <%= f.label :determinations_determiners_id_equals, "Determinations determiner" %>
         <%= f.collection_select(:determinations_determiners_id_equals,
                                 @all_people,
                                 :id,
@@ -306,7 +306,7 @@
       %>
       <br/>
       <div class="field">
-        <%= f.label :determinations_division %>
+        <%= f.label :determinations_division_equals, "Determinations division" %>
         <%= f.collection_select(:determinations_division_equals,
                                 @all_divisions,
                                 :division,
@@ -317,7 +317,7 @@
       </div>
       <br/>
       <div class="field">
-        <%= f.label :determinations_class_name %>
+        <%= f.label :determinations_class_name_equals, "Determinations class name" %>
         <%= f.collection_select(:determinations_class_name_equals,
                                 @all_class,
                                 :class_name,
@@ -328,7 +328,7 @@
       </div>
       <br/>
       <div class="field">
-        <%= f.label :determinations_order_name %>
+        <%= f.label :determinations_order_name_equals, "Determinations order name" %>
         <%= f.collection_select(:determinations_order_name_equals,
                                 @all_order,
                                 :order_name,
@@ -339,7 +339,7 @@
       </div>
       <br/>
       <div class="field">
-        <%= f.label :determinations_family %>
+        <%= f.label :determinations_family_equals, "Determinations family" %>
         <%= f.collection_select(:determinations_family_equals,
                                 @all_family,
                                 :family,
@@ -350,7 +350,7 @@
       </div>
       <br/>
       <div class="field">
-        <%= f.label :determinations_subfamily %>
+        <%= f.label :determinations_sub_family_equals, "Determinations subfamily" %>
         <%= f.collection_select(:determinations_sub_family_equals,
                                 @all_subfamily,
                                 :sub_family,
@@ -361,7 +361,7 @@
       </div>
       <br/>
       <div class="field">
-        <%= f.label :determinations_genus %>
+        <%= f.label :determinations_genus_equals, "Determinations genus" %>
         <%= f.collection_select(:determinations_genus_equals,
                                 @all_genus,
                                 :genus,
@@ -372,7 +372,7 @@
       </div>
       <br/>
       <div class="field">
-        <%= f.label :determinations_species %>
+        <%= f.label :determinations_species_equals, "Determinations species" %>
         <%= f.collection_select(:determinations_species_equals,
                                 @all_species,
                                 :name,
@@ -383,7 +383,7 @@
       </div>
       <br/>
       <div class="field">
-        <%= f.label :determinations_subspecies %>
+        <%= f.label :determinations_sub_species_equals, "Determinations subspecies" %>
         <%= f.collection_select(:determinations_sub_species_equals,
                                 @all_subspecies,
                                 :subspecies,
@@ -394,7 +394,7 @@
       </div>
       <br/>
       <div class="field">
-        <%= f.label :determinations_variety %>
+        <%= f.label :determinations_variety_equals, "Determinations variety" %>
         <%= f.collection_select(:determinations_variety_equals,
                                 @all_variety,
                                 :variety,
@@ -405,7 +405,7 @@
       </div>
       <br/>
       <div class="field">
-        <%= f.label :determinations_tribe %>
+        <%= f.label :determinations_tribe_equals, "Determinations tribe" %>
         <%= f.collection_select(:determinations_tribe_equals,
                                 @all_tribe,
                                 :tribe,
@@ -416,7 +416,7 @@
       </div>
       <br/>
       <div class="field">
-        <%= f.label :determinations_species_uncertainty %>
+        <%= f.label :determinations_species_uncertainty_equals, "Determinations species uncertainty" %>
         <%= f.collection_select(:determinations_species_uncertainty_equals,
                                 @all_uncertainty_types,
                                 :uncertainty_type,
@@ -427,7 +427,7 @@
 
 
       <div class="field">
-        <%= f.label :determinations_subspecies_uncertainty %>
+        <%= f.label :determinations_subspecies_uncertainty_equals, "Determinations subspecies uncertainty" %>
         <%= f.collection_select(:determinations_subspecies_uncertainty_equals,
                                 @all_uncertainty_types,
                                 :uncertainty_type,
@@ -438,7 +438,7 @@
       </div><br/><br/>
 
       <div class="field">
-        <%= f.label :determinations_variety_uncertainty %>
+        <%= f.label :determinations_variety_uncertainty_equals, "Determinations variety uncertainty" %>
         <%= f.collection_select(:determinations_variety_uncertainty_equals,
                                 @all_uncertainty_types,
                                 :uncertainty_type,
@@ -450,7 +450,7 @@
 
 
       <div class="field">
-        <%= f.label :determinations_form_uncertainty %>
+        <%= f.label :determinations_form_uncertainty_equals, "Determinations form uncertainty" %>
         <%= f.collection_select(:determinations_form_uncertainty_equals,
                                 @all_uncertainty_types,
                                 :uncertainty_type,

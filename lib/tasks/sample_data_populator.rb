@@ -72,7 +72,6 @@ def create_test_species
 
   species = Species.create!(species_params)
 
-
   Subspecies.create!(:species => species, :subspecies => "Subspecies Primera", :authority => "Don Siegel")
   Subspecies.create!(:species => species, :subspecies => "Subspecies Segunda", :authority => "Ted Post")
   Subspecies.create!(:species => species, :subspecies => "Subspecies Tercera", :authority => "James Fargo")

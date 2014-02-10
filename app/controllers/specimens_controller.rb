@@ -471,7 +471,7 @@ class SpecimensController < ApplicationController
     month_to = params[:search][:created_at_to_month]
     day_to = params[:search][:created_at_to_day]
 
-    query_object = "created_at"
+    query_object = "specimens.created_at"
     date_param = date_search_format(year_from, month_from, day_from, year_to, month_to, day_to)
     timestamp_query(date_param, query_object)
   end

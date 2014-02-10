@@ -138,7 +138,7 @@ class Determination < ActiveRecord::Base
 
   def determiners_name_herbarium_id(collector, date_matches)
     determiners.collect { |d|
-      if !(collector.eql?(d.display_name) and date_matches) 
+      if !(collector.eql?(d.display_name) and date_matches)
         if !d.herbarium.nil?
           "#{d.display_name} (#{d.herbarium.code})"
         else

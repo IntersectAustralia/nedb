@@ -65,6 +65,7 @@ group :development, :test do
   gem "escape_utils"
   gem 'selenium-webdriver'
 
+  gem 'zeus'
 end
 
 group :development do

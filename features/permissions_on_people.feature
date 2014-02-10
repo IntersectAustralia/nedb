@@ -4,16 +4,7 @@ Feature: Permissions to manage people
   I want to restrict access to the people management functionality
 
   Background:
-    Given I have profiles
-      | name          |
-      | Superuser     |
-      | Administrator |
-      | Student       |
-    And I have permissions
-      | entity | action | profiles                 |
-      | Person | read   | Superuser, Administrator |
-      | Person | create | Superuser                |
-      | Person | update | Superuser                |
+    Given I have the usual profiles and permissions
     And I have people
       | initials |  last_name  |
       | G.R.     |  Adams      |
