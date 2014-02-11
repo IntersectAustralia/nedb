@@ -3,31 +3,19 @@ class SpecimenNameFormatter
   def self.subspecies_and_authority(name, authority, uncertainty, species)
     prefix = "subsp."
 
-    if species == name
-      # don't show authority if species is same as subspecies
-      authority = ""
-    end
-    format_and_add_uncertainty(authority, name, prefix, uncertainty)
+    format_and_add_uncertainty(authority, name, prefix, uncertainty, species)
   end
 
   def self.variety_and_authority(name, authority, uncertainty, species)
     prefix = "var."
 
-    if species == name
-      # don't show the variety authority if species is same as variety (the authority for the species and variety will be the same)
-      authority = ""
-    end
-    format_and_add_uncertainty(authority, name, prefix, uncertainty)
+    format_and_add_uncertainty(authority, name, prefix, uncertainty, species)
   end
 
   def self.form_and_authority(name, authority, uncertainty, species)
     prefix = "f."
 
-    if species == name
-      # don't show the form authority if species is same as form (the authority for the species and form will be the same)
-      authority = ""
-    end
-    format_and_add_uncertainty(authority, name, prefix, uncertainty)
+    format_and_add_uncertainty(authority, name, prefix, uncertainty, species)
   end
 
   def self.family_subfamily(family, subfamily, family_uncertainty, subfamily_uncertainty)
@@ -154,9 +142,14 @@ class SpecimenNameFormatter
     "<b><i>#{text}</i></b>"
   end
 
-  def self.format_and_add_uncertainty(authority, name, prefix, uncertainty)
+  def self.format_and_add_uncertainty(authority, name, prefix, uncertainty, species)
     if !name or name.empty?
       return ""
+    end
+
+    if species == name
+      # don't show authority if species is same as subspecies/variety/form as authority will be the same
+      authority = ""
     end
 
     parts = [prefix]
