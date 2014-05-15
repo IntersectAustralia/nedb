@@ -431,19 +431,19 @@ class SpecimensController < ApplicationController
   def coordinate_search_format(degrees_from, minutes_from, seconds_from, degrees_to, minutes_to, seconds_to)
     params = []
     if !degrees_from.blank? && minutes_from.blank? && seconds_from.blank?
-      params[0] = degrees_from.to_f
+      params[0] = degrees_from.to_f * 3600
     elsif !degrees_from.blank? && !minutes_from.blank? && seconds_from.blank?
-      params[0] = degrees_from.to_f + ((minutes_from.to_f * 60) / 3600)
+      params[0] = degrees_from.to_f * 3600 + minutes_from.to_f * 60
     else
-      params[0] = degrees_from.to_f + ((minutes_from.to_f * 60 + seconds_from.to_f) / 3600)
+      params[0] = degrees_from.to_f * 3600 + minutes_from.to_f * 60 + seconds_from.to_f
     end
 
     if !degrees_to.blank? && minutes_to.blank? && seconds_to.blank?
-      params[1] = degrees_to.to_f + 1
+      params[1] = (degrees_to.to_f + 1) * 3600
     elsif !degrees_to.blank? && !minutes_to.blank? && seconds_to.blank?
-      params[1] = degrees_to.to_f + ((minutes_to.to_f * 60) / 3600)
+      params[1] = degrees_to.to_f * 3600 + (minutes_to.to_f + 1) * 60
     else
-      params[1] = degrees_to.to_f + ((minutes_to.to_f * 60 + seconds_to.to_f) / 3600)
+      params[1] = degrees_to.to_f * 3600 + minutes_to.to_f * 60 + seconds_to.to_f
     end
     #hacky workaround to match pgsql values
     params[0] = params[0].to_f.round(13)
@@ -461,6 +461,7 @@ class SpecimensController < ApplicationController
     else
       date_query = "#{query_object} BETWEEN #{params[0]} AND #{params[1]}"
     end
+    date_query
   end
 
   def created_at_date_query
@@ -566,42 +567,6 @@ class SpecimensController < ApplicationController
     else
       month % 2 == 0 ? 31 : 30
     end
-  end
-
-end
-
-class SearchTermParser
-
-  def initialize(raw_search_term)
-    @raw_search_term = raw_search_term.nil? ? nil : raw_search_term.strip
-  end
-
-  def is_blank?
-    @raw_search_term.blank?
-  end
-
-  def accession_number_search?
-    !accession_number.nil?
-  end
-
-  def accession_number
-    if @raw_search_term =~ /^#{Setting.instance.specimen_prefix}[0-9]+\.[0-9a-zA-Z]+$/
-      # its in the format NE[accession_no].[item_number or rep code]
-      dot_location = @raw_search_term.index(".")
-      return @raw_search_term[2..(dot_location - 1)]
-    elsif @raw_search_term =~ /^#{Setting.instance.specimen_prefix}[0-9]+$/
-      # its in the format NE[accession_no]
-      return @raw_search_term[2, @raw_search_term.length]
-    elsif @raw_search_term =~ /^[0-9]+$/
-      # its just the number
-      return @raw_search_term
-    else
-      return nil
-    end
-  end
-
-  def text_search
-    @raw_search_term
   end
 
 end

@@ -318,17 +318,21 @@ Feature: Advanced Search
   Examples:
     | deg | min | sec | deg_to | min_to | sec_to | message                     | results                    |
     | 30  |     |     |        |        |        | Found 12 matching specimens | 1,2,3,4,5,6,7,8,9,10,11,12 |
-    | 37  |     |     |        |        |        | Found 5 matching specimens  | 8,9,10,11,12               |
+    | 37  |     |     |        |        |        | Found 6 matching specimens  | 7,8,9,10,11,12             |
     | 37  | 7   |     |        |        |        | Found 5 matching specimens  | 8,9,10,11,12               |
     | 37  | 7   | 23  |        |        |        | Found 4 matching specimens  | 9,10,11,12                 |
     |     |     |     | 41     |        |        | Found 12 matching specimens | 1,2,3,4,5,6,7,8,9,10,11,12 |
-    |     |     |     | 41     | 9      |        | Found 11 matching specimens | 1,2,3,4,5,6,7,8,9,10,11    |
-    |     |     |     | 41     | 9      | 22     | Found 11 matching specimens | 1,2,3,4,5,6,7,8,9,10,11    |
+    |     |     |     | 41     | 8      |        | Found 11 matching specimens | 1,2,3,4,5,6,7,8,9,10,11    |
+    |     |     |     | 41     | 8      | 22     | Found 11 matching specimens | 1,2,3,4,5,6,7,8,9,10,11    |
     | 42  |     |     |        |        |        | No specimen was found.      |                            |
     | 41  | 9   | 24  |        |        |        | No specimen was found.      |                            |
     |     |     |     | 29     |        |        | No specimen was found.      |                            |
     |     |     |     | 30     | 4      | 19     | No specimen was found.      |                            |
     | 32  | 5   | 21  | 37     | 7      | 22     | Found 5 matching specimens  | 4,5,6,7,8                  |
+    | 37  |     |     | 37     |        |        | Found 2 matching specimens  | 7,8                        |
+    | 37  | 7   |     | 37     | 7      |        | Found 1 matching specimens  | 8                          |
+    | 37  | 7   | 22  | 37     | 7      | 22     | Found 1 matching specimens  | 8                          |
+
 
   Scenario Outline: Search by longitude hemisphere
     When I select "<example>" from "Longitude hemisphere"
@@ -356,17 +360,20 @@ Feature: Advanced Search
   Examples:
     | deg | min | sec | deg_to | min_to | sec_to | message                     | results                    |
     | 150 |     |     |        |        |        | Found 12 matching specimens | 1,2,3,4,5,6,7,8,9,10,11,12 |
-    | 157 |     |     |        |        |        | Found 5 matching specimens  | 8,9,10,11,12               |
+    | 157 |     |     |        |        |        | Found 6 matching specimens  | 7,8,9,10,11,12             |
     | 157 | 06  |     |        |        |        | Found 5 matching specimens  | 8,9,10,11,12               |
     | 157 | 06  | 43  |        |        |        | Found 4 matching specimens  | 9,10,11,12                 |
     |     |     |     | 161    |        |        | Found 12 matching specimens | 1,2,3,4,5,6,7,8,9,10,11,12 |
-    |     |     |     | 161    | 04     |        | Found 11 matching specimens | 1,2,3,4,5,6,7,8,9,10,11    |
-    |     |     |     | 161    | 04     | 42     | Found 11 matching specimens | 1,2,3,4,5,6,7,8,9,10,11    |
+    |     |     |     | 161    | 03     |        | Found 11 matching specimens | 1,2,3,4,5,6,7,8,9,10,11    |
+    |     |     |     | 161    | 03     | 42     | Found 11 matching specimens | 1,2,3,4,5,6,7,8,9,10,11    |
     | 162 |     |     |        |        |        | No specimen was found.      |                            |
     | 161 | 04  | 44  |        |        |        | No specimen was found.      |                            |
     |     |     |     | 149    |        |        | No specimen was found.      |                            |
     |     |     |     | 150    | 09     | 39     | No specimen was found.      |                            |
     | 152 | 08  | 41  | 157    | 06     | 42     | Found 5 matching specimens  | 4,5,6,7,8                  |
+    | 157 |     |     | 157    |        |        | Found 2 matching specimens  | 7,8                        |
+    | 157 | 06  |     | 157    | 06     |        | Found 1 matching specimens  | 8                          |
+    | 157 | 06  | 42  | 157    | 06     | 42     | Found 1 matching specimens  | 8                          |
 
   Scenario Outline: Search by collector
     When I select "<example>" from "Collector"
