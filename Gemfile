@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem "rails", "3.0.20"
+gem "rails", "~> 3.2.18"
 gem "rake", "0.9.2"
 
 # Prawn is for PDF generation
@@ -45,7 +45,7 @@ gem "paperclip"
 gem "rubyzip", "0.9.9"
 
 # For advanced_search
-gem "meta_search"
+gem "meta_search", "~> 1.1.3"
 
 # to fix URItoolarge in webrick, use mongrel
 gem 'mongrel', '1.2.0.pre2'
