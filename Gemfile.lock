@@ -43,13 +43,15 @@ GEM
     activesupport (3.2.18)
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
-    acts_as_singleton (0.0.5)
-      activerecord
+    acts_as_singleton (0.0.8)
+      activerecord (>= 3.1.0)
     addressable (2.3.5)
     afm (0.2.0)
     arel (3.0.3)
     barby (0.4.2)
-    bcrypt-ruby (2.1.2)
+    bcrypt (3.1.7)
+    bcrypt-ruby (3.1.5)
+      bcrypt (>= 3.1.3)
     builder (3.0.4)
     cancan (1.4.1)
     capistrano (2.5.19)
@@ -83,9 +85,10 @@ GEM
       nokogiri (>= 1.5.0)
     daemons (1.0.10)
     database_cleaner (0.6.0)
-    devise (1.1.5)
-      bcrypt-ruby (~> 2.1.2)
-      warden (~> 1.0.2)
+    devise (1.5.4)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.0.3)
+      warden (~> 1.1)
     diff-lcs (1.1.3)
     dynamic_form (1.1.3)
     email_spec (1.2.1)
@@ -123,7 +126,7 @@ GEM
     mongrel (1.2.0.pre2)
       daemons (~> 1.0.10)
       gem_plugin (~> 0.2.3)
-    multi_json (1.5.0)
+    multi_json (1.10.1)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -132,6 +135,7 @@ GEM
     net-ssh-gateway (1.0.1)
       net-ssh (>= 1.99.1)
     nokogiri (1.5.6)
+    orm_adapter (0.0.7)
     paperclip (2.3.8)
       activerecord
       activesupport
@@ -141,7 +145,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    pg (0.10.0)
+    pg (0.17.1)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.5)
@@ -227,12 +231,12 @@ GEM
       polyglot (>= 0.3.1)
     ttfunk (1.0.3)
     tzinfo (0.3.39)
-    warden (1.0.2)
-      rack (>= 1.0.0)
+    warden (1.2.3)
+      rack (>= 1.0)
     websocket (1.0.6)
     whoops_logger (0.1.4)
       json
-    will_paginate (3.0.pre2)
+    will_paginate (3.0.5)
     xpath (0.1.4)
       nokogiri (~> 1.3)
     zeus (0.13.3)
@@ -242,7 +246,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts_as_singleton
+  acts_as_singleton (~> 0.0.8)
   barby
   cancan
   capistrano
@@ -253,7 +257,7 @@ DEPENDENCIES
   create_deployment_record!
   cucumber-rails
   database_cleaner
-  devise
+  devise (~> 1.5.3)
   dynamic_form
   email_spec
   escape_utils
@@ -263,7 +267,7 @@ DEPENDENCIES
   meta_search (~> 1.1.3)
   mongrel (= 1.2.0.pre2)
   paperclip
-  pg
+  pg (~> 0.17.1)
   prawn (>= 0.11.1.pre)
   pry-rails
   rails (~> 3.2.18)
@@ -278,5 +282,5 @@ DEPENDENCIES
   simplecov-rcov
   sqlite3
   whoops_rails_logger!
-  will_paginate (~> 3.0.pre2)
+  will_paginate (~> 3.0.5)
   zeus

@@ -16,16 +16,16 @@ ActiveRecord::Schema.define(:version => 20130305050226) do
   create_table "botanical_divisions", :force => true do |t|
     t.integer  "state_id"
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "confirmations", :force => true do |t|
     t.integer  "specimen_id"
     t.integer  "confirmer_id"
     t.integer  "confirmer_herbarium_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
     t.integer  "confirmation_date_year"
     t.integer  "confirmation_date_month"
     t.integer  "confirmation_date_day"
@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(:version => 20130305050226) do
 
   create_table "countries", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "determination_determiners", :id => false, :force => true do |t|
@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(:version => 20130305050226) do
     t.string   "family"
     t.string   "genus"
     t.string   "species"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
     t.integer  "determiner_herbarium_id"
     t.string   "class_name"
     t.string   "sub_family"
@@ -87,34 +87,34 @@ ActiveRecord::Schema.define(:version => 20130305050226) do
     t.string   "form"
     t.string   "authority"
     t.integer  "species_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "herbaria", :force => true do |t|
     t.string   "code"
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "item_types", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.boolean  "create_labels"
   end
 
   create_table "items", :force => true do |t|
     t.integer  "specimen_id"
     t.integer  "item_type_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "people", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
     t.string   "first_name"
     t.string   "middle_name"
     t.string   "last_name"
@@ -133,14 +133,14 @@ ActiveRecord::Schema.define(:version => 20130305050226) do
   create_table "permissions", :force => true do |t|
     t.string   "entity"
     t.string   "action"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "profiles", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "profiles_permissions", :id => false, :force => true do |t|
@@ -154,8 +154,8 @@ ActiveRecord::Schema.define(:version => 20130305050226) do
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
@@ -176,8 +176,8 @@ ActiveRecord::Schema.define(:version => 20130305050226) do
 
   create_table "species", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "division"
     t.string   "class_name"
     t.string   "order_name"
@@ -195,8 +195,8 @@ ActiveRecord::Schema.define(:version => 20130305050226) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
     t.integer  "user_id"
   end
 
@@ -236,8 +236,8 @@ ActiveRecord::Schema.define(:version => 20130305050226) do
     t.text     "vegetation"
     t.string   "frequency"
     t.text     "plant_description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
     t.string   "latitude_hemisphere",   :limit => 1
     t.string   "longitude_hemisphere",  :limit => 1
     t.integer  "collection_date_year"
@@ -255,36 +255,35 @@ ActiveRecord::Schema.define(:version => 20130305050226) do
   create_table "states", :force => true do |t|
     t.integer  "country_id"
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "subspecies", :force => true do |t|
     t.string   "subspecies"
     t.string   "authority"
     t.integer  "species_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "uncertainty_types", :force => true do |t|
     t.string   "uncertainty_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                   :default => "",  :null => false
     t.string   "encrypted_password",       :limit => 128, :default => "",  :null => false
-    t.string   "password_salt",                           :default => "",  :null => false
     t.string   "reset_password_token"
     t.integer  "sign_in_count",                           :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                               :null => false
+    t.datetime "updated_at",                                               :null => false
     t.string   "title"
     t.string   "first_name"
     t.string   "last_name"
@@ -305,8 +304,8 @@ ActiveRecord::Schema.define(:version => 20130305050226) do
     t.string   "variety"
     t.string   "authority"
     t.integer  "species_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

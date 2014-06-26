@@ -13,19 +13,19 @@ gem "capistrano_colors"
 gem "colorize"
 
 # Postgres adapter
-gem "pg"
+gem "pg", "~> 0.17.1"
 
 # sqlite3 for test
 gem "sqlite3"
 
 # Devise for authentication
-gem "devise"
+gem "devise", "~> 1.5.3"
 
 # For creating test data
 gem "forgery"
 
 # Pagination
-gem "will_paginate", "~> 3.0.pre2"
+gem "will_paginate", "~> 3.0.5"
 
 # Autocomplete with JQuery
 gem "rails3-jquery-autocomplete"
@@ -51,7 +51,7 @@ gem "meta_search", "~> 1.1.3"
 gem 'mongrel', '1.2.0.pre2'
 
 # for database settings
-gem 'acts_as_singleton'
+gem 'acts_as_singleton', '~> 0.0.8'
 
 # set up Whoops
 gem 'whoops_rails_logger', :git=> 'https://github.com/IntersectAustralia/whoops_rails_logger.git'

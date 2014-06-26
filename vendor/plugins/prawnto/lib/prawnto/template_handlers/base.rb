@@ -1,6 +1,6 @@
 module Prawnto
   module TemplateHandlers
-    class Base < ::ActionView::TemplateHandler
+    class Base
       include ::ActionView::TemplateHandlers::Compilable
       
       def compile(template)
