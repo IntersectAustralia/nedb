@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-require 'zip/zip'
+require 'zip'
 class Specimen < ActiveRecord::Base
 
   belongs_to :collector, :class_name => 'Person'
@@ -256,7 +256,7 @@ class Specimen < ActiveRecord::Base
       temp_file_name = t.path
       t.delete
     
-      Zip::ZipFile.open(temp_file_name, Zip::ZipFile::CREATE) do |zip_file|
+      Zip::File.open(temp_file_name, Zip::File::CREATE) do |zip_file|
         images_unique_names = uniquify(specimen_images)
         images_unique_names.each_entry do |img, unique_name|
           zip_file.add unique_name, img.image.path

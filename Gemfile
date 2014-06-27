@@ -42,7 +42,7 @@ gem "barby"
 gem "paperclip"
 
 # zipfile library
-gem "rubyzip", "0.9.9"
+gem "rubyzip"
 
 # For advanced_search
 gem "meta_search", "~> 1.1.3"
