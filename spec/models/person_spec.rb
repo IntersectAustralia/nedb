@@ -79,7 +79,7 @@ describe Person do
   describe "Destroy restrictions" do
 
     it "should allow deletion on person with no references" do
-      @person = Factory(:person, :first_name => "Fred", :last_name => "Quimby")
+      @person = FactoryGirl.create(:person, :first_name => "Fred", :last_name => "Quimby")
       @person.specimens.should be_blank
       @person.secondary_specimens.should be_blank
       @person.confirmations.should be_blank
@@ -88,8 +88,8 @@ describe Person do
     end
 
     it "should error on person with specimens" do
-      @person = Factory(:person, :first_name => "Fred", :last_name => "Quimby")
-      Factory(:specimen, :collector => @person)
+      @person = FactoryGirl.create(:person, :first_name => "Fred", :last_name => "Quimby")
+      FactoryGirl.create(:specimen, :collector => @person)
 
       @person.specimens.should_not be_blank
       @person.secondary_specimens.should be_blank
@@ -100,8 +100,8 @@ describe Person do
     end
 
     it "should error on person with secondary specimens" do
-      @person = Factory(:person, :first_name => "Fred", :last_name => "Quimby")
-      @specimen = Factory(:specimen)
+      @person = FactoryGirl.create(:person, :first_name => "Fred", :last_name => "Quimby")
+      @specimen = FactoryGirl.create(:specimen)
       @specimen.secondary_collectors << @person
 
       @person.specimens.should be_blank
@@ -113,10 +113,10 @@ describe Person do
     end
 
     it "should error on person with confirmations" do
-      @person_1 = Factory(:person, :first_name => "Jack", :last_name => "Cat")
-      @person_2 = Factory(:person, :first_name => "George", :last_name => "Goat")
-      @specimen = Factory(:specimen, :collector => @person_1)
-      @determination = Factory(:determination, :specimen => @specimen)
+      @person_1 = FactoryGirl.create(:person, :first_name => "Jack", :last_name => "Cat")
+      @person_2 = FactoryGirl.create(:person, :first_name => "George", :last_name => "Goat")
+      @specimen = FactoryGirl.create(:specimen, :collector => @person_1)
+      @determination = FactoryGirl.create(:determination, :specimen => @specimen)
 
       @confirmation = Confirmation.create(:specimen => @specimen, :confirmer => @person_2, :confirmer_herbarium => @herbarium, :confirmation_date_year => '2010', :determination => @determination)
 
@@ -129,8 +129,8 @@ describe Person do
     end
 
     it "should error on person with determinations" do
-      @person = Factory(:person, :first_name => "Fred", :last_name => "Quimby")
-      @determination = Factory(:determination, :determiners => [@person])
+      @person = FactoryGirl.create(:person, :first_name => "Fred", :last_name => "Quimby")
+      @determination = FactoryGirl.create(:determination, :determiners => [@person])
 
       @determination.determiners << @person
 

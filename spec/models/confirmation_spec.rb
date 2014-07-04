@@ -18,9 +18,9 @@ describe Confirmation do
   describe "When entering a date for a confirmation at least the year should be present" do
     
     before(:each) do
-      @person = Factory(:person)
-      @specimen = Factory(:specimen, :collector => @person)
-      @herbarium = Factory(:herbarium)
+      @person = FactoryGirl.create(:person)
+      @specimen = FactoryGirl.create(:specimen, :collector => @person)
+      @herbarium = FactoryGirl.create(:herbarium)
       @determination = Determination.new
     end
 
@@ -107,8 +107,8 @@ describe Confirmation do
 
   describe "A confirmation belong to a determination" do
     it "should be linked to existing determination" do
-      confirmer = Factory(:person)
-      specimen = Factory(:specimen, :collector => confirmer)
+      confirmer = FactoryGirl.create(:person)
+      specimen = FactoryGirl.create(:specimen, :collector => confirmer)
       determination = Determination.new(:id => '20')
       confirmation = determination.create_confirmation(:specimen => specimen, :confirmer => confirmer)      
       confirmation.determination_id.should eq(determination.id)

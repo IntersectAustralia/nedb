@@ -4,9 +4,9 @@ require 'spec_helper'
 describe "SpecimenPdfFormatter" do
 
   before(:each) do
-    @specimen = Factory(:specimen)
+    @specimen = FactoryGirl.create(:specimen)
     @renderer = LabelFormatter.new(@specimen)
-    @det_attrs = {:determiners => [Factory(:person, :first_name => "Steve", :last_name => "Jacks", :initials => "S.J.")] ,:determination_date_year => '2010', :family => 'Rose', :referenced => true}
+    @det_attrs = {:determiners => [FactoryGirl.create(:person, :first_name => "Steve", :last_name => "Jacks", :initials => "S.J.")] ,:determination_date_year => '2010', :family => 'Rose', :referenced => true}
   end
 
   describe "Accession number rendering" do
@@ -202,7 +202,7 @@ describe "SpecimenPdfFormatter" do
   
   describe "Collector and number rendering" do
     it "should show collector display name and number in bold" do
-      person = Factory(:person, :initials => "F.B.", :last_name => "Argus")
+      person = FactoryGirl.create(:person, :initials => "F.B.", :last_name => "Argus")
       @specimen.update_attributes(:collector => person, :collector_number => '1234')
       @renderer.collector.should eq("Coll.: <b>F.B. Argus 1234</b>")
     end
@@ -217,15 +217,15 @@ describe "SpecimenPdfFormatter" do
 
   describe "showing replicates associated with the specimen" do
     it "should show them in alphabetical order, comma separated, prefixed by Reps: with a full stop at the end" do
-      bol = Factory(:herbarium, :code => "BOL")
-      eiu = Factory(:herbarium, :code => "EIU")
-      sss = Factory(:herbarium, :code => "SSS")
+      bol = FactoryGirl.create(:herbarium, :code => "BOL")
+      eiu = FactoryGirl.create(:herbarium, :code => "EIU")
+      sss = FactoryGirl.create(:herbarium, :code => "SSS")
       @specimen.replicates = [eiu, bol, sss]
       @renderer.replicates.should eq("Reps: BOL, EIU, SSS.")
     end
 
     it "should show prefix as Rep.: if there's only one" do
-      bol = Factory(:herbarium, :code => "BOL")
+      bol = FactoryGirl.create(:herbarium, :code => "BOL")
       @specimen.replicates = [bol]
       @renderer.replicates.should eq("Rep.: BOL.")
     end
@@ -235,19 +235,19 @@ describe "SpecimenPdfFormatter" do
     end
 
     it "should put Stud. at the end if present and omit the extra full stop" do
-      person = Factory(:person, :initials => "A.B", :last_name => "See")
-      specimen            = Factory(:specimen, :collector => person)
-      zol                 = Factory(:herbarium, :code => "ZOL")
-      eiu                 = Factory(:herbarium, :code => "EIU")
-      stud                = Factory(:herbarium, :code => "Stud.")
+      person = FactoryGirl.create(:person, :initials => "A.B", :last_name => "See")
+      specimen            = FactoryGirl.create(:specimen, :collector => person)
+      zol                 = FactoryGirl.create(:herbarium, :code => "ZOL")
+      eiu                 = FactoryGirl.create(:herbarium, :code => "EIU")
+      stud                = FactoryGirl.create(:herbarium, :code => "Stud.")
       @specimen.replicates = [stud, zol, eiu]
       @renderer.replicates.should eq("Reps: EIU, ZOL, Stud.")
     end
 
     it "should put omit the extra full stop when only Stud." do
-      person = Factory(:person, :initials => "A.B", :last_name => "See")
-      specimen            = Factory(:specimen, :collector => person)
-      stud                = Factory(:herbarium, :code => "Stud.")
+      person = FactoryGirl.create(:person, :initials => "A.B", :last_name => "See")
+      specimen            = FactoryGirl.create(:specimen, :collector => person)
+      stud                = FactoryGirl.create(:herbarium, :code => "Stud.")
       @specimen.replicates = [stud]
       @renderer.replicates.should eq("Rep.: Stud.")
     end
@@ -255,9 +255,9 @@ describe "SpecimenPdfFormatter" do
 
   describe "showing items associated with the specimen" do
     it "should show them in alphabetical order, comma separated, duplicates removed and without Specimen sheet" do
-      type_1 = Factory(:item_type, :name => ItemType::TYPE_SPECIMEN_SHEET)
-      type_2 = Factory(:item_type, :name => 'Fruit')
-      type_3 = Factory(:item_type, :name => 'Phytochem')
+      type_1 = FactoryGirl.create(:item_type, :name => ItemType::TYPE_SPECIMEN_SHEET)
+      type_2 = FactoryGirl.create(:item_type, :name => 'Fruit')
+      type_3 = FactoryGirl.create(:item_type, :name => 'Phytochem')
 
       @specimen.items.create!(:item_type => type_1)
       @specimen.items.create!(:item_type => type_2)
@@ -271,31 +271,31 @@ describe "SpecimenPdfFormatter" do
 
   describe "determiners rendering" do
     it "should show each determiner comma separated" do
-      herbarium1 = Factory(:herbarium, :code => "ABC")
-      herbarium2 = Factory(:herbarium, :code => "DEF")
-      det1 = Factory(:person, :initials => 'B.B.', :last_name => "Brown", :herbarium => herbarium1)
-      det2 = Factory(:person, :initials => 'A.B.', :last_name => "Black", :herbarium => herbarium2)
-      det3 = Factory(:person, :initials => 'H.E.', :last_name => "Bart", :herbarium => herbarium1)
+      herbarium1 = FactoryGirl.create(:herbarium, :code => "ABC")
+      herbarium2 = FactoryGirl.create(:herbarium, :code => "DEF")
+      det1 = FactoryGirl.create(:person, :initials => 'B.B.', :last_name => "Brown", :herbarium => herbarium1)
+      det2 = FactoryGirl.create(:person, :initials => 'A.B.', :last_name => "Black", :herbarium => herbarium2)
+      det3 = FactoryGirl.create(:person, :initials => 'H.E.', :last_name => "Bart", :herbarium => herbarium1)
       @specimen.determinations.create!(@det_attrs.merge({:family =>"Rose", :sub_family => 'Some sub family'})) 
       @specimen.determinations[0].determiners = [det1, det2, det3]
       @renderer.determiners.should eq("Det.: B.B. Brown (ABC), A.B. Black (DEF), H.E. Bart (ABC)")
     end
 
     it "should show one determiner if only one is present" do
-      herbarium1 = Factory(:herbarium, :code => "ABC")
-      det1 = Factory(:person, :initials => 'B.B.', :last_name => "Brown", :herbarium => herbarium1)
+      herbarium1 = FactoryGirl.create(:herbarium, :code => "ABC")
+      det1 = FactoryGirl.create(:person, :initials => 'B.B.', :last_name => "Brown", :herbarium => herbarium1)
       @specimen.determinations.create!(@det_attrs.merge({:family =>"Rose", :sub_family => 'Some sub family'}))
       @specimen.determinations[0].determiners = [det1]
       @renderer.determiners.should eq("Det.: B.B. Brown (ABC)")
     end
 
     it "should not show the determiner and date if the collector and collection date match the determiner and determination date" do
-      collector = Factory(:person, :initials => 'A.B.', :last_name => "Black")
+      collector = FactoryGirl.create(:person, :initials => 'A.B.', :last_name => "Black")
       @specimen.update_attributes(:collection_date_year => '2010', :collection_date_month => '12', :collection_date_day => '12', :collector => collector)  
-      herbarium1 = Factory(:herbarium, :code => "ABC")
-      herbarium2 = Factory(:herbarium, :code => "DEF")
-      det1 = Factory(:person, :initials => 'B.B.', :last_name => "Brown", :herbarium => herbarium1)
-      det3 = Factory(:person, :initials => 'H.E.', :last_name => "Bart", :herbarium => herbarium1)
+      herbarium1 = FactoryGirl.create(:herbarium, :code => "ABC")
+      herbarium2 = FactoryGirl.create(:herbarium, :code => "DEF")
+      det1 = FactoryGirl.create(:person, :initials => 'B.B.', :last_name => "Brown", :herbarium => herbarium1)
+      det3 = FactoryGirl.create(:person, :initials => 'H.E.', :last_name => "Bart", :herbarium => herbarium1)
       @specimen.determinations.create!(@det_attrs.merge({:family =>"Rose", :sub_family => 'Some sub family', :determination_date_year => '2010', :determination_date_month => '12', :determination_date_day => '12'}))
       @specimen.determinations[0].determiners = [det1, collector, det3]
       @renderer.determiners.should eq("Det.: B.B. Brown (ABC), H.E. Bart (ABC)")

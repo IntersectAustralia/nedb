@@ -1,9 +1,9 @@
 Given /^I have a user "([^"]*)"$/ do |email|
-  Factory(:user, :email => email, :password => "Pas$w0rd", :status => 'A')
+  FactoryGirl.create(:user, :email => email, :password => "Pas$w0rd", :status => 'A')
 end
 
 Given /^I have a user "([^"]*)" with profile "([^"]*)"$/ do |email, profile|
-  user = Factory(:user, :email => email, :password => "Pas$w0rd", :status => 'A')
+  user = FactoryGirl.create(:user, :email => email, :password => "Pas$w0rd", :status => 'A')
   profile = Profile.where(:name => profile).first
   user.profile_id = profile.id
   user.save!

@@ -37,7 +37,7 @@ Feature: Administer People
       | James      | Harry       | Brown     | james@gmail.com |
 
   Scenario: Create new person
-    When I click on "Create New Person"
+    When I follow "Create New Person"
     And I fill in "First name" with "Clint"
     And I fill in "Last name" with "Eastwood"
     And I fill in "Middle name" with "Gerald"
@@ -51,14 +51,14 @@ Feature: Administer People
       | Clint      | Gerald      | Eastwood  | C.G. Eastwood | clint@hotmail.com  |
 
   Scenario: Create new person with same last name and initials
-    When I click on "Create New Person"
+    When I follow "Create New Person"
     And I fill in "Last name" with "Brown"
     And I fill in "Initials" with "J.H."
     And I press "Create Person"
     Then I should see "Initials has already been taken"
 
   Scenario Outline: Create new person with validation errors
-    When I click on "Create New Person"
+    When I follow "Create New Person"
     And I fill in "<field>" with "<value>"
     And I press "Create Person"
     Then I should see /\d error(s)? need to be corrected before this record can be saved\./

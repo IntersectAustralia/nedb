@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   scope :deactivated_or_approved, where("status = 'D' or status = 'A' ").order(:email)
 
   # Override Devise active method so that users must be approved before being allowed to log in
-  def active?
+  def active_for_authentication?
     super && approved?
   end
   

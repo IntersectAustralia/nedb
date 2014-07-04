@@ -1,3 +1,5 @@
+require 'barby/barcode'
+
 class SpecimenPdfCreator
 
   # see labels.pdf.prawn for box position calculations

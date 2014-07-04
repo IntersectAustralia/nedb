@@ -12,7 +12,7 @@ Feature: Advanced Search
     And I am on the Advanced Search page
 
   Scenario: Empty search
-    And I press "search_submit"
+    And I press Search
     And I should see "Showing all 12 specimens"
     Then I should see specimens "1,2,3,4,5,6,7,8,9,10,11,12"
 
@@ -23,7 +23,7 @@ Feature: Advanced Search
     When I fill in "search_created_at_to_day" with "<day_to>"
     When I fill in "search_created_at_to_month" with "<month_to>"
     When I fill in "search_created_at_to_year" with "<year_to>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -44,7 +44,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by locality
     When I fill in "Locality" with "<example>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -58,7 +58,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by vegetation
     When I fill in "Vegetation" with "<example>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -72,7 +72,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by plant description
     When I fill in "Plant description" with "<example>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -87,7 +87,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by replicate from
     When I fill in "Replicate from" with "<example>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -100,7 +100,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by replicate from number
     When I fill in "Replicate from number" with "<example>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -112,7 +112,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by topography
     When I fill in "Topography" with "<example>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -126,7 +126,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by aspect
     When I fill in "Aspect" with "<example>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -140,7 +140,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by substrate
     When I fill in "Substrate" with "<example>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -155,7 +155,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by frequency
     When I fill in "Frequency" with "<example>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -169,7 +169,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by country
     When I fill in "Country" with "<example>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -182,7 +182,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by state
     When I fill in "State" with "<example>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -195,7 +195,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by botanical division
     When I fill in "Botanical division" with "<example>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -208,7 +208,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by datum
     When I fill in "Datum" with "<example>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -224,7 +224,7 @@ Feature: Advanced Search
   Scenario Outline: Search by altitude
     When I fill in "search_altitude_greater_than_or_equal_to" with "<example_1>"
     When I fill in "search_altitude_less_than_or_equal_to" with "<example_2>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -244,7 +244,7 @@ Feature: Advanced Search
   Scenario Outline: Search by accession number
     When I fill in "search_id_greater_than_or_equal_to" with "<example_1>"
     When I fill in "search_id_less_than_or_equal_to" with "<example_2>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -256,7 +256,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by naturalised
     When I choose "<example>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -273,7 +273,7 @@ Feature: Advanced Search
     When I fill in "search_collection_date_day_less_than_or_equal_to" with "<day_to>"
     When I fill in "search_collection_date_month_less_than_or_equal_to" with "<month_to>"
     When I fill in "search_collection_date_year_less_than_or_equal_to" with "<year_to>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -294,7 +294,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by latitude hemisphere
     When I select "<example>" from "Latitude hemisphere"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -311,7 +311,7 @@ Feature: Advanced Search
     When I fill in "search_latitude_degrees_less_than_or_equal_to" with "<deg_to>"
     When I fill in "search_latitude_minutes_less_than_or_equal_to" with "<min_to>"
     When I fill in "search_latitude_seconds_less_than_or_equal_to" with "<sec_to>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -336,7 +336,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by longitude hemisphere
     When I select "<example>" from "Longitude hemisphere"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -353,7 +353,7 @@ Feature: Advanced Search
     When I fill in "search_longitude_degrees_less_than_or_equal_to" with "<deg_to>"
     When I fill in "search_longitude_minutes_less_than_or_equal_to" with "<min_to>"
     When I fill in "search_longitude_seconds_less_than_or_equal_to" with "<sec_to>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -377,7 +377,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by collector
     When I select "<example>" from "Collector"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -389,7 +389,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by collector number
     When I fill in "Collector number" with "<example>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -402,7 +402,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by secondary collector
     When I select "<example>" from "Other collectors"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -414,7 +414,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by replicate
     When I select "<example>" from "Replicate to"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -422,11 +422,11 @@ Feature: Advanced Search
     | example | message                    | results |
     | DNA     | Found 1 matching specimens | 9       |
     | CAIRNS  | Found 2 matching specimens | 1,8     |
-    | MEL     | No specimen was found      |         |
+    | MELU     | No specimen was found      |         |
 
   Scenario Outline: Search by needs review
     When I choose "<example>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -438,7 +438,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by confirmer
     When I select "<example>" from "Confirmations confirmer"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -451,7 +451,7 @@ Feature: Advanced Search
     When I fill in "search_confirmations_confirmation_date_day_equals" with "<day>"
     When I fill in "search_confirmations_confirmation_date_month_equals" with "<month>"
     When I fill in "search_confirmations_confirmation_date_year_equals" with "<year>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -464,7 +464,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by items
     When I check "<example>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -475,7 +475,7 @@ Feature: Advanced Search
 
   Scenario Outline: Search by determiner
     When I select "<example>" from "Determinations determiner"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -492,7 +492,7 @@ Feature: Advanced Search
     When I fill in "search_determinations_determination_date_day_less_than_or_equal_to" with "<day_to>"
     When I fill in "search_determinations_determination_date_month_less_than_or_equal_to" with "<month_to>"
     When I fill in "search_determinations_determination_date_year_less_than_or_equal_to" with "<year_to>"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -522,7 +522,7 @@ Feature: Advanced Search
     When I select "<subspecies>" from "Determinations subspecies"
     When I select "<variety>" from "Determinations variety"
     When I select "<tribe>" from "Determinations tribe"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -554,7 +554,7 @@ Feature: Advanced Search
     When I select "<subspecies_un>" from "Determinations subspecies uncertainty"
     When I select "<variety_un>" from "Determinations variety uncertainty"
     When I select "<form_un>" from "Determinations form uncertainty"
-    And I press "search_submit"
+    And I press Search
     And I should see "<message>"
     Then I should see specimens "<results>"
 
@@ -675,7 +675,7 @@ Feature: Advanced Search
     And I select "aff." from "Determinations subspecies uncertainty"
     And I select "sens. strict." from "Determinations variety uncertainty"
     And I select "sens. lat." from "Determinations form uncertainty"
-    And I press "search_submit"
+    And I press Search
     And I should see "Found 1 matching specimens"
     Then I should see specimens "1"
 

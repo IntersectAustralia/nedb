@@ -407,7 +407,7 @@ Feature: Create Determination
     And I fill in "term" with "integrifolia"
     And I press "Search" within the main content
     When I select the first result in the species search results
-    And I choose "sens. strict."
+    And I choose "sens. strict." within "#display_species_uncertainty"
     When I press "Save"
     Then I should be on the specimen page
     And I should see field "Species" with value "integrifolia s. str."
@@ -635,4 +635,3 @@ Feature: Create Determination
     Then I should see "search_results" table with
       | Division |        |
       | Div2     | Select |
-

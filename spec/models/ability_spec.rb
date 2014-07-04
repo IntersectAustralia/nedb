@@ -4,13 +4,13 @@ require 'spec_helper'
 describe Ability do
   
   before(:each) do
-    @user = Factory(:user)
-    @user.profile = Factory(:profile)
+    @user = FactoryGirl.create(:user)
+    @user.profile = FactoryGirl.create(:profile)
     @user.profile.permissions = []
   end
   
   def new_permission(entity, action)
-    Factory(:permission, :entity => entity, :action => action)
+    FactoryGirl.create(:permission, :entity => entity, :action => action)
   end
 
   describe "Translates permissions into abilities" do
@@ -57,7 +57,7 @@ describe Ability do
       
       it "should be able to do stuff to normal specimens" do
         ability = Ability.new(@user)
-        ability.should be_able_to(:read, Factory(:specimen))
+        ability.should be_able_to(:read, FactoryGirl.create(:specimen))
       end
       
       it "should be able to generally do stuff at class level" do
@@ -67,7 +67,7 @@ describe Ability do
       
       it "should be able to do stuff to de-accessioned specimens" do
         ability = Ability.new(@user)
-        ability.should be_able_to(:read, Factory(:specimen, :status => "DeAcc"))
+        ability.should be_able_to(:read, FactoryGirl.create(:specimen, :status => "DeAcc"))
       end
     end
     
@@ -75,7 +75,7 @@ describe Ability do
       it "should be able to do stuff to normal specimens" do
         @user.profile.permissions << new_permission("Specimen", "read")
         ability = Ability.new(@user)
-        ability.should be_able_to(:read, Factory(:specimen))
+        ability.should be_able_to(:read, FactoryGirl.create(:specimen))
       end
       
       it "should be able to generally do stuff at class level" do
@@ -87,7 +87,7 @@ describe Ability do
       it "should NOT be able to do stuff to de-accessioned specimens" do
         @user.profile.permissions << new_permission("Specimen", "read")
         ability = Ability.new(@user)
-        ability.should_not be_able_to(:read, Factory(:specimen, :status => "DeAcc"))
+        ability.should_not be_able_to(:read, FactoryGirl.create(:specimen, :status => "DeAcc"))
       end
     end
   end

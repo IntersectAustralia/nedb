@@ -38,7 +38,7 @@ Given /^the values of the first specimen are remembered$/ do
   specimen_should_contain('specimen_collection_date_day', '25')
   specimen_should_contain('specimen_collection_date_month', '3')
   specimen_should_contain('specimen_collection_date_year', '2010')
-  specimen_should_contain('Country', 'Australia')
+  step 'the country field should contain "Australia"'
   specimen_should_contain('Locality description', 'location')
   specimen_should_contain('specimen_latitude_degrees', '1')
   specimen_should_contain('specimen_latitude_minutes', '2')

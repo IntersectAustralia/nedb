@@ -29,10 +29,10 @@ class SpecimenImagesController < ApplicationController
   end
 
   def create
-    @specimen_image = @specimen.specimen_images.create(params[:specimen_image])
     @specimen_image.user_id = current_user.id
     if @specimen_image.save
       @specimen.update_attribute(:needs_review, cannot?(:create_not_needing_review, @specimen))
+      @specimen.specimen_images.push(@specimen_image)
       redirect_to(@specimen, :notice => "The specimen image was uploaded successfully.")
     else
       render :action => 'new'

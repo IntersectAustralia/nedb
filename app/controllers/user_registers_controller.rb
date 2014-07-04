@@ -6,7 +6,7 @@ class UserRegistersController < Devise::RegistrationsController
   def create
     build_resource
     if resource.save
-      set_flash_message :notice, "Thanks for requesting an account. You will receive an email when your request has been approved."
+      flash[:notice] = "Thanks for requesting an account. You will receive an email when your request has been approved."
       
       # send the superadmin an email
       resource.notify_admin_by_email
@@ -33,7 +33,7 @@ class UserRegistersController < Devise::RegistrationsController
 
   def update_password
     if resource.update_password(params[resource_name])
-      set_flash_message :notice, "Your password has been updated."
+      flash[:notice] = "Your password has been updated."
       redirect_to root_path
     else
       clean_up_passwords(resource)

@@ -9,19 +9,19 @@ describe User do
   describe "Named Scopes" do
     describe "Users Pending Approval Scope" do
       it "should return users that are unapproved ordered by email address" do
-        u1 = Factory(:user, :status => 'U', :email => "fasdf1@intersect.org.au")
-        u2 = Factory(:user, :status => 'A')
-        u3 = Factory(:user, :status => 'U', :email => "asdf1@intersect.org.au")
-        u2 = Factory(:user, :status => 'R')
+        u1 = FactoryGirl.create(:user, :status => 'U', :email => "fasdf1@intersect.org.au")
+        u2 = FactoryGirl.create(:user, :status => 'A')
+        u3 = FactoryGirl.create(:user, :status => 'U', :email => "asdf1@intersect.org.au")
+        u2 = FactoryGirl.create(:user, :status => 'R')
         User.pending_approval.should eq([u3,u1])
       end
     end
     describe "Approved Users Scope" do
       it "should return users that are approved ordered by email address" do
-        u1 = Factory(:user, :status => 'A', :email => "fasdf1@intersect.org.au")
-        u2 = Factory(:user, :status => 'U')
-        u3 = Factory(:user, :status => 'A', :email => "asdf1@intersect.org.au")
-        u2 = Factory(:user, :status => 'R')
+        u1 = FactoryGirl.create(:user, :status => 'A', :email => "fasdf1@intersect.org.au")
+        u2 = FactoryGirl.create(:user, :status => 'U')
+        u3 = FactoryGirl.create(:user, :status => 'A', :email => "asdf1@intersect.org.au")
+        u2 = FactoryGirl.create(:user, :status => 'R')
         User.approved.should eq([u3,u1])
       end
     end
@@ -29,7 +29,7 @@ describe User do
   
   describe "Approve Access Request" do
     it "should set the status flag to A" do
-      user = Factory(:user, :status => 'U')
+      user = FactoryGirl.create(:user, :status => 'U')
       user.approve_access_request
       user.status.should eq("A")
     end
@@ -37,7 +37,7 @@ describe User do
   
   describe "Reject Access Request" do
     it "should set the status flag to R" do
-      user = Factory(:user, :status => 'U')
+      user = FactoryGirl.create(:user, :status => 'U')
       user.reject_access_request
       user.status.should eq("R")
     end
@@ -46,33 +46,33 @@ describe User do
   describe "Status Methods" do
     context "Active" do
       it "should be active" do
-        user = Factory(:user, :status => 'A')
+        user = FactoryGirl.create(:user, :status => 'A')
         user.approved?.should be_true
       end
       it "should not be pending approval" do
-        user = Factory(:user, :status => 'A')
+        user = FactoryGirl.create(:user, :status => 'A')
         user.pending_approval?.should be_false
       end
     end
     
     context "Unapproved" do
       it "should not be active" do
-        user = Factory(:user, :status => 'U')
+        user = FactoryGirl.create(:user, :status => 'U')
         user.approved?.should be_false
       end
       it "should be pending approval" do
-        user = Factory(:user, :status => 'U')
+        user = FactoryGirl.create(:user, :status => 'U')
         user.pending_approval?.should be_true
       end
     end
     
     context "Rejected" do
       it "should not be active" do
-        user = Factory(:user, :status => 'R')
+        user = FactoryGirl.create(:user, :status => 'R')
         user.approved?.should be_false
       end
       it "should not be pending approval" do
-        user = Factory(:user, :status => 'R')
+        user = FactoryGirl.create(:user, :status => 'R')
         user.pending_approval?.should be_false
       end
     end
@@ -80,48 +80,48 @@ describe User do
   
   describe "Update password" do
     it "should fail if current password is incorrect" do
-      user = Factory(:user, :password => "Pass.123")
+      user = FactoryGirl.create(:user, :password => "Pass.123")
       result = user.update_password({:current_password => "asdf", :password => "Pass.456", :password_confirmation => "Pass.456"})
       result.should be_false
       user.errors[:current_password].should eq ["is invalid"]
     end
     it "should fail if current password is blank" do
-      user = Factory(:user, :password => "Pass.123")
+      user = FactoryGirl.create(:user, :password => "Pass.123")
       result = user.update_password({:current_password => "", :password => "Pass.456", :password_confirmation => "Pass.456"})
       result.should be_false
       user.errors[:current_password].should eq ["can't be blank"]
     end
     it "should fail if new password and confirmation blank" do
-      user = Factory(:user, :password => "Pass.123")
+      user = FactoryGirl.create(:user, :password => "Pass.123")
       result = user.update_password({:current_password => "Pass.123", :password => "", :password_confirmation => ""})
       result.should be_false
       user.errors[:password].should eq ["can't be blank", "must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, one digit and one symbol"]
     end
     it "should fail if confirmation blank" do
-      user = Factory(:user, :password => "Pass.123")
+      user = FactoryGirl.create(:user, :password => "Pass.123")
       result = user.update_password({:current_password => "Pass.123", :password => "Pass.456", :password_confirmation => ""})
       result.should be_false
       user.errors[:password].should eq ["doesn't match confirmation"]
     end
     it "should fail if confirmation doesn't match new password" do
-      user = Factory(:user, :password => "Pass.123")
+      user = FactoryGirl.create(:user, :password => "Pass.123")
       result = user.update_password({:current_password => "Pass.123", :password => "Pass.456", :password_confirmation => "Pass.678"})
       result.should be_false
       user.errors[:password].should eq ["doesn't match confirmation"]
     end
     it "should fail if password doesn't meet rules" do
-      user = Factory(:user, :password => "Pass.123")
+      user = FactoryGirl.create(:user, :password => "Pass.123")
       result = user.update_password({:current_password => "Pass.123", :password => "Pass4567", :password_confirmation => "Pass4567"})
       result.should be_false
       user.errors[:password].should eq ["must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, one digit and one symbol"]
     end
     it "should succeed if current password correct and new password ok" do
-      user = Factory(:user, :password => "Pass.123")
+      user = FactoryGirl.create(:user, :password => "Pass.123")
       result = user.update_password({:current_password => "Pass.123", :password => "Pass.456", :password_confirmation => "Pass.456"})
       result.should be_true
     end
     it "should always blank out passwords" do
-      user = Factory(:user, :password => "Pass.123")
+      user = FactoryGirl.create(:user, :password => "Pass.123")
       result = user.update_password({:current_password => "Pass.123", :password => "Pass.456", :password_confirmation => "Pass.456"})
       user.password.should be_nil
       user.password_confirmation.should be_nil
@@ -130,16 +130,16 @@ describe User do
   
   describe "Has permission method" do
     it "should return true if the specified permission is in the list" do
-      user = Factory(:user, :password => "Pass.123")
-      user.profile = Factory(:profile)
-      user.profile.permissions = [Factory(:permission, :entity => "Abc", :action => "def")]
+      user = FactoryGirl.create(:user, :password => "Pass.123")
+      user.profile = FactoryGirl.create(:profile)
+      user.profile.permissions = [FactoryGirl.create(:permission, :entity => "Abc", :action => "def")]
       user.profile.has_permission("Abc", "def").should be_true
       user.profile.has_permission("Abc", "ghi").should be_false
       user.profile.has_permission("Abb", "def").should be_false
     end
     it "should return false if the permissions are empty" do
-      user = Factory(:user, :password => "Pass.123")
-      user.profile = Factory(:profile)
+      user = FactoryGirl.create(:user, :password => "Pass.123")
+      user.profile = FactoryGirl.create(:profile)
       user.profile.permissions = []
       user.profile.has_permission("Abc", "ghi").should be_false
     end

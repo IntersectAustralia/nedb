@@ -101,13 +101,13 @@ Feature: Create Specimens
   Scenario: Countries dropdown should be populated and default to Australia
     Given I am on the home page
     When I follow "Add"
+    And the country field should contain "Australia"
     Then the country dropdown should contain
       | name        |
       | Australia   |
       | Algeria     |
       | Switzerland |
       | Peru        |
-    And the "Country" field should contain "Australia"
 
   Scenario: Values from the first specimen are remembered when I create a second specimen
     When I add a new specimen

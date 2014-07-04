@@ -1,6 +1,6 @@
 <% title "Select Profile For #{@user.email}" %>
 
-<%= form_for(@user, :url => approve_user_path(@specimen)) do |f| %>
+<%= form_for(@user, :url => approve_user_path(@user)) do |f| %>
 
   <div class="field">
     <%= f.label :profile_id, "Profile" %>

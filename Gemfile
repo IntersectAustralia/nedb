@@ -4,7 +4,8 @@ gem "rails", "~> 3.2.18"
 gem "rake", "0.9.2"
 
 # Prawn is for PDF generation
-gem "prawn", ">= 0.11.1.pre"
+gem "prawn", "~> 1.1.0"
+gem "prawnto_2", :require => "prawnto"
 
 # Deploy with Capistrano
 gem "capistrano"
@@ -36,7 +37,7 @@ gem "cancan"
 gem "dynamic_form"
 
 # Barcode generation
-gem "barby"
+gem "barby", "~> 0.4.2"
 
 # For image uploads
 gem "paperclip"
@@ -57,7 +58,7 @@ gem 'acts_as_singleton', '~> 0.0.8'
 gem 'whoops_rails_logger', :git=> 'https://github.com/IntersectAustralia/whoops_rails_logger.git'
 
 group :development, :test do
-  gem "rspec-rails", ">= 2.0.1"
+  gem "rspec-rails", "~> 2.12.0"
 
   gem "factory_girl_rails"
   gem "shoulda"
@@ -77,10 +78,11 @@ end
 
 group :test do
   gem "cucumber-rails", :require => false
-  gem "capybara", "~> 1.0" # we're not ready for 2.0
+  gem "capybara", "~> 2.2" # we're not ready for 2.0
   gem "database_cleaner"
   gem "launchy"    # So you can do Then show me the page
   gem "email_spec"
   gem "simplecov", :require => false
   gem "simplecov-rcov", :require => false
+  gem "pdf-inspector"
 end

@@ -65,12 +65,7 @@ When /^(?:|I )follow exact link "([^"]*)"$/ do |link|
 end
 
 Capybara.add_selector(:element) do
-  xpath { |locator| "//*[normalize-space(text())=#{XPath::Expression::StringLiteral.new(locator)}]" }
-end
-
-When /^I click on "([^"]*)"$/ do |text|
-  msg = "No element found with the content of '#{text}'"
-  find(:element, text, :message => msg).click
+  xpath { |locator| "//*[normalize-space(text())=#{XPath::Literal.new(locator)}]" }
 end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
@@ -103,7 +98,7 @@ When /^(?:|I )fill in the following:$/ do |fields|
 end
 
 When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
-  select(value, :from => field)
+  select(value, :from => field) unless value.blank?
 end
 
 When /^(?:|I )check "([^"]*)"$/ do |field|

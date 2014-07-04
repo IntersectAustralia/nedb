@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class HerbariaController < ApplicationController
 
   before_filter :authenticate_user!

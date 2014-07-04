@@ -5,16 +5,13 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'factory_girl'
-require 'matchers'
+require 'shoulda/matchers'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
-
-  # Use color in STDOUT
-  config.color_enabled = true
 
   # Use color not only in STDOUT but also in pagers and files
   config.tty = true
@@ -43,7 +40,9 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
-  config.include(Matchers)
+  config.include(Shoulda::Matchers)
+
+  config.include Devise::TestHelpers, :type => :controller
 
   # DatabaseCleaner
   config.before(:suite) do

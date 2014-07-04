@@ -1,27 +1,27 @@
 Given /^I have species/ do |table|
   table.hashes.each do |hash|
-    Factory(:species, hash)
+    FactoryGirl.create(:species, hash)
   end
 end
 
 Given /^species "([^"]*)" has varieties$/ do |species_name, table|
   species = Species.where(:name => species_name).first
   table.hashes.each do |hash|
-    Factory(:variety, hash.merge(:species => species))
+    FactoryGirl.create(:variety, hash.merge(:species => species))
   end
 end
 
 Given /^species "([^"]*)" has subspecies$/ do |species_name, table|
   species = Species.where(:name => species_name).first
   table.hashes.each do |hash|
-    Factory(:subspecies, hash.merge(:species => species))
+    FactoryGirl.create(:subspecies, hash.merge(:species => species))
   end
 end
 
 Given /^species "([^"]*)" has forms$/ do |species_name, table|
   species = Species.where(:name => species_name).first
   table.hashes.each do |hash|
-    Factory(:form, hash.merge(:species => species))
+    FactoryGirl.create(:form, hash.merge(:species => species))
   end
 end
 
@@ -68,7 +68,7 @@ end
 When /^I have ([^"]*) species starting with "([^\"]*)"$/ do |count, text|
   num_species = count.to_i
   (1..num_species).each do |counter|
-    Factory(:species, :name => "#{text}-#{"%02d" % counter}", :genus => "Genus-#{"%02d" % counter}")
+    FactoryGirl.create(:species, :name => "#{text}-#{"%02d" % counter}", :genus => "Genus-#{"%02d" % counter}")
   end
 end
 

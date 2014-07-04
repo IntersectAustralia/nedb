@@ -4,7 +4,7 @@ describe SpecimenImage do
 
   describe "Create valid" do
     it "should be valid with minimum fields filled in" do
-      specimen   = Factory(:specimen)
+      specimen   = FactoryGirl.create(:specimen)
       specimen_image = SpecimenImage.create(:specimen => specimen,
                                             :description => "from somewhere",
                                             :image_file_name => "filename.jpg")
@@ -22,7 +22,7 @@ describe SpecimenImage do
   end
 
   it "should reject input that is missing description" do
-    @specimen_image = SpecimenImage.create(:specimen => Factory(:specimen),
+    @specimen_image = SpecimenImage.create(:specimen => FactoryGirl.create(:specimen),
                                            :description => "",
                                            :image_file_name =>  "filename.jpg")
     @specimen_image.should_not be_valid
@@ -30,7 +30,7 @@ describe SpecimenImage do
   end
 
   it "should reject input that has a description of more than 255 characters" do
-    @specimen_image = SpecimenImage.create(:specimen => Factory(:specimen),
+    @specimen_image = SpecimenImage.create(:specimen => FactoryGirl.create(:specimen),
                                            :description => "a"*256,
                                            :image_file_name =>  "filename.jpg")
     @specimen_image.should_not be_valid
@@ -38,7 +38,7 @@ describe SpecimenImage do
   end
 
   it "should reject file sizes larger than 10MB" do
-    @specimen_image = SpecimenImage.create(:specimen => Factory(:specimen),
+    @specimen_image = SpecimenImage.create(:specimen => FactoryGirl.create(:specimen),
                                            :description => "a",
                                            :image_file_name =>  "filename.jpg",
                                            :image_file_size => 20.megabytes)

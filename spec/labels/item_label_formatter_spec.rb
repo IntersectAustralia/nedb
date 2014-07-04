@@ -3,15 +3,15 @@ require 'spec_helper'
 describe 'ItemLabelFormatter' do
 
   before(:each) do
-    @sheet = Factory(:item_type, :name => ItemType::TYPE_SPECIMEN_SHEET, :create_labels => true)
-    @specimen = Factory(:specimen)
+    @sheet = FactoryGirl.create(:item_type, :name => ItemType::TYPE_SPECIMEN_SHEET, :create_labels => true)
+    @specimen = FactoryGirl.create(:specimen)
     @item = @specimen.items.create!(:item_type => @sheet)
     @item_label_formatter = ItemLabelFormatter.new(@specimen, @item)
   end
 
   describe "show ex? method" do
     it "should always be false for items" do
-      @item_label_formatter.show_ex?.should be_false
+      @item_label_formatter.show_ex?.should eq false
     end
   end
 
@@ -24,9 +24,9 @@ describe 'ItemLabelFormatter' do
 
   describe "sheet number rendering with multiple sheets" do
     before(:each) do
-      @specimen = Factory(:specimen)
-      fruit = Factory(:item_type, :name => 'Fruit', :create_labels => true)
-      other = Factory(:item_type, :name => 'Bark', :create_labels => false)
+      @specimen = FactoryGirl.create(:specimen)
+      fruit = FactoryGirl.create(:item_type, :name => 'Fruit', :create_labels => true)
+      other = FactoryGirl.create(:item_type, :name => 'Bark', :create_labels => false)
 
       sheet_1  = @specimen.items.create!(:item_type => @sheet)
       fruit_1  = @specimen.items.create!(:item_type => fruit)

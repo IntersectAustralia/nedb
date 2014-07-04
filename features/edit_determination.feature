@@ -389,7 +389,7 @@ Feature: Edit Determination
       | Div4     | Cls7  | Hedwigiaceaeord | Hedwigiaceae |           |        | Hedwigia    | integrifolia | R.Br      | Select |
       | Div4     | Cls7  | Malvaceaeord    | Malvaceae    | Subf3     |        | Keraudrenia | integrifolia | Abc       | Select |
       | Div4     | Cls8  | Proteaceaeord   | Proteaceae   | Subf1     | Trb2   | Macadamia   | integrifolia | Ghi       | Select |
-    When I follow "Select"
+    When I select the first result in the species search results
     Then I should see field "Division" with value "Div2"
     And I should see field "Class" with value "Cls5"
     And I should see field "Order" with value "Asteraceaeord"
@@ -492,8 +492,8 @@ Feature: Edit Determination
     And I select "Species" from "level"
     And I fill in "term" with "integrifolia"
     And I press "Search" within the main content
-    And I follow "Select"
-    And I choose "sens. strict."
+    And I select the first result in the species search results
+    And I choose "sens. strict." within "#display_species_uncertainty"
     When I press "Save"
     Then I should be on the specimen page
     And I should see field "Species" with value "integrifolia s. str."
@@ -558,18 +558,10 @@ Feature: Edit Determination
 
   Scenario: no search results
     Given I am at step 2 of editing a determination
-    When I search for species "blah"
+    And I select "Species" from "level"
+    And I fill in "term" with "blah"
+    And I press "Search" within the main content
     Then I should see "No results were found for search 'blah'."
-    When I press "Save"
-# I can still save without selecting something
-#Then I should not see "Division"
-
-  Scenario: searching but selecting nothing
-    Given I am at step 2 of editing a determination
-    When I search for species "inte"
-    When I press "Save"
-# I can still save without selecting something
-#Then I should not see "Division"
 
   Scenario: Search and select multiple times
     Given I am at step 2 of editing a determination
@@ -584,7 +576,7 @@ Feature: Edit Determination
       | Div4     | Cls7  | Hedwigiaceaeord | Hedwigiaceae |           |        | Hedwigia    | integrifolia | R.Br      | Select |
       | Div4     | Cls7  | Malvaceaeord    | Malvaceae    | Subf3     |        | Keraudrenia | integrifolia | Abc       | Select |
       | Div4     | Cls8  | Proteaceaeord   | Proteaceae   | Subf1     | Trb2   | Macadamia   | integrifolia | Ghi       | Select |
-    And I follow "Select"
+    And I select the first result in the species search results
     When I select "Family" from "level"
     And I fill in "term" with "Proteaceae"
     And I press "Search" within the main content

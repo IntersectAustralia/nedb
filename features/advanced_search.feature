@@ -40,7 +40,7 @@ Feature: Advanced Search
   Scenario: Search without entering a search term returns all specimens
     Given I am logged in as "super@intersect.org.au"
     And I am on the Advanced Search page
-    When I press "search_submit"
+    When I press Search
     Then the advanced search result table should contain
       | Locality               |
       | botanical gardens      |
@@ -52,7 +52,7 @@ Feature: Advanced Search
     Given I am logged in as "super@intersect.org.au"
     And I am on the Advanced Search page
     When I fill in "search_vegetation_contains" with "cactus"
-    And I press "search_submit"
+    And I press Search
     Then the advanced search result table should contain
       | Locality          | Vegetation  |
       | botanical gardens | cactus      |
@@ -61,13 +61,13 @@ Feature: Advanced Search
     Given I am logged in as "super@intersect.org.au"
     And I am on the Advanced Search page
     When I fill in "search_locality_description_contains" with "otan"
-    And I press "search_submit"
+    And I press Search
     Then the advanced search result table should contain
       | Locality          | Plant Description     |
       | botanical gardens | spikey.               |
       | botany            | approx. 15 m tall     |
     When I fill in "search_locality_description_contains" with "oTAn"
-    And I press "search_submit"
+    And I press Search
     Then the advanced search result table should contain
       | Locality          | Plant Description     |
       | botanical gardens | spikey.               |
@@ -77,13 +77,13 @@ Feature: Advanced Search
     Given I am logged in as "super@intersect.org.au"
     And I am on the Advanced Search page
     When I fill in "search_locality_description_contains" with "bot"
-    And I press "search_submit"
+    And I press Search
     Then the advanced search result table should contain
       | Locality          | Plant Description     |
       | botanical gardens | spikey.               |
       | botany            | approx. 15 m tall     |
     When I fill in "search_plant_description_contains" with "spikey"
-    And I press "search_submit"
+    And I press Search
     Then the advanced search result table should contain
       | Locality          | Plant Description     |
       | botanical gardens | spikey.               |
@@ -92,12 +92,12 @@ Feature: Advanced Search
     Given I am logged in as "super@intersect.org.au"
     And I am on the Advanced Search page
     When I fill in "search_aspect_contains" with "N"
-    And I press "search_submit"
+    And I press Search
     Then the advanced search result table should contain
       | Aspect  |
       | N       |
     When I fill in "search_aspect_contains" with "NS"
-    And I press "search_submit"
+    And I press Search
     Then the advanced search result table should contain
       | Aspect  |
 
@@ -112,7 +112,7 @@ Feature: Advanced Search
     And I fill in "search_aspect_contains" with "N"
     And I fill in "search_substrate_contains" with "grey sand"
     And I fill in "search_frequency_contains" with "occasional"
-    And I press "search_submit"
+    And I press Search
     Then the advanced search result table should contain
       | Locality                | Vegetation        | Plant Description | Replicate From | Topography   | Aspect | Substrate    | Frequency     |
       | botany                  | gum tree          | approx. 15 m tall |   a            | outback      |   N    | grey sand    |   occasional  |
@@ -121,7 +121,7 @@ Feature: Advanced Search
     Given I am logged in as "super@intersect.org.au"
     And I am on the Advanced Search page
     When I fill in "search_aspect_contains" with "abcdef"
-    And I press "search_submit"
+    And I press Search
     Then the advanced search result table should contain
     | Locality   | Vegetation        | Plant Description | Replicate From | Topography   | Aspect | Substrate    | Frequency     |
 
@@ -133,7 +133,7 @@ Feature: Advanced Search
     Given I am logged in as "super@intersect.org.au"
     And I am on the Advanced Search page
     When I fill in "search_country_contains" with "New Zealand"
-    And I press "search_submit"
+    And I press Search
     Then the advanced search result table should contain
     |  Country      | State    | Locality    |
     |  New Zealand  |          | a red plant |
@@ -146,7 +146,7 @@ Feature: Advanced Search
     Given I am logged in as "super@intersect.org.au"
     And I am on the Advanced Search page
     When I fill in "search_country_contains" with "new"
-    And I press "search_submit"
+    And I press Search
     Then the advanced search result table should contain
       |  Country      | State    | Locality    |
       |  New Zealand  |          | a red plant |
@@ -159,7 +159,7 @@ Feature: Advanced Search
     Given I am logged in as "super@intersect.org.au"
     And I am on the Advanced Search page
     When I fill in "search_state_contains" with "victoria"
-    And I press "search_submit"
+    And I press Search
     Then the advanced search result table should contain
       |  Country      | State    | Locality    |
       |  Australia    | Victoria | a sad plant |
@@ -171,7 +171,7 @@ Feature: Advanced Search
     Given I am logged in as "super@intersect.org.au"
     And I am on the Advanced Search page
     When I fill in "search_botanical_division_contains" with "western desert"
-    And I press "search_submit"
+    And I press Search
     Then the advanced search result table should contain
     |  Country      | State    | Locality    | Botanical Division |
     |  Australia    | Victoria | a sad plant | Western Desert     |
@@ -183,7 +183,7 @@ Feature: Advanced Search
     Given I am logged in as "super@intersect.org.au"
     And I am on the Advanced Search page
     When I check "Fruit"
-    And I press "search_submit"
+    And I press Search
     Then the advanced search result table should contain
       | Country      | State            | Botanical Division | Locality             |
       | Australia    | New South Wales  | Central Tablelands | Royal National Park  |
@@ -197,7 +197,7 @@ Feature: Advanced Search
     And I am on the Advanced Search page
     And I check "Fruit"
     And I check "Photo"
-    And I press "search_submit"
+    And I press Search
     Then the advanced search result table should contain
       | Country      | State            | Botanical Division | Locality             |
       | Australia    | New South Wales  | Central Tablelands | Royal National Park  |
@@ -209,7 +209,7 @@ Feature: Advanced Search
     Given I am logged in as "super@intersect.org.au"
     And I am on the Advanced Search page
     And I fill in "search_datum_contains" with "ABC-123"
-    And I press "search_submit"
+    And I press Search
     Then the advanced search result table should contain
       | Locality      | Vegetation    | Plant Description   |
       | a datum plant | silly plant   | i am datum          |
@@ -223,7 +223,7 @@ Feature: Advanced Search
     When I fill in "search_created_at_to_day" with "09"
     When I fill in "search_created_at_to_month" with "05"
     When I fill in "search_created_at_to_year" with "2013"
-    And I press "search_submit"
+    And I press Search
     Then I should see "Found 4 matching specimens."
 
   Scenario: search for creation date with reduced range
@@ -235,7 +235,7 @@ Feature: Advanced Search
     When I fill in "search_created_at_to_day" with "08"
     When I fill in "search_created_at_to_month" with "05"
     When I fill in "search_created_at_to_year" with "2013"
-    And I press "search_submit"
+    And I press Search
     Then I should see "Found 1 matching specimens."
 
   Scenario: search for creation date with error on 'from' field
@@ -246,7 +246,7 @@ Feature: Advanced Search
     When I fill in "search_created_at_to_day" with "08"
     When I fill in "search_created_at_to_month" with "05"
     When I fill in "search_created_at_to_year" with "2013"
-    And I press "search_submit"
+    And I press Search
     Then I should see "Enter a valid date (dd/mm/yyyy) for Creation date from"
 
   Scenario: search for creation date with error on 'to' field
@@ -257,7 +257,7 @@ Feature: Advanced Search
     When I fill in "search_created_at_from_year" with "2013"
     When I fill in "search_created_at_to_day" with "08"
     When I fill in "search_created_at_to_month" with "05"
-    And I press "search_submit"
+    And I press Search
     Then I should see "Enter a valid date (dd/mm/yyyy) for Creation date to"
 
   # DEVSUPPORT-1155
@@ -267,48 +267,48 @@ Feature: Advanced Search
     When I fill in "<day_field>" with "0"
     And I fill in "<month_field>" with "99"
     And I fill in "<year_field>" with "1000"
-    And I press "search_submit"
+    And I press Search
     Then I should see "Enter a valid date (dd/mm/yyyy) for <field_name>"
     When I fill in "<day_field>" with "30"
     And I fill in "<month_field>" with "02"
     And I fill in "<year_field>" with "2010"
-    And I press "search_submit"
+    And I press Search
     Then I should see "Enter a valid date (dd/mm/yyyy) for <field_name>"
     When I fill in "<day_field>" with "31"
     And I fill in "<month_field>" with "06"
     And I fill in "<year_field>" with "2010"
-    And I press "search_submit"
+    And I press Search
     Then I should see "Enter a valid date (dd/mm/yyyy) for <field_name>"
     # check invalid partial dates
     When I fill in "<day_field>" with "01"
     And I fill in "<month_field>" with "02"
     And I fill in "<year_field>" with ""
-    And I press "search_submit"
+    And I press Search
     Then I should see "Enter a valid date (dd/mm/yyyy) for <field_name>"
     When I fill in "<day_field>" with "01"
     And I fill in "<month_field>" with ""
     And I fill in "<year_field>" with ""
-    And I press "search_submit"
+    And I press Search
     Then I should see "Enter a valid date (dd/mm/yyyy) for <field_name>"
     When I fill in "<day_field>" with ""
     And I fill in "<month_field>" with "02"
     And I fill in "<year_field>" with ""
-    And I press "search_submit"
+    And I press Search
     Then I should see "Enter a valid date (dd/mm/yyyy) for <field_name>"
     When I fill in "<day_field>" with "1"
     And I fill in "<month_field>" with "12"
     And I fill in "<year_field>" with "2014"
-    And I press "search_submit"
+    And I press Search
     Then I should see "Enter a valid date (dd/mm/yyyy) for <field_name>"
     When I fill in "<day_field>" with "12"
     And I fill in "<month_field>" with "2"
     And I fill in "<year_field>" with "2014"
-    And I press "search_submit"
+    And I press Search
     Then I should see "Enter a valid date (dd/mm/yyyy) for <field_name>"
     When I fill in "<day_field>" with "12"
     And I fill in "<month_field>" with "12"
     And I fill in "<year_field>" with "14"
-    And I press "search_submit"
+    And I press Search
     Then I should see "Enter a valid date (dd/mm/yyyy) for <field_name>"
     Examples:
       |   day_field   |   month_field   |   year_field  |   field_name  |

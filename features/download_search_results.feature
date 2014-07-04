@@ -12,10 +12,10 @@ Feature: Download search results as CSV
   Scenario: Download basic search results as CSV
     Given I am on the home page
     And I press "Go"
-    And I click on "Export CSV"
+    And I follow "Export CSV"
     Then I should download a file with name "search_results.csv" and content type "text/csv; charset=utf-16 header=present"
 
   Scenario: Download an advanced search result as CSV
     Given I am on the Advanced Search page
-    And I click on "Export CSV"
+    And I follow "Export CSV"
     Then I should download a file with name "search_results.csv" and content type "text/csv; charset=utf-16 header=present"

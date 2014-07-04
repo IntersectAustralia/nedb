@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe DeterminationsController do
-  include Devise::TestHelpers 
-  
+  include Devise::TestHelpers
+
   before(:each) do
     @user = mock_model(User)
     sign_in @user

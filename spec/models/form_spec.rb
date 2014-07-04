@@ -7,8 +7,8 @@ describe Form do
 
     describe "Duplicate checks" do
       before(:each) do
-        @species1 = Factory(:species)
-        @species2 = Factory(:species)
+        @species1 = FactoryGirl.create(:species)
+        @species2 = FactoryGirl.create(:species)
       end
 
       it "should reject duplicate name within a species" do

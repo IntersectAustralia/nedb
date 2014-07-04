@@ -19,9 +19,9 @@ Feature: Display of homepage
   Scenario: Ensure that Intersect Attribution is on every page
     Given I am on the home page
     Then I should see "Developed by Intersect Australia Ltd"
-    When I click on "Latest 40"
+    When I follow "Latest 40"
     Then I should see "Developed by Intersect Australia Ltd"
-    When I click on "Admin"
+    When I follow "Admin"
     Then I should see "Developed by Intersect Australia Ltd"
-    When I click on "Advanced Search"
+    When I follow "Advanced Search"
     Then I should see "Developed by Intersect Australia Ltd"

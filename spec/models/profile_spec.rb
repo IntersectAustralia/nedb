@@ -25,14 +25,14 @@ describe Profile do
 
   describe "Get superuser emails" do
     it "should find all approved superusers and extract their email address" do
-      super_profile = Factory(:profile, :name => "Superuser")
-      admin_profile = Factory(:profile, :name => "Admin")
-      super_1 = Factory(:user, :profile => super_profile, :status => "A", :email => "a@intersect.org.au")
-      super_2 = Factory(:user, :profile => super_profile, :status => "U", :email => "b@intersect.org.au")
-      super_3 = Factory(:user, :profile => super_profile, :status => "A", :email => "c@intersect.org.au")
-      super_4 = Factory(:user, :profile => super_profile, :status => "D", :email => "d@intersect.org.au")
-      super_5 = Factory(:user, :profile => super_profile, :status => "R", :email => "e@intersect.org.au")
-      admin = Factory(:user, :profile => admin_profile, :status => "A", :email => "f@intersect.org.au")
+      super_profile = FactoryGirl.create(:profile, :name => "Superuser")
+      admin_profile = FactoryGirl.create(:profile, :name => "Admin")
+      super_1 = FactoryGirl.create(:user, :profile => super_profile, :status => "A", :email => "a@intersect.org.au")
+      super_2 = FactoryGirl.create(:user, :profile => super_profile, :status => "U", :email => "b@intersect.org.au")
+      super_3 = FactoryGirl.create(:user, :profile => super_profile, :status => "A", :email => "c@intersect.org.au")
+      super_4 = FactoryGirl.create(:user, :profile => super_profile, :status => "D", :email => "d@intersect.org.au")
+      super_5 = FactoryGirl.create(:user, :profile => super_profile, :status => "R", :email => "e@intersect.org.au")
+      admin = FactoryGirl.create(:user, :profile => admin_profile, :status => "A", :email => "f@intersect.org.au")
 
       supers = Profile.get_superuser_emails
       supers.should eq(["a@intersect.org.au", "c@intersect.org.au"])

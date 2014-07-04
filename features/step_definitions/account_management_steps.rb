@@ -2,19 +2,19 @@ require File.join(Rails.root, 'db/seed_helper.rb')
 
 Given /^I have access requests$/ do |table|
   table.hashes.each do |hash|
-    Factory(:user, hash.merge(:status => 'U'))
+    FactoryGirl.create(:user, hash.merge(:status => 'U'))
   end
 end
 
 Given /^I have users$/ do |table|
   table.hashes.each do |hash|
-    Factory(:user, hash.merge(:status => 'A'))
+    FactoryGirl.create(:user, hash.merge(:status => 'A'))
   end
 end
 
 Given /^I have profiles$/ do |table|
   table.hashes.each do |hash|
-    Factory(:profile, hash)
+    FactoryGirl.create(:profile, hash)
   end
 end
 

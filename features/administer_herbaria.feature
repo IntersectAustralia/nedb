@@ -23,7 +23,7 @@ Feature: Administer Herbaria
       | KPBG | Kings Park and Botanic Garden      |
 
   Scenario: Add new Herbarium
-    When I click on "Add Another Herbarium"
+    When I follow "Add Another Herbarium"
     And I fill in "Code" with "CNS"
     And I fill in "Name" with "Australian Tropical Herbarium"
     And I press "Create Herbarium"
@@ -35,7 +35,7 @@ Feature: Administer Herbaria
       | KPBG | Kings Park and Botanic Garden      |
 
   Scenario Outline: Add Herbarium with validation errors
-    When I click on "Add Another Herbarium"
+    When I follow "Add Another Herbarium"
     And I fill in "<field>" with "<value>"
     And I press "Create Herbarium"
     Then I should see /\d error(s)? need to be corrected before this record can be saved\./
@@ -62,7 +62,7 @@ Feature: Administer Herbaria
     When I follow the edit link for herbarium "ACH"
     And I fill in "Code" with "MQU"
     And I fill in "Name" with "Macquarie University"
-    And I click on "Cancel"
+    And I follow "Cancel"
     Then I should see "search_results_table" table with
       | Code | Name                               |
       | ACH  | Women's and Children's Hospital    |

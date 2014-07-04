@@ -14,7 +14,7 @@ describe Determination do
 
     describe "should test each date field individually" do
       before(:each) do
-        @defaults = {:specimen => Specimen.new, :determiners => [Factory(:person, :last_name => "John", :last_name => "Apple")], :legacy => false, :referenced => true}
+        @defaults = {:specimen => Specimen.new, :determiners => [FactoryGirl.create(:person, :last_name => "John", :last_name => "Apple")], :legacy => false, :referenced => true}
       end
       it "should reject a totally empty determination date" do
         d = Determination.new @defaults
@@ -37,7 +37,7 @@ describe Determination do
         d.should be_valid
       end
       it "should accept a totally empty determination date if determination is legacy" do
-        d = Determination.new(:specimen => Specimen.new, :determiners => [Factory(:person, :last_name => "John", :last_name => "Apple")], :legacy => true, :referenced => true)
+        d = Determination.new(:specimen => Specimen.new, :determiners => [FactoryGirl.create(:person, :last_name => "John", :last_name => "Apple")], :legacy => true, :referenced => true)
         d.should be_valid
       end
       it "should not accept a determination date with only the day filled in if determination is legacy" do
@@ -76,8 +76,8 @@ describe Determination do
 
   describe "sorting by latest first" do
     before(:each) do
-      person = Factory(:person, :last_name => "Pie", :initials => "A. Pie")
-      specimen = Factory(:specimen, :collector => person)
+      person = FactoryGirl.create(:person, :last_name => "Pie", :initials => "A. Pie")
+      specimen = FactoryGirl.create(:specimen, :collector => person)
       @d2000_12_10 = Determination.new :determination_date_year => 2000, :determination_date_month => 12, :determination_date_day => 10, :determiners => [person], :specimen => specimen
       @d2000_10_12 = Determination.new :determination_date_year => 2000, :determination_date_month => 10, :determination_date_day => 12, :determiners => [person], :specimen => specimen
       @d2000       = Determination.new :determination_date_year => 2000, :determiners => [person], :specimen => specimen
@@ -110,28 +110,28 @@ describe Determination do
   end
 
   describe "Get determiners for labels" do
-    person = Factory(:person, :initials => "A.A.", :last_name => "Bee")
+    person = FactoryGirl.create(:person, :initials => "A.A.", :last_name => "Bee")
     before(:each) do
       @det_attrs = {:determiners => [person], :determination_date_year => '2010', :determination_date_month => '12', :determination_date_day => '12', :family => 'Rose'}
     end
     it "should return the correct string" do
-      specimen   = Factory(:specimen, :collector => person)
-      herbarium1 = Factory(:herbarium, :code => "ABC")
-      herbarium2 = Factory(:herbarium, :code => "DEF")
-      det1       = Factory(:person, :initials => 'B.B.', :last_name => 'Brown', :herbarium => herbarium1)
-      det2       = Factory(:person, :initials => 'A.B.', :last_name => 'Black', :herbarium => herbarium2)
-      det3       = Factory(:person, :initials => 'H.E.', :last_name => 'Bart', :herbarium => herbarium1)
+      specimen   = FactoryGirl.create(:specimen, :collector => person)
+      herbarium1 = FactoryGirl.create(:herbarium, :code => "ABC")
+      herbarium2 = FactoryGirl.create(:herbarium, :code => "DEF")
+      det1       = FactoryGirl.create(:person, :initials => 'B.B.', :last_name => 'Brown', :herbarium => herbarium1)
+      det2       = FactoryGirl.create(:person, :initials => 'A.B.', :last_name => 'Black', :herbarium => herbarium2)
+      det3       = FactoryGirl.create(:person, :initials => 'H.E.', :last_name => 'Bart', :herbarium => herbarium1)
       specimen.determinations.create!(@det_attrs)
       specimen.determinations[0].determiners = [det1, det2, det3]
       specimen.current_determination.determiners_name_herbarium_id('someone', false).join(", ").should eq("B.B. Brown (ABC), A.B. Black (DEF), H.E. Bart (ABC)")
     end
 
     it "should handle the case where no herbarium set" do
-      specimen   = Factory(:specimen, :collector => person)
-      herbarium1 = Factory(:herbarium, :code => "ABC")
-      det1       = Factory(:person, :initials => 'B.B.', :last_name => 'Brown', :herbarium => herbarium1)
+      specimen   = FactoryGirl.create(:specimen, :collector => person)
+      herbarium1 = FactoryGirl.create(:herbarium, :code => "ABC")
+      det1       = FactoryGirl.create(:person, :initials => 'B.B.', :last_name => 'Brown', :herbarium => herbarium1)
       det2       = Person.create!(:first_name => 'Ariel', :last_name => ' Black', :initials => 'A.B.')
-      det3       = Factory(:person, :initials => 'H.E.', :last_name => 'Bart', :herbarium => herbarium1)
+      det3       = FactoryGirl.create(:person, :initials => 'H.E.', :last_name => 'Bart', :herbarium => herbarium1)
       specimen.determinations.create!(@det_attrs)
       specimen.determinations[0].determiners = [det1, det2, det3]
       specimen.current_determination.determiners_name_herbarium_id('someone', false).join(", ").should eq("B.B. Brown (ABC), A.B. Black, H.E. Bart (ABC)")
@@ -140,11 +140,11 @@ describe Determination do
 
   describe "Set determining at level" do
     before(:each) do
-      @person = Factory(:person, :initials => "A.A.", :last_name => "Cake")
+      @person = FactoryGirl.create(:person, :initials => "A.A.", :last_name => "Cake")
     end
 
     it "should blank out all values at lower levels" do
-      det = Factory(:determination,
+      det = FactoryGirl.create(:determination,
                     :determiners            => [@person],
                     :family                 => "Fam",
                     :sub_family             => "Subf",
@@ -159,7 +159,7 @@ describe Determination do
     end
 
     it "should blank out all species/subspecies/variety/form info if determining above species" do
-      det = Factory(:determination,
+      det = FactoryGirl.create(:determination,
                     :determiners            => [@person],
                     :family                 => "Fam",
                     :sub_family             => "Subf",
@@ -193,7 +193,7 @@ describe Determination do
     end
 
     it "should blank out higher uncertainties when switching to a more specific determination" do
-      det = Factory(:determination,
+      det = FactoryGirl.create(:determination,
                     :determiners => [@person],
                     :family => "Fam",
                     :family_uncertainty => "unc",
@@ -211,7 +211,7 @@ describe Determination do
     end
 
     it "should not save changes until save called" do
-      det = Factory(:determination,
+      det = FactoryGirl.create(:determination,
                     :determiners => [@person],
                     :family => "Fam",
                     :sub_family => "Subf",
@@ -234,19 +234,19 @@ describe Determination do
 
   describe "Get current level should work out what level the determination is currently at" do
     before(:each) do
-      @person = Factory(:person, :initials => "A.A.", :last_name => "Cake")
+      @person = FactoryGirl.create(:person, :initials => "A.A.", :last_name => "Cake")
     end
 
     it "should return name if species is populated" do
-      det = Factory(:determination, :determiners => [@person], :species => "blah")
+      det = FactoryGirl.create(:determination, :determiners => [@person], :species => "blah")
       det.get_current_level.should eq("name")
     end
     it "should return genus if species blank but name is populated" do
-      det = Factory(:determination, :determiners => [@person], :species => "", :genus => "blah")
+      det = FactoryGirl.create(:determination, :determiners => [@person], :species => "", :genus => "blah")
       det.get_current_level.should eq("genus")
     end
     it "should return division if only division populated" do
-      det = Factory(:determination, :determiners => [@person], :division => "blah")
+      det = FactoryGirl.create(:determination, :determiners => [@person], :division => "blah")
       det.get_current_level.should eq("division")
     end
   end
@@ -266,11 +266,11 @@ describe Determination do
 
   describe "Get first and second infraspecific details for HISPID" do
     before(:each) do
-      @person = Factory(:person, :initials => "A.A.", :last_name => "Cake")
+      @person = FactoryGirl.create(:person, :initials => "A.A.", :last_name => "Cake")
     end
 
     it "should return nil if no supspecies, variety or form" do
-      det = Factory(:determination,
+      det = FactoryGirl.create(:determination,
                     :determiners => [@person],
                     :sub_species => "",
                     :variety => "",
@@ -285,11 +285,11 @@ describe Determination do
 
     describe "should return the highest level first and second highest second" do
       before(:each) do
-        @person = Factory(:person, :initials => "A.A.", :last_name => "Lie")
+        @person = FactoryGirl.create(:person, :initials => "A.A.", :last_name => "Lie")
       end
 
       it "has all 3 populated" do
-        det = Factory(:determination,
+        det = FactoryGirl.create(:determination,
                       :determiners => [@person],
                       :sub_species => "su",
                       :variety => "var",
@@ -306,7 +306,7 @@ describe Determination do
       end
 
       it "has subsp and variety populated" do
-        det = Factory(:determination,
+        det = FactoryGirl.create(:determination,
                       :determiners => [@person],
                       :sub_species => "su",
                       :variety => "var",
@@ -323,7 +323,7 @@ describe Determination do
       end
 
       it "has subsp and form populated" do
-        det = Factory(:determination,
+        det = FactoryGirl.create(:determination,
                       :determiners => [@person],
                       :sub_species => "su",
                       :variety => "",
@@ -340,7 +340,7 @@ describe Determination do
       end
 
       it "has subsp only" do
-        det = Factory(:determination,
+        det = FactoryGirl.create(:determination,
                       :determiners => [@person],
                       :sub_species => "su",
                       :variety => "",
@@ -357,7 +357,7 @@ describe Determination do
       end
 
       it "has var and form" do
-        det = Factory(:determination,
+        det = FactoryGirl.create(:determination,
                       :determiners => [@person],
                       :sub_species => "",
                       :variety => "var",
@@ -374,7 +374,7 @@ describe Determination do
       end
 
       it "has var only" do
-        det = Factory(:determination,
+        det = FactoryGirl.create(:determination,
                       :determiners => [@person],
                       :sub_species => "",
                       :variety => "var",
@@ -391,7 +391,7 @@ describe Determination do
       end
 
       it "has form only" do
-        det = Factory(:determination,
+        det = FactoryGirl.create(:determination,
                       :determiners => [@person],
                       :sub_species => "",
                       :variety => "",

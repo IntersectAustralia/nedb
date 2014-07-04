@@ -1,12 +1,12 @@
 Given /^I have people$/ do |table|
   table.hashes.each do |hash|
-    Factory(:person, hash)
+    FactoryGirl.create(:person, hash)
   end
 end
 
 Given /^I have a Person$/ do |table|
   table.hashes.each do |hash|
-    Factory(:person, hash)
+    FactoryGirl.create(:person, hash)
   end
 end
 
@@ -16,18 +16,18 @@ end
 
 Given /^the person "([^"]*)" has a specimen$/ do |email|
   person = Person.find_by_email(email)
-  Factory(:specimen, :collector => person)
+  FactoryGirl.create(:specimen, :collector => person)
 end
 
 Given /^the person "([^"]*)" has a confirmation/ do |email|
   person = Person.find_by_email(email)
-  determination = Determination.create!(:specimen => Factory(:specimen, :collector => person), :determination_date_year => 2010, :determiners => [person], :referenced => true)
-  person.confirmations.create!(:determination => determination, :confirmation_date_year => 2010, :specimen => Factory(:specimen, :collector => person))
+  determination = Determination.create!(:specimen => FactoryGirl.create(:specimen, :collector => person), :determination_date_year => 2010, :determiners => [person], :referenced => true)
+  person.confirmations.create!(:determination => determination, :confirmation_date_year => 2010, :specimen => FactoryGirl.create(:specimen, :collector => person))
 end
 
 Given /^the person "([^"]*)" has a determination/ do |email|
   person = Person.find_by_email(email)
-  Determination.create!(:specimen => Factory(:specimen, :collector => person), :determination_date_year => 2010, :determiners => [person], :referenced => true)
+  Determination.create!(:specimen => FactoryGirl.create(:specimen, :collector => person), :determination_date_year => 2010, :determiners => [person], :referenced => true)
 
 end
 

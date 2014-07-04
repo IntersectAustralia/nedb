@@ -182,3 +182,15 @@ When /^I check the species uncertainty checkbox with the value "([^"]*)"$/ do |l
     checkbox.set(true)
   end
 end
+Then(/^I click on "([^"]*)"$/) do |name|
+  select_option(name)
+end
+
+def select_option(text)
+  page.all("ul.ui-autocomplete li").each do |e|
+    if e.text == text
+      e.find('a').click
+      return
+    end
+  end
+end

@@ -122,7 +122,7 @@ describe UsersController do
   describe "PUT update profile" do
     it "updates the requested user" do
       User.should_receive(:find).with("37") { mock_user }
-      mock_user.should_receive(:profile_id=).with(1)
+      mock_user.should_receive(:profile_id=).with("1")
       put :update_profile, :id => "37", :user => { :profile_id => 1 }
     end
 
@@ -136,7 +136,7 @@ describe UsersController do
   describe "PUT approve" do
     it "approves the requested user and updates the profile" do
       User.should_receive(:find).with("37") { mock_user }
-      mock_user.should_receive(:profile_id=).with(1)
+      mock_user.should_receive(:profile_id=).with("1")
       mock_user.should_receive(:approve_access_request)
       put :approve, :id => "37", :user => { :profile_id => 1 }
     end

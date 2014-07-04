@@ -3,8 +3,8 @@ require 'spec_helper'
 describe 'ReplicateLabelFormatter' do
 
   before(:each) do
-    @specimen = Factory(:specimen)
-    @rep = Factory(:herbarium, :code => 'ABC')
+    @specimen = FactoryGirl.create(:specimen)
+    @rep = FactoryGirl.create(:herbarium, :code => 'ABC')
     @specimen.replicates << @rep
     @rep_label_formatter = ReplicateLabelFormatter.new(@specimen, @rep)
   end
@@ -30,9 +30,9 @@ describe 'ReplicateLabelFormatter' do
 
   describe "sheet number rendering" do
     it "should never number replicates" do
-      fruit = Factory(:item_type, :name => 'Fruit', :create_labels => true)
-      sheet = Factory(:item_type, :name => ItemType::TYPE_SPECIMEN_SHEET, :create_labels => true)
-      other = Factory(:item_type, :name => 'Bark', :create_labels => false)
+      fruit = FactoryGirl.create(:item_type, :name => 'Fruit', :create_labels => true)
+      sheet = FactoryGirl.create(:item_type, :name => ItemType::TYPE_SPECIMEN_SHEET, :create_labels => true)
+      other = FactoryGirl.create(:item_type, :name => 'Bark', :create_labels => false)
 
       sheet_1  = @specimen.items.create!(:item_type => sheet)
       fruit_1  = @specimen.items.create!(:item_type => fruit)

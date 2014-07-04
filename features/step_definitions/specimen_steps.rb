@@ -7,17 +7,17 @@ Then /^I should have ([0-9]+) specimen$/ do |count|
 end
 
 Given /^I have a specimen$/ do
-  @created_specimen = Factory(:specimen)
+  @created_specimen = FactoryGirl.create(:specimen)
 end
 
 Given /^I have (\d+) specimens$/ do |number|
   number.to_i.times do |n|
-    Factory(:specimen, :botanical_division => "BotDiv #{n+1}.")
+    FactoryGirl.create(:specimen, :botanical_division => "BotDiv #{n+1}.")
   end
 end
 
 Given /^I have a specimen that needs review$/ do
-  @created_specimen = Factory(:specimen, :needs_review => true)
+  @created_specimen = FactoryGirl.create(:specimen, :needs_review => true)
 end
 
 Given /^I have item types (.+)$/ do |types|
@@ -32,7 +32,7 @@ Given /^I have specimens$/ do |table|
 
   table.hashes.each do |hash|
     tag = hash.delete('tag')
-    @specimen = Factory(:specimen, hash)
+    @specimen = FactoryGirl.create(:specimen, hash)
     @specimens ||= {}
     @specimens[tag] = @specimen if tag
   end
@@ -116,37 +116,37 @@ Then /^I should see a determination table with$/ do |expected_table|
 end
 
 Given /^the specimen has a determination with string "([a-zA-Z]*)"$/ do |value|
-  attr = {:determiners => [Factory(:person)], :determination_date_year => '2010', :species => value}
+  attr = {:determiners => [FactoryGirl.create(:person)], :determination_date_year => '2010', :species => value}
   @determination = @created_specimen.determinations.create!(attr.merge({:sub_family => ''}))
 end
 
 Given /^"([^"]*)" has a determination with string "([^"]*)"$/ do |tag, value|
-  attr = {:determiners => [Factory(:person)], :determination_date_year => '2010', :species => value}
+  attr = {:determiners => [FactoryGirl.create(:person)], :determination_date_year => '2010', :species => value}
   @specimens[tag].determinations.create!(attr.merge({:sub_family => ''}))
 end
 
 Given /^"([^"]*)" has a legacy determination with string "([^"]*)"$/ do |tag, value|
-  attr = {:determiners => [Factory(:person)], :determination_date_year => '2010', :species => value, :legacy => true}
+  attr = {:determiners => [FactoryGirl.create(:person)], :determination_date_year => '2010', :species => value, :legacy => true}
   @specimens[tag].determinations.create!(attr.merge({:sub_family => ''}))
 end
 
 Given /^"([^"]*)" has a confirmation$/ do |tag|
-  attr = {:confirmer => Factory(:person), :confirmation_date_year => '2010', :determination => @specimens[tag].determinations.first}
+  attr = {:confirmer => FactoryGirl.create(:person), :confirmation_date_year => '2010', :determination => @specimens[tag].determinations.first}
   @specimens[tag].confirmations.create!(attr)
 end
 
 Given /^"([^"]*)" has a legacy confirmation$/ do |tag|
-  attr = {:confirmer => Factory(:person), :confirmation_date_year => '2010', :determination => @specimens[tag].determinations.first, :legacy => true}
+  attr = {:confirmer => FactoryGirl.create(:person), :confirmation_date_year => '2010', :determination => @specimens[tag].determinations.first, :legacy => true}
   @specimens[tag].confirmations.create!(attr)
 end
 
 Given /^the specimen has a determination with string "([a-zA-Z]*)" on "(\d\d)\/(\d\d)\/(\d\d\d\d)"$/ do |value, day, month, year|
-  attr = {:determiners => [Factory(:person)], :determination_date_day => day, :determination_date_month => month, :determination_date_year => year, :species => value}
+  attr = {:determiners => [FactoryGirl.create(:person)], :determination_date_day => day, :determination_date_month => month, :determination_date_year => year, :species => value}
   @determination = @created_specimen.determinations.create!(attr.merge({:sub_family => ''}))
 end
 
 Given /^"([^"]*)" has a determination with string "([a-zA-Z]*)" on "(\d\d)\/(\d\d)\/(\d\d\d\d)"$/ do |tag, value, day, month, year|
-  attr = {:determiners => [Factory(:person)], :determination_date_day => day, :determination_date_month => month, :determination_date_year => year, :species => value}
+  attr = {:determiners => [FactoryGirl.create(:person)], :determination_date_day => day, :determination_date_month => month, :determination_date_year => year, :species => value}
   @determination = @specimens[tag].determinations.create!(attr.merge({:sub_family => ''}))
 end
 
@@ -186,10 +186,10 @@ When /^I create a new specimen$/ do
 end
 
 Given /^I have legacy specimen "([^"]*)"$/ do |tag|
-  herbarium = Factory(:herbarium, :code => "ABC") #a code thats not been taken
-  person = Factory(:person, :herbarium => herbarium)
+  herbarium = FactoryGirl.create(:herbarium, :code => "ABC") #a code thats not been taken
+  person = FactoryGirl.create(:person, :herbarium => herbarium)
   @specimens ||= {}
-  @specimens[tag] = Factory(:specimen, :collector => person, :legacy => true)
+  @specimens[tag] = FactoryGirl.create(:specimen, :collector => person, :legacy => true)
 end
 
 Then /^the specimen needs review/ do
@@ -202,17 +202,17 @@ end
 
 Given /^I have specimen "([^"]*)" with status "([^"]*)"$/ do |tag, status|
   @specimens ||= {}
-  @specimens[tag] = Factory(:specimen, :status => status)
+  @specimens[tag] = FactoryGirl.create(:specimen, :status => status)
 end
 
 Given /^I have specimen "([^"]*)"$/ do |tag|
   @specimens ||= {}
-  @specimens[tag] = Factory(:specimen)
+  @specimens[tag] = FactoryGirl.create(:specimen)
 end
 
 When /^I have an uncertainty type "([^\"]*)"$/ do |uncertainty_type|
   @created_uncertainties ||= []
-  @created_uncertainties << Factory(:uncertainty_type, :uncertainty_type => uncertainty_type)
+  @created_uncertainties << FactoryGirl.create(:uncertainty_type, :uncertainty_type => uncertainty_type)
 end
 
 Then /^the determination has species uncertainty "([^\"]*)"$/ do |uncertainty_type|
@@ -235,18 +235,18 @@ When /^I sleep for "([^"]*)" seconds$/ do |time|
 end
 
 Given /^I have enough static data to create specimens$/ do
-  Factory(:person, :initials => "J.J.", :last_name => "Adams")
+  FactoryGirl.create(:person, :initials => "J.J.", :last_name => "Adams")
 
-  aus = Factory(:country, :name => "Australia")
-  Factory(:country, :name => "Belize")
+  aus = FactoryGirl.create(:country, :name => "Australia")
+  FactoryGirl.create(:country, :name => "Belize")
 
-  nsw = Factory(:state, :name => "New South Wales", :country => aus)
-  Factory(:state, :name => "Tasmania", :country => aus)
+  nsw = FactoryGirl.create(:state, :name => "New South Wales", :country => aus)
+  FactoryGirl.create(:state, :name => "Tasmania", :country => aus)
 
-  Factory(:botanical_division, :name => "BD1", :state => nsw)
-  Factory(:botanical_division, :name => "BD2", :state => nsw)
+  FactoryGirl.create(:botanical_division, :name => "BD1", :state => nsw)
+  FactoryGirl.create(:botanical_division, :name => "BD2", :state => nsw)
 
-  Factory(:item_type, :name => "Specimen sheet")
+  FactoryGirl.create(:item_type, :name => "Specimen sheet")
 end
 
 Given /^"([^"]*)" has an item$/ do |tag|
@@ -269,7 +269,7 @@ end
 
 When /^"([^\"]*)" has an image$/ do |tag|
   specimen = @specimens[tag]
-  specimen.specimen_images.create!(:description => "Test description", :image_file_name => "test/picture.jpg", :user => Factory(:user))
+  specimen.specimen_images.create!(:description => "Test description", :image_file_name => "test/picture.jpg", :user => FactoryGirl.create(:user))
 end
 
 #When /^I am on the specimen page for "([^\"]*)"$/ do |collection_number|
@@ -315,4 +315,8 @@ end
 
 Then /^the specimen should have status "(.*?)"$/ do |expected_status|
   Specimen.first.status.should eq(expected_status)
+end
+
+When(/^the country field should contain "([^"]*)"$/) do |value|
+  find('#country_container').text.should eq value
 end

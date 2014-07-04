@@ -34,9 +34,9 @@ describe Species do
 
   describe "Find by name and genus" do
     before do
-      Factory(:species, :name => "Bear", :genus => "Ursus")
-      Factory(:species, :name => "abc", :genus => "Ursus")
-      Factory(:species, :name => "bear", :genus => "Abc")
+      FactoryGirl.create(:species, :name => "Bear", :genus => "Ursus")
+      FactoryGirl.create(:species, :name => "abc", :genus => "Ursus")
+      FactoryGirl.create(:species, :name => "bear", :genus => "Abc")
     end
     it "should return the species if there's a match" do
       Species.find_by_name_and_genus("Bear", "Ursus").name.should eq "Bear"
@@ -59,11 +59,11 @@ describe Species do
 
   describe "Autocomplete search " do
     before do
-      Factory(:species, :genus => "Bear", :division => "D1", :class_name => "C1", :order_name => "O1", :family => "F1", :sub_family => "Sub1", :tribe => "Tr1")
-      Factory(:species, :genus => "Bear", :division => "D1", :class_name => "C1", :order_name => "O1", :family => "F1", :sub_family => "Sub1", :tribe => "Tr1")
-      Factory(:species, :genus => "Cat", :division => "D2", :class_name => "C2", :order_name => "O2", :family => "F2", :sub_family => "SUB2", :tribe => "Tr2")
-      Factory(:species, :genus => "Chicken", :division => "D1", :class_name => "C1", :order_name => "O1", :family => "F1", :sub_family => "Sub1", :tribe => "Tr1")
-      Factory(:species, :genus => "Cheetah", :division => "D1", :class_name => "C1", :order_name => "O1", :family => "F1", :sub_family => "Sub1", :tribe => "Tr1")
+      FactoryGirl.create(:species, :genus => "Bear", :division => "D1", :class_name => "C1", :order_name => "O1", :family => "F1", :sub_family => "Sub1", :tribe => "Tr1")
+      FactoryGirl.create(:species, :genus => "Bear", :division => "D1", :class_name => "C1", :order_name => "O1", :family => "F1", :sub_family => "Sub1", :tribe => "Tr1")
+      FactoryGirl.create(:species, :genus => "Cat", :division => "D2", :class_name => "C2", :order_name => "O2", :family => "F2", :sub_family => "SUB2", :tribe => "Tr2")
+      FactoryGirl.create(:species, :genus => "Chicken", :division => "D1", :class_name => "C1", :order_name => "O1", :family => "F1", :sub_family => "Sub1", :tribe => "Tr1")
+      FactoryGirl.create(:species, :genus => "Cheetah", :division => "D1", :class_name => "C1", :order_name => "O1", :family => "F1", :sub_family => "Sub1", :tribe => "Tr1")
     end
     describe "Genus" do
       it "should return matches that start with the same letters" do
@@ -102,11 +102,11 @@ describe Species do
 
   describe "Autocomplete search on name" do
     before do
-      Factory(:species, :name => "bear")
-      Factory(:species, :name => "bear")
-      Factory(:species, :name => "cat")
-      Factory(:species, :name => "chicken")
-      Factory(:species, :name => "cheetah")
+      FactoryGirl.create(:species, :name => "bear")
+      FactoryGirl.create(:species, :name => "bear")
+      FactoryGirl.create(:species, :name => "cat")
+      FactoryGirl.create(:species, :name => "chicken")
+      FactoryGirl.create(:species, :name => "cheetah")
     end
     it "should return matches that start with the same letters" do
       Species.autocomplete_plant_name("name", "c").collect {|s| s.name }.should eq ["cat", "cheetah", "chicken"]
@@ -121,12 +121,12 @@ describe Species do
 
   describe "Autocomplete search on name with genus" do
     before do
-      Factory(:species, :name => "bear", :genus => "Abc")
-      Factory(:species, :name => "bear", :genus => "Def")
-      Factory(:species, :name => "cat", :genus => "Abc")
-      Factory(:species, :name => "chicken", :genus => "Abc")
-      Factory(:species, :name => "cheetah", :genus => "Abc")
-      Factory(:species, :name => "chook", :genus => "Def")
+      FactoryGirl.create(:species, :name => "bear", :genus => "Abc")
+      FactoryGirl.create(:species, :name => "bear", :genus => "Def")
+      FactoryGirl.create(:species, :name => "cat", :genus => "Abc")
+      FactoryGirl.create(:species, :name => "chicken", :genus => "Abc")
+      FactoryGirl.create(:species, :name => "cheetah", :genus => "Abc")
+      FactoryGirl.create(:species, :name => "chook", :genus => "Def")
     end
     it "should return matches that start with the same letters" do
       Species.autocomplete_name_with_genus("Abc", "c").collect {|s| s.name }.should eq ["cat", "cheetah", "chicken"]
@@ -141,9 +141,9 @@ describe Species do
 
   describe "Free text search" do
     before do
-      Factory(:species, :name => "bear", :genus => "Ursus")
-      Factory(:species, :name => "abc", :genus => "Ursus")
-      Factory(:species, :name => "bear", :genus => "Abc")
+      FactoryGirl.create(:species, :name => "bear", :genus => "Ursus")
+      FactoryGirl.create(:species, :name => "abc", :genus => "Ursus")
+      FactoryGirl.create(:species, :name => "bear", :genus => "Abc")
     end
     it "should return the species if the species name matches" do
       Species.free_text_search("bear").length.should eq(2)
@@ -167,11 +167,11 @@ describe Species do
 
   describe "Search in field" do
     before do
-      Factory(:species, :division => "D1", :class_name => "C1", :order_name => "O1", :family => "", :sub_family => "", :tribe => "", :genus => "G1", :name => "bear", :authority => "auth")
-      Factory(:species, :division => "D1", :class_name => "C2", :order_name => "O2", :family => "", :sub_family => "", :tribe => "", :genus => "G2", :name => "abc", :authority => "auth")
-      Factory(:species, :division => "D2", :class_name => "C2", :order_name => "O3", :family => "", :sub_family => "", :tribe => "", :genus => "G3", :name => "bear", :authority => "auth")
-      Factory(:species, :division => "D3", :class_name => "C3", :order_name => "O4", :family => "", :sub_family => "", :tribe => "", :genus => "G3", :name => "def", :authority => "auth")
-      Factory(:species, :division => "D3", :class_name => "C4", :order_name => "O5", :family => "", :sub_family => "", :tribe => "", :genus => "G3", :name => "o'shanesii", :authority => "auth")
+      FactoryGirl.create(:species, :division => "D1", :class_name => "C1", :order_name => "O1", :family => "", :sub_family => "", :tribe => "", :genus => "G1", :name => "bear", :authority => "auth")
+      FactoryGirl.create(:species, :division => "D1", :class_name => "C2", :order_name => "O2", :family => "", :sub_family => "", :tribe => "", :genus => "G2", :name => "abc", :authority => "auth")
+      FactoryGirl.create(:species, :division => "D2", :class_name => "C2", :order_name => "O3", :family => "", :sub_family => "", :tribe => "", :genus => "G3", :name => "bear", :authority => "auth")
+      FactoryGirl.create(:species, :division => "D3", :class_name => "C3", :order_name => "O4", :family => "", :sub_family => "", :tribe => "", :genus => "G3", :name => "def", :authority => "auth")
+      FactoryGirl.create(:species, :division => "D3", :class_name => "C4", :order_name => "O5", :family => "", :sub_family => "", :tribe => "", :genus => "G3", :name => "o'shanesii", :authority => "auth")
     end
 
     it "should be able to search on division" do

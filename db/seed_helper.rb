@@ -73,7 +73,7 @@ def create_species
     return if Rails.env.test? && Species.count == 50
     s = Species.new(hash)
     if !s.valid?
-      puts "Warning: species not valid: #{hash["name"]} due to #{s.errors}"
+      puts "Warning: species not valid: #{hash["name"]} due to #{s.errors.full_messages}"
     else
       s.save!
     end

@@ -3,13 +3,13 @@ require 'spec_helper'
 describe SpecimensHelper do
 
   before(:each) do
-    @person = Factory(:person)
-    @specimen = Factory(:specimen, :collector => @person)
+    @person = FactoryGirl.create(:person)
+    @specimen = FactoryGirl.create(:specimen, :collector => @person)
   end
 
   describe "determination short name is correct" do
     it "should include tribe, genus, species and authority" do
-      determination = Factory(:determination,
+      determination = FactoryGirl.create(:determination,
                               :determiners => [@person],
                               :specimen => @specimen,
                               :tribe => 'tribe',
@@ -28,7 +28,7 @@ describe SpecimensHelper do
     end
 
     it "Should not italicise species if it contains sp." do
-      determination = Factory(:determination,
+      determination = FactoryGirl.create(:determination,
                               :determiners => [@person],
                               :specimen => @specimen,
                               :tribe => 'tribe',
@@ -47,7 +47,7 @@ describe SpecimensHelper do
     end
 
     it "Should handle missing species" do
-      determination = Factory(:determination,
+      determination = FactoryGirl.create(:determination,
                               :determiners => [@person],
                               :specimen => @specimen,
                               :tribe => 'tribe',

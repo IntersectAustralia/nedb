@@ -103,3 +103,8 @@ When /^I should see specimens "([^"]*)"$/ do |specimens|
   array = [ "Locality" ] + Specimen.order(:id).where(id: ids).collect(&:locality_description)
   step "the advanced search result table should contain", table(array.map {|value| [value]})
  end
+
+When(/^I press Search$/) do
+  button = all('input[value="Search"]').first
+  button.click
+end

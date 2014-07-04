@@ -43,8 +43,8 @@ When /^the specimen's determination has confirmation$/ do |table|
   end
   @confirmation = Confirmation.new(param_hash)
   @confirmation.confirmer = person
-  @created_specimen.determinations.first.confirmation = @confirmation
   @confirmation.specimen = @created_specimen.determinations.first.specimen
+  @created_specimen.determinations.first.confirmation = @confirmation
   @confirmation.save!
 end
 

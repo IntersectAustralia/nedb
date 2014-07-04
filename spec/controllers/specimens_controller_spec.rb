@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe SpecimensController do
-  include Devise::TestHelpers 
-  
+  include Devise::TestHelpers
+
   before(:each) do
     @user = mock_model(User)
     sign_in @user
@@ -41,7 +41,7 @@ describe SpecimensController do
     end
     
     it "assigns the list of all people as @all_people" do
-      people = [Factory(:person, :last_name => "John"), Factory(:person, :last_name => "Steve")]
+      people = [FactoryGirl.create(:person, :last_name => "John"), FactoryGirl.create(:person, :last_name => "Steve")]
       Person.should_receive(:all).and_return(people)
       Specimen.stub(:new) { mock_specimen }
       get :new
@@ -65,7 +65,7 @@ describe SpecimensController do
     end
 
     it "assigns the list of all people as @all_people" do
-      people = [Factory(:person, :last_name => "John"), Factory(:person, :last_name => "Steve")]
+      people = [FactoryGirl.create(:person, :last_name => "John"), FactoryGirl.create(:person, :last_name => "Steve")]
       Person.should_receive(:all).and_return(people)
       Specimen.stub(:find).with("37") { mock_specimen }
       get :edit, :id => "37"
@@ -111,7 +111,7 @@ describe SpecimensController do
       end
 
       it "assigns the list of all people as @all_people" do
-        people = [Factory(:person, :last_name => "John"), Factory(:person, :last_name => "Steve")]
+        people = [FactoryGirl.create(:person, :last_name => "John"), FactoryGirl.create(:person, :last_name => "Steve")]
         Person.should_receive(:all).and_return(people)
         Specimen.stub(:new) { mock_specimen(:save => false) }
         post :create, :specimen => {}
@@ -157,7 +157,7 @@ describe SpecimensController do
       end
 
       it "assigns the list of all people as @all_people" do
-        people = [Factory(:person, :last_name => "John"), Factory(:person, :last_name => "Steve")]
+        people = [FactoryGirl.create(:person, :last_name => "John"), FactoryGirl.create(:person, :last_name => "Steve")]
         Person.should_receive(:all).and_return(people)
         Specimen.stub(:find) { mock_specimen(:update_attributes => false) }
         put :update, :id => "1"
@@ -166,12 +166,12 @@ describe SpecimensController do
     end
 
   end
-  
+
   describe "PUT update_replicates" do
 
     it "updates the requested specimen" do
       Specimen.should_receive(:find).with("37") { mock_specimen }
-      mock_specimen.should_receive(:replicate_ids=).with([1,2])
+      mock_specimen.should_receive(:replicate_ids=).with(["1","2"])
       put :update_replicates, :id => "37", :specimen => { :replicate_ids => [1,2] }
     end
 
@@ -205,7 +205,7 @@ describe SpecimensController do
 
   end
 
-  describe "GET search by string" do 
+  describe "GET search by string" do
     it "returns all specimens if search string blank" do
       Specimen.stub_chain(:accessible_by, :order).and_return([mock_specimen, mock_specimen])
       get :search, {:quick_search => ""}
@@ -218,14 +218,14 @@ describe SpecimensController do
       get :search, {:quick_search => "search_str"}
       response.should redirect_to(root_url)
     end
-    
+
     it "assigns the requested specimen as @specimen if only one exists" do
       Specimen.stub(:free_text_search).with("search_str") { [mock_specimen] }
       get :search, {:quick_search => "search_str"}
       assigns(:specimen).should be(mock_specimen)
       response.should redirect_to(specimen_url(mock_specimen))
     end
-    
+
     it "shows a list of specimens if more that one match" do
       Specimen.stub(:free_text_search).with("search_str") { [mock_specimen, mock_specimen] }
       get :search, {:quick_search => "search_str"}
@@ -265,7 +265,7 @@ describe SpecimensController do
 
     describe "with latitude degrees range" do
       it "should return results in the range" do
-        specimen = Factory(:specimen)
+        specimen = FactoryGirl.create(:specimen)
         specimen.latitude_degrees = 68
         specimen.save
         post :advanced_search, :search => {
@@ -278,7 +278,7 @@ describe SpecimensController do
 
     describe "with longitude degrees range" do
       it "should return results in the range" do
-        specimen = Factory(:specimen)
+        specimen = FactoryGirl.create(:specimen)
         specimen.longitude_degrees = 32
         specimen.save
         post :advanced_search, :search => {

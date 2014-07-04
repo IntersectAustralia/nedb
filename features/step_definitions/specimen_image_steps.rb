@@ -7,19 +7,19 @@ When /^I attach a huge image file$/ do
 end
 
 When /^I have a specimen image$/ do
-  @created_specimen = Factory(:specimen)
-  Factory(:specimen_image, :specimen => @created_specimen, :user_id => User.first.id)
+  @created_specimen = FactoryGirl.create(:specimen)
+  FactoryGirl.create(:specimen_image, :specimen => @created_specimen, :user_id => User.first.id)
 end
 
 When /^I have a specimen image with a Description "([^\"]*)" and filename "([^\"]*)" and uploader "([^\"]*)" with profile "([^\"]*)"$/ do |description, filename, email, profile|
-  @created_specimen = Factory(:specimen)
+  @created_specimen = FactoryGirl.create(:specimen)
   
-  user = Factory(:user, :email => email, :password => "Pas$w0rd", :status => 'A')
+  user = FactoryGirl.create(:user, :email => email, :password => "Pas$w0rd", :status => 'A')
   profile = Profile.where(:name => profile).first
   user.profile_id = profile.id
   user.save!
 
-  @created_specimen_image = Factory(:specimen_image,
+  @created_specimen_image = FactoryGirl.create(:specimen_image,
                                     :description => description,
                                     :image_file_name =>  filename,
                                     :user_id => user.id,
@@ -27,14 +27,14 @@ When /^I have a specimen image with a Description "([^\"]*)" and filename "([^\"
 end
 
 When /^I have a specimen image with a Description "([^\"]*)" and filename "([^\"]*)" and uploader "([^\"]*)"$/ do |description, filename, email|
-  @created_specimen = Factory(:specimen)
+  @created_specimen = FactoryGirl.create(:specimen)
 
   user = User.where(:email => email).first
   if !user
-    user = Factory(:user, :email => email, :password => "Pas$w0rd", :status => 'A')
+    user = FactoryGirl.create(:user, :email => email, :password => "Pas$w0rd", :status => 'A')
   end
 
-  @created_specimen_image = Factory(:specimen_image,
+  @created_specimen_image = FactoryGirl.create(:specimen_image,
                                     :description => description,
                                     :image_file_name =>  filename,
                                     :user_id => user.id,

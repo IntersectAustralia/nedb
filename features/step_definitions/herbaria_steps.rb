@@ -1,6 +1,6 @@
 Given /^I have a Herbarium$/ do |table|
   table.hashes.each do |hash|
-    Factory(:herbaria, hash)
+    FactoryGirl.create(:herbaria, hash)
   end
 end
 
