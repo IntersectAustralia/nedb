@@ -147,7 +147,7 @@ class SpecimenNameFormatter
       return ""
     end
 
-    if species == name
+    if species and species.casecmp(name) == 0
       # don't show authority if species is same as subspecies/variety/form as authority will be the same
       authority = ""
     end
