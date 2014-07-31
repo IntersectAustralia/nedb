@@ -13,7 +13,7 @@ Feature: Labels
       | SCU   | DNA Bank                      |
       | UNC   | University of Newcastle       |
       | Stud. | name: "UNE Student Herbarium  |
-    And I have item types Silica Gel, Photo, Fruit, Specimen sheet
+    And I have item types Silica Gel, Photo, Fruit, Specimen sheet, Bark, Pollen
     And "specimen 1" has an item of type "Specimen sheet"
     And I have the usual profiles and permissions
     And I have a user "super@intersect.org.au" with profile "Superuser"
@@ -121,6 +121,24 @@ Feature: Labels
     And determiners and determination date are displayed correctly for specimen "with only one Specimen sheet"
     And replicates are displayed correctly for specimen "with only one Specimen sheet"
     And I move the label of specimen "specimen with only one Specimen sheet" to directory "output"
+
+  Scenario: Works with specimen sheets but no other item types that have labels
+    Given I have specimen "with specimen sheets and no other item types that have labels"
+    And "with specimen sheets and no other item types that have labels" has an item of type "Specimen sheet"
+    And "with specimen sheets and no other item types that have labels" has an item of type "Bark"
+    And "with specimen sheets and no other item types that have labels" has an item of type "Pollen"
+    And "with specimen sheets and no other item types that have labels" has a determination with string "A Determination"
+    When I am on the specimen page for "with specimen sheets and no other item types that have labels"
+    And I follow "Print Labels"
+    Then labels.pdf should not contain string "Sheet 1"
+    And labels.pdf should not contain string "Sheet 2"
+    And labels.pdf should not contain string "Sheet 3"
+    And accession number is displayed correctly for specimen "with specimen sheets and no other item types that have labels"
+    And collector and collection date are displayed correctly for specimen "with specimen sheets and no other item types that have labels"
+    And secondary collectors are displayed correctly for specimen "with specimen sheets and no other item types that have labels"
+    And determiners and determination date are displayed correctly for specimen "with specimen sheets and no other item types that have labels"
+    And replicates are displayed correctly for specimen "with specimen sheets and no other item types that have labels"
+    And I move the label of specimen "with specimen sheets and no other item types that have labels" to directory "output"
 
   Scenario: Works with no specimen sheets but some other item types that have labels
     Given I have specimen "with other item types that have labels"
