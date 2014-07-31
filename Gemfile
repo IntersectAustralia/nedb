@@ -12,7 +12,6 @@ gem "capistrano"
 gem "capistrano-ext"
 gem "capistrano_colors"
 gem "colorize"
-gem "net-ssh", "2.7"
 
 
 # Postgres adapter

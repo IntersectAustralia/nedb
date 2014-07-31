@@ -9,6 +9,10 @@ set :default_stage, "qa"
 
 set :application, "nedb"
 
+# Fix an issue related to net-ssh, see https://github.com/net-ssh/net-ssh/issues/145
+set :ssh_options, {
+   config: false
+}
 
 set :scm, 'git'
 set :repository, 'git@github.com:IntersectAustralia/nedb.git'
