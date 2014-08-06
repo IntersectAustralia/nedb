@@ -75,6 +75,7 @@ group :development do
   gem 'pry-rails'
   # set up Deployment Tracker
   gem "create_deployment_record", git: 'https://github.com/IntersectAustralia/create_deployment_record.git'
+  gem 'thin'
 end
 
 group :test do
