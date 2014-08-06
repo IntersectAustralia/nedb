@@ -332,6 +332,9 @@ Feature: Advanced Search
     | 37  |     |     | 37     |        |        | Found 2 matching specimens  | 7,8                        |
     | 37  | 7   |     | 37     | 7      |        | Found 1 matching specimens  | 8                          |
     | 37  | 7   | 22  | 37     | 7      | 22     | Found 1 matching specimens  | 8                          |
+    | 40  |     |     | 30     |        |        | Latitude to value must be greater than Latitude from value  | |
+    | 40  | 0   |     | 30     | 0      |        | Latitude to value must be greater than Latitude from value  | |
+    | 40  | 0   | 0   | 30     | 0      | 0      | Latitude to value must be greater than Latitude from value  | |
 
 
   Scenario Outline: Search by longitude hemisphere
@@ -374,6 +377,9 @@ Feature: Advanced Search
     | 157 |     |     | 157    |        |        | Found 2 matching specimens  | 7,8                        |
     | 157 | 06  |     | 157    | 06     |        | Found 1 matching specimens  | 8                          |
     | 157 | 06  | 42  | 157    | 06     | 42     | Found 1 matching specimens  | 8                          |
+    | 150 |     |     | 120    |        |        | Longitude to value must be greater than Longitude from value  | |
+    | 150 | 0   |     | 120    | 0      |        | Longitude to value must be greater than Longitude from value  | |
+    | 150 | 0   | 0   | 120    | 0      | 0      | Longitude to value must be greater than Longitude from value  | |
 
   Scenario Outline: Search by collector
     When I select "<example>" from "Collector"
