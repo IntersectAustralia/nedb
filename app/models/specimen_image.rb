@@ -1,4 +1,5 @@
 class SpecimenImage < ActiveRecord::Base
+  after_validation :clean_paperclip_errors
 
   IMAGES_ROOT = APP_CONFIG['images_root']
 
@@ -17,4 +18,8 @@ class SpecimenImage < ActiveRecord::Base
   validates_attachment_size :image, :less_than => 10.megabytes, :message => "must be less than 10MB"
   validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png', 'image/gif', 'image/bmp'], :message => 'is not supported. Please make sure you have selected an image file.'
 
+  # This is because paperclip duplicates error messages... See: https://github.com/thoughtbot/paperclip/pull/1554
+  def clean_paperclip_errors
+    errors.delete(:image)
+  end
 end
