@@ -20,6 +20,6 @@ class SpecimenImage < ActiveRecord::Base
 
   # This is because paperclip duplicates error messages... See: https://github.com/thoughtbot/paperclip/pull/1554
   def clean_paperclip_errors
-    errors.delete(:image)
+    errors.delete(:image) if errors.include?(:image_content_type) || errors.include?(:image_file_size)
   end
 end

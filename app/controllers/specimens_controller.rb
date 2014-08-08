@@ -32,7 +32,7 @@ class SpecimensController < ApplicationController
 
     if @valid_search.nil?
       @search = Specimen.joins('LEFT OUTER JOIN specimen_dates ON specimens.id = specimen_dates.id LEFT OUTER JOIN det_dates ON specimens.id = det_dates.id LEFT OUTER JOIN specimen_coordinates ON specimens.id = specimen_coordinates.id').where(c_query).where(d_query).where(lat_query).where(long_query).where(created_at_query).search(params_hash[:search])
-      q = @search.select("specimens.*").order('specimens.id')
+      q = @search.select("DISTINCT specimens.*").order('specimens.id')
       session[:search_results] = q.collect { |specimen| specimen.id }.sort
       @adv_search_results = q.paginate(:page => params[:page])
       if !@has_params
