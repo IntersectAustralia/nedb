@@ -35,6 +35,7 @@ class Ability
     alias_action :search_results_print_labels, :to => :read
     alias_action :advanced_search, :to => :read
     alias_action :advanced_search_results, :to => :read
+    alias_action :advanced_search_form, :to => :read
 
     alias_action :autocomplete_herbarium_name, :to => :read
 
