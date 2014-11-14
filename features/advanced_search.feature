@@ -319,3 +319,72 @@ Feature: Advanced Search
       | search_confirmations_confirmation_date_day_equals                     | search_confirmations_confirmation_date_month_equals                     | search_confirmations_confirmation_date_year_equals   | Confirmation date                         |
       | search_created_at_from_day                                            | search_created_at_from_month                                            | search_created_at_from_year                          | Creation date from |
       | search_created_at_to_day                                              | search_created_at_to_month                                              | search_created_at_to_year                            | Creation date to   |
+
+  # DEVSUPPORT-1295
+  Scenario: Advanced search on specimens with multiple determinations
+    Given I am logged in as "super@intersect.org.au"
+    And I have specimen "multiple dets"
+    And I have people
+      | initials  | first_name | last_name |
+      | H.C.      | Henry      | Smith     |
+    And the specimen "multiple dets" has determination:
+      | division                  | Div4        |
+      | class_name                | Cls8        |
+      | order_name                | Rosaceaeord |
+      | family                    | Rosaceae    |
+      | sub_family                | Subf2       |
+      | tribe                     | Tribe2      |
+      | genus                     | Dryas       |
+      | species                   | abcd        |
+      | species_authority         | Mno         |
+      | sub_species               | subsp1      |
+      | sub_species_authority     | s1 auth     |
+      | variety                   | var2        |
+      | variety_authority         | v2 auth     |
+      | form                      | form3       |
+      | form_authority            | f3 auth     |
+      | species_uncertainty       |             |
+      | subspecies_uncertainty    | sens. lat.  |
+      | variety_uncertainty       | vel. aff.   |
+      | form_uncertainty          | aff.        |
+      | family_uncertainty        |             |
+      | sub_family_uncertainty    |             |
+      | tribe_uncertainty         |             |
+      | genus_uncertainty         |             |
+      | determiner_herbarium_code | SCU         |
+      | determination_date_year   | 2010        |
+      | determination_date_month  | 06          |
+      | determination_date_day    | 10          |
+      | determiner                | H.C. Smith  |
+    And the specimen "multiple dets" has determination:
+      | division                  | Div4        |
+      | class_name                | Cls8        |
+      | order_name                | Rosaceaeord |
+      | family                    | Rosaceae    |
+      | sub_family                | Subf2       |
+      | tribe                     | Tribe2      |
+      | genus                     | Dryas       |
+      | species                   | abcd        |
+      | species_authority         | Mno         |
+      | sub_species               | subsp1      |
+      | sub_species_authority     | s1 auth     |
+      | variety                   | var2        |
+      | variety_authority         | v2 auth     |
+      | form                      | form3       |
+      | form_authority            | f3 auth     |
+      | species_uncertainty       |             |
+      | subspecies_uncertainty    | sens. lat.  |
+      | variety_uncertainty       | vel. aff.   |
+      | form_uncertainty          | aff.        |
+      | family_uncertainty        |             |
+      | sub_family_uncertainty    |             |
+      | tribe_uncertainty         |             |
+      | genus_uncertainty         |             |
+      | determiner_herbarium_code | SCU         |
+      | determination_date_year   | 2010        |
+      | determination_date_month  | 06          |
+      | determination_date_day    | 10          |
+      | determiner                | H.C. Smith  |
+    And I am on the Advanced Search page
+    And I press Search
+    Then I should see "Showing all 5 specimens."

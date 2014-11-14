@@ -33,7 +33,8 @@
 
 
 
-  <% if @adv_search_results then @adv_search_results.each do |specimen| %>
+  <% if @adv_search_results then @adv_search_results.each do |specimen_ref| %>
+    <% specimen = Specimen.find(specimen_ref.id) %>
       <tr class="<%= cycle('field_bg', 'field_nobg') %>">
         <td><%= link_to specimen.id, specimen %></td>
         <td><%= specimen.current_determination.division if specimen.current_determination %></td>
