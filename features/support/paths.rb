@@ -119,6 +119,9 @@ module NavigationHelpers
     when /^the list species page$/
       species_index_path
 
+    when /the Advanced Search main page/
+      advanced_search_form_specimens_path
+
     when /the Advanced Search page/
       advanced_search_specimens_path
 

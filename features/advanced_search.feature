@@ -21,21 +21,21 @@ Feature: Advanced Search
     And I am on the home page
     Then I should see link "Advanced Search" inside the nav bar
     And I follow "Advanced Search"
-    Then I should be on the Advanced Search page
+    Then I should be on the Advanced Search main page
 
   Scenario: administrator can access advanced search page
     Given I am logged in as "admin@intersect.org.au"
     And I am on the home page
     Then I should see link "Advanced Search" inside the nav bar
     And I follow "Advanced Search"
-    Then I should be on the Advanced Search page
+    Then I should be on the Advanced Search main page
 
   Scenario: student can access advanced search page
     Given I am logged in as "student@intersect.org.au"
     And I am on the home page
     Then I should see link "Advanced Search" inside the nav bar
     And I follow "Advanced Search"
-    Then I should be on the Advanced Search page
+    Then I should be on the Advanced Search main page
 
   Scenario: Search without entering a search term returns all specimens
     Given I am logged in as "super@intersect.org.au"
@@ -385,6 +385,6 @@ Feature: Advanced Search
       | determination_date_month  | 06          |
       | determination_date_day    | 10          |
       | determiner                | H.C. Smith  |
-    And I am on the Advanced Search page
+    And I am on the Advanced Search main page
     And I press Search
     Then I should see "Showing all 5 specimens."

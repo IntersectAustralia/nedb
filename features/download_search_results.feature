@@ -16,6 +16,7 @@ Feature: Download search results as CSV
     Then I should download a file with name "search_results.csv" and content type "text/csv; charset=utf-16 header=present"
 
   Scenario: Download an advanced search result as CSV
-    Given I am on the Advanced Search page
+    Given I am on the Advanced Search main page
+    And I press Search
     And I follow "Export CSV"
     Then I should download a file with name "search_results.csv" and content type "text/csv; charset=utf-16 header=present"
