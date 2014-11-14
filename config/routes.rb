@@ -78,6 +78,7 @@ Nedb::Application.routes.draw do
       get :search_results
       get :search_results_print_labels
       get :advanced_search
+      get :advanced_search_form
       get :latest
       get :needing_review
     end

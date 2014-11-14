@@ -5,11 +5,17 @@ class SpecimensController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_static_data, :only => [:new, :edit, :create, :update]
   before_filter :validate_search, :only => [:advanced_search]
-  before_filter :load_static_search_data, :only => [:advanced_search]
+  before_filter :load_static_search_data, :only => [:advanced_search, :advanced_search_form]
 
   prawnto :prawn => {:left_margin => 10, :right_margin => 9, :top_margin => 6, :bottom_margin => 6, :page_size => "A4", :filename => "labels-.pdf", :skip_page_creation => true}
 
   load_and_authorize_resource
+
+  def advanced_search_form
+    # hack to return 0 results from metasearch
+    @search = Specimen.search({:id_lt => 0})
+    @searchparams = {}   
+  end
 
   def advanced_search_results
     @search = Specimen.search(params[:search])
