@@ -11,6 +11,7 @@ gem "prawnto_2", :require => "prawnto"
 gem "capistrano"
 gem "capistrano-ext"
 gem "capistrano_colors"
+gem "rvm-capistrano"
 gem "colorize"
 
 

@@ -1,8 +1,11 @@
+require "rvm/capistrano"
 require 'capistrano/ext/multistage'
 require 'bundler/capistrano'
 require 'capistrano_colors'
 require 'colorize'
 require 'deploy/create_deployment_record'
+
+set :rvm_ruby_string, :local   
 
 set :stages, %w(qa staging production production_student)
 set :default_stage, "qa"
